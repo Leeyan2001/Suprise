@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>Do You Love Me?</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            background: black;
+            color: white;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            overflow: hidden;
+            width: 100vw;
+            height: 100vh;
+            touch-action: none;
+        }
+
+        .background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: #FFCC99;
+            z-index: 0;
+            display: none;
+        }
+
+        .background img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            display: block;
+        }
+
+        .box {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            margin-top: 28vh;
+            padding: 0 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h1 {
+            font-size: clamp(25px, 8vw, 36px);
+            margin: 0 0 28px 0;
+            text-shadow: 2px 2px 4px black;
+            white-space: nowrap;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            width: 100%;
+        }
+
+        button {
+            border: none;
+            border-radius: 12px;
+            padding: 14px 25px;
+            min-width: 120px;
+            font-size: 17px;
+            font-weight: bold;
+            cursor: pointer;
+            touch-action: manipulation;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        #yes {
+            background: red;
+            color: white;
+        }
+
+        #no {
+            background: white;
+            color: black;
+            z-index: 3;
+        }
+
+        #no.moving {
+            position: fixed;
+        }
+
+        canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 1;
+            pointer-events: auto;
+        }
+
+        @media (max-width: 400px) {
+
+            .box {
+                margin-top: 25vh;
+            }
+
+            h1 {
+                font-size: 25px;
+                margin-bottom: 25px;
+            }
+
+            .buttons {
+                gap: 10px;
+            }
+
+            button {
+                min-width: 105px;
+                padding: 13px 18px;
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="background" id="background">
+    <img src="happy-oh-yeah-gif-by-pudgy-penguins-find-share-on-giphy.gif">
+</div>
+
+<div class="box">
+
+    <h1 id="question">Do you love me? 🥺</h1>
+
+    <div class="buttons">
+        <button id="yes">YES ❤️</button>
+        <button id="no">NO 💔</button>
+    </div>
+
+</div>
+
+<canvas id="canvas"></canvas>
+
+<script>
+const yes = document.getElementById("yes");
+const no = document.getElementById("no");
+const question = document.getElementById("question");
+const background = document.getElementById("background");
+
+const canvas = document.getElementById("canvas");
+const ctx = canvas.getContext("2d");
+
+let hearts = [];
+let raining = false;
+let draggedHeart = null;
+let dragOffsetX = 0;
+let dragOffsetY = 0;
+
+function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+}
+
+resizeCanvas();
+
+function moveNo() {
+
+    no.classList.add("moving");
+
+    let padding = 15;
+
+    let maxX = window.innerWidth - no.offsetWidth - padding;
+    let maxY = window.innerHeight - no.offsetHeight - padding;
+
+    let x = padding + Math.random() * Math.max(0, maxX - padding);
+    let y = padding + Math.random() * Math.max(0, maxY - padding);
+
+    no.style.left = x + "px";
+    no.style.top = y + "px";
+}
+
+no.addEventListener("click", function() {
+    moveNo();
+});
+
+no.addEventListener("touchstart", function(event) {
+    event.preventDefault();
+    moveNo();
+});
+
+yes.addEventListener("click", startLove);
+
+yes.addEventListener("touchstart", function(event) {
+    event.preventDefault();
+    startLove();
+});
+
+function startLove() {
+
+    if (raining) {
+        return;
+    }
+
+    raining = true;
+
+    background.style.display = "block";
+
+    question.innerHTML = "I knew it! ❤️😘";
+
+    yes.style.display = "none";
+    no.style.display = "none";
+
+    hearts = [];
+
+    for (let i = 0; i < 70; i++) {
+
+        hearts.push({
+            x: Math.random() * canvas.width,
+            y: Math.random() * -canvas.height,
+            size: 15 + Math.random() * 12,
+            speed: 1 + Math.random() * 2.5,
+            rotation: Math.random() * Math.PI * 2,
+            rotationSpeed: (Math.random() - 0.5) * 0.04,
+            dragging: false
+        });
+    }
+}
+
+function drawHeart(x, y, size, rotation) {
+
+    ctx.save();
+
+    ctx.translate(x, y);
+    ctx.rotate(rotation);
+
+    ctx.beginPath();
+
+    ctx.moveTo(0, size * 0.45);
+
+    ctx.bezierCurveTo(
+        -size * 0.9,
+        -size * 0.15,
+        -size * 0.6,
+        -size * 0.9,
+        0,
+        -size * 0.35
+    );
+
+    ctx.bezierCurveTo(
+        size * 0.6,
+        -size * 0.9,
+        size * 0.9,
+        -size * 0.15,
+        0,
+        size * 0.45
+    );
+
+    ctx.fillStyle = "red";
+    ctx.fill();
+
+    ctx.restore();
+}
+
+function getPointerPosition(event) {
+
+    const rect = canvas.getBoundingClientRect();
+
+    return {
+        x: event.clientX - rect.left,
+        y: event.clientY - rect.top
+    };
+}
+
+canvas.addEventListener("pointerdown", function(event) {
+
+    if (!raining) {
+        return;
+    }
+
+    const pointer = getPointerPosition(event);
+
+    for (let i = hearts.length - 1; i >= 0; i--) {
+
+        const heart = hearts[i];
+
+        const distance = Math.sqrt(
+            Math.pow(pointer.x - heart.x, 2) +
+            Math.pow(pointer.y - heart.y, 2)
+        );
+
+        if (distance < heart.size * 1.2) {
+
+            draggedHeart = heart;
+
+            dragOffsetX = pointer.x - heart.x;
+            dragOffsetY = pointer.y - heart.y;
+
+            heart.dragging = true;
+
+            canvas.setPointerCapture(event.pointerId);
+
+            break;
+        }
+    }
+});
+
+canvas.addEventListener("pointermove", function(event) {
+
+    if (!draggedHeart) {
+        return;
+    }
+
+    const pointer = getPointerPosition(event);
+
+    draggedHeart.x = pointer.x - dragOffsetX;
+    draggedHeart.y = pointer.y - dragOffsetY;
+});
+
+canvas.addEventListener("pointerup", function(event) {
+
+    if (draggedHeart) {
+
+        draggedHeart.dragging = false;
+        draggedHeart = null;
+    }
+
+    if (canvas.hasPointerCapture(event.pointerId)) {
+        canvas.releasePointerCapture(event.pointerId);
+    }
+});
+
+canvas.addEventListener("pointercancel", function(event) {
+
+    if (draggedHeart) {
+
+        draggedHeart.dragging = false;
+        draggedHeart = null;
+    }
+
+    if (canvas.hasPointerCapture(event.pointerId)) {
+        canvas.releasePointerCapture(event.pointerId);
+    }
+});
+
+function animate() {
+
+    ctx.clearRect(
+        0,
+        0,
+        canvas.width,
+        canvas.height
+    );
+
+    if (raining) {
+
+        for (let heart of hearts) {
+
+            if (!heart.dragging) {
+
+                heart.y += heart.speed;
+                heart.rotation += heart.rotationSpeed;
+
+                if (heart.y > canvas.height + 40) {
+
+                    heart.y = -40;
+                    heart.x = Math.random() * canvas.width;
+                }
+            }
+
+            drawHeart(
+                heart.x,
+                heart.y,
+                heart.size,
+                heart.rotation
+            );
+        }
+    }
+
+    requestAnimationFrame(animate);
+}
+
+animate();
+
+window.addEventListener("resize", function() {
+    resizeCanvas();
+});
+</script>
+
+</body>
+</html>
