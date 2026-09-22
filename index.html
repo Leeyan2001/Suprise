@@ -160,7 +160,12 @@ button {
     height: 100%; 
     object-fit: contain; 
 } 
-
+ 
+ 
+/* ========================= 
+   COUNTDOWN 
+========================= */ 
+ 
 #countdown { 
     position: fixed; 
     inset: 0; 
@@ -232,7 +237,12 @@ button {
         transform: scale(1.15); 
     } 
 } 
-
+ 
+ 
+/* ========================= 
+   EXPLOSION 
+========================= */ 
+ 
 #explosionContainer { 
     position: fixed; 
     inset: 0; 
@@ -279,7 +289,12 @@ button {
             scale(0.1); 
     } 
 } 
-
+ 
+ 
+/* ========================= 
+   SECOND SCENE 
+========================= */ 
+ 
 #secondScene { 
     position: fixed; 
     inset: 0; 
@@ -288,7 +303,12 @@ button {
     display: none; 
     overflow: hidden; 
 } 
-
+ 
+ 
+/* ========================= 
+   DROPLET RAIN 
+========================= */ 
+ 
 #secondRain { 
     position: absolute; 
     inset: 0; 
@@ -343,7 +363,8 @@ button {
         opacity: 0; 
     } 
 } 
-
+ 
+ 
 #secondQuestion { 
     position: absolute; 
     left: 50%; 
@@ -376,7 +397,12 @@ button {
         0.1s 
         ease-out; 
 } 
-
+ 
+ 
+/* ========================= 
+   SECOND SAD EMOJI 
+========================= */ 
+ 
 #secondSad { 
     position: absolute; 
  
@@ -417,7 +443,12 @@ button {
     height: 100%; 
     object-fit: contain; 
 } 
-
+ 
+ 
+/* ========================= 
+   SECOND BUTTONS 
+========================= */ 
+ 
 .secondButton { 
     position: absolute; 
  
@@ -459,7 +490,12 @@ button {
             -50% 
         ); 
 } 
-
+ 
+ 
+/* ========================= 
+   SECOND HAPPY ENDING MESSAGE 
+========================= */ 
+ 
 #happyEndingMessage { 
     position: fixed; 
     left: 50%; 
@@ -481,7 +517,12 @@ button {
     object-fit: contain; 
     vertical-align: -0.15em; 
 } 
-
+ 
+ 
+/* ========================= 
+   HAPPY HEART HOLD 
+========================= */ 
+ 
 #happyHeart { 
     position: fixed; 
     left: 50%; 
@@ -525,7 +566,12 @@ button {
             ) 
         ); 
 } 
-
+ 
+ 
+/* ========================= 
+   HEART SHAKE 
+========================= */ 
+ 
 #happyHeart.holding { 
     animation: 
         happyHeartGradualShake 
@@ -579,7 +625,12 @@ button {
             scale(1.01); 
     } 
 } 
-
+ 
+ 
+/* ========================= 
+   HEART EXPLOSION 
+========================= */ 
+ 
 #happyHeart.exploding { 
     animation: 
         happyHeartExplode 
@@ -614,7 +665,12 @@ button {
             scale(3.2); 
     } 
 } 
-
+ 
+ 
+/* ========================= 
+   HEART EXPLOSION PARTICLES 
+========================= */ 
+ 
 #happyHeartParticles { 
     position: fixed; 
     inset: 0; 
@@ -672,7 +728,12 @@ button {
             scale(0.3); 
     } 
 } 
-
+ 
+ 
+/* ========================= 
+   LOVE MESSAGE 
+========================= */ 
+ 
 #loveMessage { 
     position: fixed; 
  
@@ -746,7 +807,12 @@ button {
             scale(1); 
     } 
 } 
-
+ 
+ 
+/* ========================= 
+   FINAL ROMANTIC SCENE 
+========================= */ 
+ 
 #finalLoveScene { 
     position: fixed; 
     inset: 0; 
@@ -755,7 +821,7 @@ button {
     background: black; 
     color: white; 
     opacity: 0; 
-    overflow: hidden; 
+    overflow: visible; 
     pointer-events: none; 
 } 
  
@@ -778,7 +844,12 @@ button {
         opacity: 1; 
     } 
 } 
-
+ 
+ 
+/* ========================= 
+   FINAL HEART RAIN 
+========================= */ 
+ 
 #finalHeartRain { 
     position: absolute; 
     inset: 0; 
@@ -852,7 +923,12 @@ button {
         opacity: 0; 
     } 
 } 
-
+ 
+ 
+/* ========================= 
+   FINAL CONTENT 
+========================= */ 
+ 
 #finalLoveContent { 
     position: relative; 
     z-index: 5; 
@@ -916,7 +992,8 @@ button {
         transform: translateY(0); 
     } 
 } 
-
+ 
+ 
 #finalSwipeIntro {
     position: absolute;
     inset: 0;
@@ -1023,6 +1100,10 @@ button {
     100% { opacity: 1; transform: translateY(0); }
 }
 
+/* ========================= 
+   CANVAS 
+========================= */ 
+ 
 canvas { 
     position: fixed; 
     inset: 0; 
@@ -1035,7 +1116,8 @@ canvas {
     pointer-events: auto; 
     touch-action: none; 
 } 
-
+ 
+ 
 @media (max-width: 600px) { 
  
     .box { 
@@ -1109,6 +1191,23 @@ canvas {
     }
 
 } 
+
+/* =========================
+   DRAGGABLE FINAL HEART: NO CLIPPING
+========================= */
+#finalLoveScene,
+#finalLoveContent {
+    overflow: visible !important;
+    clip-path: none !important;
+}
+
+#finalLoveHeart {
+    overflow: visible !important;
+    contain: none !important;
+    max-width: none !important;
+    max-height: none !important;
+}
+
 </style> 
 </head> 
  
@@ -1121,7 +1220,8 @@ canvas {
     <img src="gif.gif"> 
  
 </div> 
-
+ 
+ 
 <div 
     class="box" 
     id="firstScene"> 
@@ -1135,7 +1235,8 @@ canvas {
             src="crying_cat_face.png"> 
  
     </h1> 
-
+ 
+ 
     <div class="buttons"> 
  
         <button id="yes"> 
@@ -1149,7 +1250,8 @@ canvas {
     </div> 
  
 </div> 
-
+ 
+ 
 <div id="sad"> 
  
     <img 
@@ -1157,23 +1259,36 @@ canvas {
         src=""> 
  
 </div> 
-
+ 
+ 
 <div 
     id="heartbreakContainer"> 
 </div> 
-
+ 
+ 
 <div id="countdown"> 
 </div> 
-
+ 
+ 
 <div id="explosionContainer"> 
 </div> 
-
+ 
+ 
+<!-- ========================= 
+     SECOND HAPPY ENDING MESSAGE 
+========================= --> 
+ 
 <div id="happyEndingMessage"> 
     Yeheyyy! 
     <img class="emoji" src="heart.png"> 
     <img class="emoji" src="kissing_heart.png"> 
 </div> 
-
+ 
+ 
+<!-- ========================= 
+     BIG HEART HOLD INTERACTION 
+========================= --> 
+ 
 <div id="happyHeart">❤️</div> 
  
 <div id="happyHeartParticles"></div> 
@@ -1181,15 +1296,26 @@ canvas {
 <div id="loveMessage"> 
     I LOVE YOU! ❤️ 
 </div> 
-
+ 
+ 
+<!-- ========================= 
+     LOVE NEVER FELT SO GOOD 
+========================= --> 
+ 
 <audio 
     id="loveMusic" 
     src="Love Never Felt So Good.mp3" 
     preload="auto"> 
 </audio> 
-
+ 
+ 
+<!-- ========================= 
+     SECOND SCENE 
+========================= --> 
+ 
 <div id="secondScene"> 
  
+    <!-- RAIN USING droplet.png --> 
     <div id="secondRain"></div> 
  
     <h1 id="secondQuestion"> 
@@ -1201,7 +1327,8 @@ canvas {
             src="crying_cat_face.png"> 
  
     </h1> 
-
+ 
+ 
     <div id="secondSad"> 
  
         <img 
@@ -1209,7 +1336,8 @@ canvas {
             src="crying_cat_face.png"> 
  
     </div> 
-
+ 
+ 
     <button 
         class="secondButton" 
         id="secondYes1"> 
@@ -1217,7 +1345,8 @@ canvas {
         YES 
  
     </button> 
-
+ 
+ 
     <button 
         class="secondButton" 
         id="secondYes2"> 
@@ -1227,7 +1356,12 @@ canvas {
     </button> 
  
 </div> 
-
+ 
+ 
+<!-- ========================= 
+     FINAL ROMANTIC SCENE 
+========================= --> 
+ 
 <div id="finalLoveScene"> 
  
     <div id="finalHeartRain"></div> 
@@ -1250,6 +1384,7 @@ canvas {
 
         <div id="finalLoveMessage">
 
+ 
             <p> 
                 I want to you know that I truly love you, and I’m very  
                 serious about our relationship. I know nagkaroon ako ng mistakes in the past,  
@@ -1286,13 +1421,20 @@ canvas {
 
         <div id="finalLoveHeart" aria-label="red heart">❤️</div>
 
+ 
     </div> 
  
 </div> 
-
+ 
+ 
 <canvas id="canvas"></canvas> 
-
+ 
+ 
 <script> 
+ 
+/* ========================= 
+   ELEMENTS 
+========================= */ 
  
 const yes = 
     document.getElementById( 
@@ -1388,17 +1530,24 @@ const secondYes2 =
     document.getElementById( 
         "secondYes2" 
     ); 
-
+ 
+ 
 const happyEndingMessage = 
     document.getElementById( 
         "happyEndingMessage" 
     ); 
-
+ 
+ 
 const loveMusic = 
     document.getElementById( 
         "loveMusic" 
     ); 
-
+ 
+ 
+/* ========================= 
+   HAPPY HEART ELEMENTS 
+========================= */ 
+ 
 const happyHeart = 
     document.getElementById( 
         "happyHeart" 
@@ -1413,7 +1562,12 @@ const loveMessage =
     document.getElementById( 
         "loveMessage" 
     ); 
-
+ 
+ 
+/* ========================= 
+   FINAL LOVE ELEMENTS 
+========================= */ 
+ 
 const finalLoveScene = 
     document.getElementById( 
         "finalLoveScene" 
@@ -1443,7 +1597,12 @@ let finalHeartBaseCenterX = 0;
 let finalHeartBaseCenterY = 0;
 let finalSwipeStartX = 0;
 let finalSwipeStartY = 0;
-
+ 
+ 
+ 
+/* ========================= 
+   STATE 
+========================= */ 
  
 let hearts = []; 
  
@@ -1490,8 +1649,16 @@ let secondSadTimer = null;
  
 let secondSadIndex = 0; 
  
+/* 
+   Rain timer 
+*/ 
 let secondRainTimer = null; 
-
+ 
+ 
+/* ========================= 
+   HAPPY HEART STATE 
+========================= */ 
+ 
 let happyHeartHoldTimer = null; 
  
 let happyHeartShakeTimer = null; 
@@ -1501,7 +1668,12 @@ let happyHeartShakeStartTime = null;
 let happyHeartExploded = false; 
  
 let finalLoveSceneShown = false; 
-
+ 
+ 
+/* ========================= 
+   CANVAS 
+========================= */ 
+ 
 function resizeCanvas() { 
  
     canvas.width = 
@@ -1512,7 +1684,12 @@ function resizeCanvas() {
 } 
  
 resizeCanvas(); 
-
+ 
+ 
+/* ========================= 
+   SAD FACES 
+========================= */ 
+ 
 const sadFaces = [ 
  
     "crying_cat_face.png", 
@@ -1528,7 +1705,8 @@ const sadFaces = [
     "sob.png" 
  
 ]; 
-
+ 
+ 
 function showSadFace() { 
  
     let face = 
@@ -1563,7 +1741,14 @@ function showSadFace() {
             2500 
         ); 
 } 
-
+ 
+ 
+/* ========================= 
+   SECOND SCENE SAD FACE 
+   CHANGES EVERY 5 SECONDS 
+   WITH 3 SECOND FADE 
+========================= */ 
+ 
 function startSecondSadChanges() { 
  
     if (secondSadTimer) { 
@@ -1586,7 +1771,8 @@ function startSecondSadChanges() {
     secondSad.classList.remove( 
         "fading" 
     ); 
-
+ 
+ 
     secondSadTimer = 
         setInterval( 
             function() { 
@@ -1604,11 +1790,13 @@ function startSecondSadChanges() {
  
                     return; 
                 } 
-
+ 
+ 
                 secondSad.classList.add( 
                     "fading" 
                 ); 
-
+ 
+ 
                 setTimeout( 
                     function() { 
  
@@ -1646,7 +1834,12 @@ function startSecondSadChanges() {
             5000 
         ); 
 } 
-
+ 
+ 
+/* ========================= 
+   SECOND SCENE RAIN 
+========================= */ 
+ 
 function createRainDrop() { 
  
     if ( 
@@ -1665,7 +1858,8 @@ function createRainDrop() {
  
     drop.src = 
         "droplet.png"; 
-
+ 
+ 
     const size = 
         22 + 
         Math.random() * 35; 
@@ -1684,7 +1878,8 @@ function createRainDrop() {
     const rotation = 
         -12 + 
         Math.random() * 24; 
-
+ 
+ 
     drop.style.width = 
         size + "px"; 
  
@@ -1708,11 +1903,13 @@ function createRainDrop() {
         "--rain-rotation", 
         rotation + "deg" 
     ); 
-
+ 
+ 
     secondRain.appendChild( 
         drop 
     ); 
-
+ 
+ 
     setTimeout( 
         function() { 
  
@@ -1722,11 +1919,13 @@ function createRainDrop() {
         duration * 1000 + 300 
     ); 
 } 
-
+ 
+ 
 function startSecondRain() { 
  
     stopSecondRain(); 
-
+ 
+ 
     for ( 
         let i = 0; 
         i < 25; 
@@ -1748,7 +1947,8 @@ function startSecondRain() {
             i * 90 
         ); 
     } 
-
+ 
+ 
     secondRainTimer = 
         setInterval( 
             function() { 
@@ -1759,7 +1959,8 @@ function startSecondRain() {
             120 
         ); 
 } 
-
+ 
+ 
 function stopSecondRain() { 
  
     if ( 
@@ -1773,11 +1974,17 @@ function stopSecondRain() {
         secondRainTimer = 
             null; 
     } 
-
+ 
+ 
     secondRain.innerHTML = 
         ""; 
 } 
-
+ 
+ 
+/* ========================= 
+   RECT HELPERS 
+========================= */ 
+ 
 function getYesRect() { 
  
     let rect = 
@@ -1800,7 +2007,8 @@ function getYesRect() {
  
     }; 
 } 
-
+ 
+ 
 function getQuestionRect() { 
  
     let rect = 
@@ -1823,7 +2031,8 @@ function getQuestionRect() {
  
     }; 
 } 
-
+ 
+ 
 function getSadRect() { 
  
     let rect = 
@@ -1846,7 +2055,8 @@ function getSadRect() {
  
     }; 
 } 
-
+ 
+ 
 function insideRect( 
     x, 
     y, 
@@ -1874,7 +2084,12 @@ function insideRect(
  
     ); 
 } 
-
+ 
+ 
+/* ========================= 
+   HEART COLLISION 
+========================= */ 
+ 
 function heartTooClose( 
     x, 
     y, 
@@ -1928,7 +2143,12 @@ function heartTooClose(
  
     return false; 
 } 
-
+ 
+ 
+/* ========================= 
+   VALID HEART POSITION 
+========================= */ 
+ 
 function validHeartPosition( 
     x, 
     y 
@@ -1986,7 +2206,12 @@ function validHeartPosition(
  
     return true; 
 } 
-
+ 
+ 
+/* ========================= 
+   PUSH HEART FROM RECT 
+========================= */ 
+ 
 function pushHeartFromRect( 
     heart, 
     rect, 
@@ -2145,7 +2370,12 @@ function pushHeartFromRect(
     heart.style.top = 
         y + "px"; 
 } 
-
+ 
+ 
+/* ========================= 
+   PUSH HEART OUT OF FRAME 
+========================= */ 
+ 
 function pushHeartOutOfFrame( 
     heart 
 ) { 
@@ -2228,7 +2458,12 @@ function pushHeartOutOfFrame(
         heart.remove(); 
     } 
 } 
-
+ 
+ 
+/* ========================= 
+   PUSH ALL HEARTBREAKS 
+========================= */ 
+ 
 function pushAllHeartbreaks() { 
  
     let heartbreaks = 
@@ -2263,7 +2498,12 @@ function pushAllHeartbreaks() {
         ); 
     } 
 } 
-
+ 
+ 
+/* ========================= 
+   SEPARATE HEARTBREAKS 
+========================= */ 
+ 
 function separateHeartbreaks() { 
  
     let heartbreaks = 
@@ -2364,7 +2604,12 @@ function separateHeartbreaks() {
     newest.style.top = 
         y + "px"; 
 } 
-
+ 
+ 
+/* ========================= 
+   CREATE HEARTBREAK 
+========================= */ 
+ 
 function createBrokenHeart( 
     x, 
     y 
@@ -2515,7 +2760,12 @@ function createBrokenHeart(
         42 
     ); 
 } 
-
+ 
+ 
+/* ========================= 
+   SAD PUSH 
+========================= */ 
+ 
 function pushSadFromYes() { 
  
     if ( 
@@ -2616,7 +2866,12 @@ function pushSadFromYes() {
         sadPushY + 
         "px)"; 
 } 
-
+ 
+ 
+/* ========================= 
+   MOVE NO 
+========================= */ 
+ 
 function moveNo() { 
  
     let oldRect = 
@@ -2675,7 +2930,12 @@ function moveNo() {
  
     showSadFace(); 
 } 
-
+ 
+ 
+/* ========================= 
+   PUSH QUESTION 
+========================= */ 
+ 
 function pushQuestion() { 
  
     let yesRect = 
@@ -2825,7 +3085,13 @@ function pushQuestion() {
         questionPushY + 
         "px)"; 
 } 
-
+ 
+ 
+/* ========================= 
+   YES GROWTH 
+   45 SECONDS 
+========================= */ 
+ 
 function startYesGrowth() { 
  
     if (yesGrowTimer) { 
@@ -2864,7 +3130,8 @@ function startYesGrowth() {
                 pushSadFromYes(); 
  
                 pushAllHeartbreaks(); 
-
+ 
+ 
                 let elapsed = 
                     performance.now() - 
                     growthStartTime; 
@@ -2881,7 +3148,12 @@ function startYesGrowth() {
             250 
         ); 
 } 
-
+ 
+ 
+/* ========================= 
+   COUNTDOWN 
+========================= */ 
+ 
 function startCountdown() { 
  
     if ( 
@@ -2900,7 +3172,8 @@ function startCountdown() {
     ]; 
  
     let index = 0; 
-
+ 
+ 
     function showNumber() { 
  
         if ( 
@@ -2927,7 +3200,8 @@ function startCountdown() {
  
         countdown.style.animation = 
             "countdownPulse 1s ease-in-out"; 
-
+ 
+ 
         setTimeout( 
             function() { 
  
@@ -2942,10 +3216,16 @@ function startCountdown() {
             1000 
         ); 
     } 
-
+ 
+ 
     showNumber(); 
 } 
-
+ 
+ 
+/* ========================= 
+   EXPLODE YES 
+========================= */ 
+ 
 function explodeYes() { 
  
     if (yesGrowTimer) { 
@@ -2976,7 +3256,8 @@ function explodeYes() {
  
     explosionContainer.style.display = 
         "block"; 
-
+ 
+ 
     let rect = 
         yes.getBoundingClientRect(); 
  
@@ -2987,7 +3268,8 @@ function explodeYes() {
     let centerY = 
         rect.top + 
         rect.height / 2; 
-
+ 
+ 
     for ( 
         let i = 0; 
         i < 100; 
@@ -3054,7 +3336,8 @@ function explodeYes() {
             particle 
         ); 
     } 
-
+ 
+ 
     yes.style.display = 
         "none"; 
  
@@ -3069,7 +3352,8 @@ function explodeYes() {
  
     question.style.display = 
         "none"; 
-
+ 
+ 
     setTimeout( 
         function() { 
  
@@ -3085,7 +3369,12 @@ function explodeYes() {
         850 
     ); 
 } 
-
+ 
+ 
+/* ========================= 
+   NO BUTTON 
+========================= */ 
+ 
 no.addEventListener( 
     "pointerdown", 
     function(event) { 
@@ -3102,7 +3391,8 @@ no.addEventListener(
         moveNo(); 
  
         startYesGrowth(); 
-
+ 
+ 
         noMoveTimer = 
             setInterval( 
                 function() { 
@@ -3114,7 +3404,12 @@ no.addEventListener(
             ); 
     } 
 ); 
-
+ 
+ 
+/* ========================= 
+   ORIGINAL YES 
+========================= */ 
+ 
 yes.addEventListener( 
     "pointerdown", 
     function(event) { 
@@ -3125,7 +3420,12 @@ yes.addEventListener(
  
     } 
 ); 
-
+ 
+ 
+/* ========================= 
+   HAPPY HEART RESET 
+========================= */ 
+ 
 function resetHappyHeart() { 
  
     if ( 
@@ -3201,7 +3501,12 @@ function resetHappyHeart() {
     happyHeartExploded = 
         false; 
 } 
-
+ 
+ 
+/* ========================= 
+   SHOW HAPPY HEART 
+========================= */ 
+ 
 function showHappyHeart() { 
  
     resetHappyHeart(); 
@@ -3215,7 +3520,12 @@ function showHappyHeart() {
     happyHeart.style.transform = 
         "translate(-50%, -50%) scale(1)"; 
 } 
-
+ 
+ 
+/* ========================= 
+   FINAL HEART RAIN 
+========================= */ 
+ 
 function createFinalHeartRain() { 
  
     finalHeartRain.innerHTML = 
@@ -3335,7 +3645,12 @@ function createFinalHeartRain() {
         ); 
     } 
 } 
-
+ 
+ 
+/* ========================= 
+   FINAL ROMANTIC SCENE 
+========================= */ 
+ 
 function setupFinalLoveSwipe() {
     const paragraphs = finalLoveMessage.querySelectorAll("p");
     if (!paragraphs.length) return;
@@ -3467,6 +3782,11 @@ function clearFinalHeartRepulsion() {
 finalLoveHeart.addEventListener("pointerdown", function(event) {
     if (!finalLoveHeart.classList.contains("show")) return;
 
+    /*
+       Keep the draggable heart inside the entire black final scene.
+       The heart can travel anywhere on screen, but its edges never
+       disappear beyond the sides/top/bottom.
+    */
     const baseRect = finalLoveHeart.getBoundingClientRect();
     finalHeartBaseCenterX = baseRect.left + baseRect.width / 2 - finalHeartOffsetX;
     finalHeartBaseCenterY = baseRect.top + baseRect.height / 2 - finalHeartOffsetY;
@@ -3486,19 +3806,10 @@ finalLoveHeart.addEventListener("pointermove", function(event) {
     let nextX = event.clientX - finalHeartDragStartX;
     let nextY = event.clientY - finalHeartDragStartY;
 
-    const sceneRect = finalLoveScene.getBoundingClientRect();
-    const heartRect = finalLoveHeart.getBoundingClientRect();
+    // No edge clamping: the heart follows the pointer freely.
     const scale = 1.06;
-    const halfW = (heartRect.width * scale) / 2;
-    const halfH = (heartRect.height * scale) / 2;
-
-    const minX = sceneRect.left + halfW - finalHeartBaseCenterX;
-    const maxX = sceneRect.right - halfW - finalHeartBaseCenterX;
-    const minY = sceneRect.top + halfH - finalHeartBaseCenterY;
-    const maxY = sceneRect.bottom - halfH - finalHeartBaseCenterY;
-
-    finalHeartOffsetX = Math.max(minX, Math.min(maxX, nextX));
-    finalHeartOffsetY = Math.max(minY, Math.min(maxY, nextY));
+    finalHeartOffsetX = nextX;
+    finalHeartOffsetY = nextY;
 
     finalLoveHeart.style.transform = `translate(${finalHeartOffsetX}px, ${finalHeartOffsetY}px) scale(${scale})`;
     updateFinalHeartRepulsion();
@@ -3529,7 +3840,13 @@ function showFinalLoveScene() {
  
     finalLoveSceneShown = 
         true; 
-
+ 
+ 
+    /* 
+       Hide everything from the 
+       previous love scene first. 
+    */ 
+ 
     happyHeart.style.display = 
         "none"; 
  
@@ -3560,9 +3877,20 @@ function showFinalLoveScene() {
  
     secondScene.style.display = 
         "none"; 
-
+ 
+ 
+    /* 
+       Build the transparent heart rain. 
+    */ 
+ 
     createFinalHeartRain(); 
-
+ 
+ 
+    /* 
+       Fade smoothly from the previous 
+       scene into the black background. 
+    */ 
+ 
     finalLoveScene.classList.remove( 
         "show" 
     ); 
@@ -3575,7 +3903,12 @@ function showFinalLoveScene() {
 
     setupFinalLoveSwipe();
 } 
-
+ 
+ 
+/* ========================= 
+   EXPLODE HAPPY HEART 
+========================= */ 
+ 
 function explodeHappyHeart() { 
  
     if ( 
@@ -3586,7 +3919,8 @@ function explodeHappyHeart() {
  
     happyHeartExploded = 
         true; 
-
+ 
+ 
     if ( 
         happyHeartHoldTimer 
     ) { 
@@ -3613,7 +3947,8 @@ function explodeHappyHeart() {
  
     happyHeartShakeStartTime = 
         null; 
-
+ 
+ 
     happyHeart.classList.remove( 
         "holding" 
     ); 
@@ -3622,6 +3957,10 @@ function explodeHappyHeart() {
         "exploding" 
     );
 
+    /* 
+       Switch to "When I Met You" immediately after
+       the heart explosion begins.
+    */
     loveMusic.pause();
     loveMusic.src = "When I Met You.mp3";
     loveMusic.load();
@@ -3629,7 +3968,12 @@ function explodeHappyHeart() {
     loveMusic.play().catch(
         function() {}
     ); 
-
+ 
+ 
+    /* ========================= 
+       HEART PARTICLES 
+    ========================= */ 
+ 
     for ( 
         let i = 0; 
         i < 40; 
@@ -3648,7 +3992,8 @@ function explodeHappyHeart() {
             Math.random() < 0.65 
                 ? "❤️" 
                 : "💕"; 
-
+ 
+ 
         const angle = 
             Math.random() * 
             Math.PI * 
@@ -3658,7 +4003,8 @@ function explodeHappyHeart() {
             90 + 
             Math.random() * 
             300; 
-
+ 
+ 
         particle.style.setProperty( 
             "--particle-x", 
             Math.cos(angle) * 
@@ -3682,17 +4028,20 @@ function explodeHappyHeart() {
             ) + 
             "deg" 
         ); 
-
+ 
+ 
         particle.style.fontSize = 
             18 + 
             Math.random() * 
             30 + 
             "px"; 
-
+ 
+ 
         happyHeartParticles.appendChild( 
             particle 
         ); 
-
+ 
+ 
         setTimeout( 
             function() { 
  
@@ -3702,7 +4051,12 @@ function explodeHappyHeart() {
             1000 
         ); 
     } 
-
+ 
+ 
+    /* ========================= 
+       TRANSITION TO FINAL SCENE 
+    ========================= */ 
+ 
     setTimeout( 
         function() { 
  
@@ -3712,7 +4066,13 @@ function explodeHappyHeart() {
         650 
     ); 
 } 
-
+ 
+ 
+/* ========================= 
+   HOLD HEART FOR 4 SECONDS 
+   IMMEDIATE GRADUAL SHAKE 
+========================= */ 
+ 
 function startHappyHeartHold() { 
  
     if ( 
@@ -3720,7 +4080,8 @@ function startHappyHeartHold() {
     ) { 
         return; 
     } 
-
+ 
+ 
     if ( 
         happyHeartHoldTimer 
     ) { 
@@ -3732,7 +4093,8 @@ function startHappyHeartHold() {
         happyHeartHoldTimer = 
             null; 
     } 
-
+ 
+ 
     if ( 
         happyHeartShakeTimer 
     ) { 
@@ -3744,14 +4106,27 @@ function startHappyHeartHold() {
         happyHeartShakeTimer = 
             null; 
     } 
-
+ 
+ 
+    /* 
+       Start shaking IMMEDIATELY. 
+       The intensity begins very 
+       small and grows continuously. 
+    */ 
+ 
     happyHeart.classList.add( 
         "holding" 
     ); 
  
     happyHeartShakeStartTime = 
         performance.now(); 
-
+ 
+ 
+    /* 
+       Update the shake every frame 
+       so there is no visible delay. 
+    */ 
+ 
     happyHeartShakeTimer = 
         setInterval( 
             function() { 
@@ -3770,21 +4145,31 @@ function startHappyHeartHold() {
                     return; 
  
                 } 
-
+ 
+ 
                 let elapsed = 
                     performance.now() - 
                     happyHeartShakeStartTime; 
-
+ 
+ 
                 let progress = 
                     Math.min( 
                         elapsed / 4000, 
                         1 
                     ); 
-
+ 
+ 
+                /* 
+                   Quadratic easing: 
+                   gentle at first, then 
+                   increasingly stronger. 
+                */ 
+ 
                 let intensity = 
                     progress * 
                     progress; 
-
+ 
+ 
                 let distance = 
                     2 + 
                     intensity * 12; 
@@ -3800,7 +4185,8 @@ function startHappyHeartHold() {
                 let scale = 
                     1.01 + 
                     intensity * 0.12; 
-
+ 
+ 
                 happyHeart.style.setProperty( 
                     "--shake-distance", 
                     distance + "px" 
@@ -3820,7 +4206,13 @@ function startHappyHeartHold() {
                     "--shake-scale", 
                     scale 
                 ); 
-
+ 
+ 
+                /* 
+                   Explode exactly after 
+                   4 seconds of holding. 
+                */ 
+ 
                 if ( 
                     elapsed >= 4000 
                 ) { 
@@ -3839,7 +4231,8 @@ function startHappyHeartHold() {
             16 
         ); 
 } 
-
+ 
+ 
 happyHeart.addEventListener( 
     "pointerdown", 
     function(event) { 
@@ -3851,7 +4244,8 @@ happyHeart.addEventListener(
         ) { 
             return; 
         } 
-
+ 
+ 
         if ( 
             happyHeartHoldTimer 
         ) { 
@@ -3863,7 +4257,8 @@ happyHeart.addEventListener(
             happyHeartHoldTimer = 
                 null; 
         } 
-
+ 
+ 
         if ( 
             happyHeartShakeTimer 
         ) { 
@@ -3875,7 +4270,8 @@ happyHeart.addEventListener(
             happyHeartShakeTimer = 
                 null; 
         } 
-
+ 
+ 
         try { 
  
             happyHeart.setPointerCapture( 
@@ -3883,12 +4279,22 @@ happyHeart.addEventListener(
             ); 
  
         } catch (error) {} 
-
+ 
+ 
+        /* 
+           Begin shaking immediately. 
+        */ 
+ 
         startHappyHeartHold(); 
  
     } 
 ); 
-
+ 
+ 
+/* ========================= 
+   CANCEL HEART HOLD 
+========================= */ 
+ 
 function cancelHappyHeartHold( 
     event 
 ) { 
@@ -3898,7 +4304,8 @@ function cancelHappyHeartHold(
     ) { 
         return; 
     } 
-
+ 
+ 
     if ( 
         happyHeartHoldTimer 
     ) { 
@@ -3910,7 +4317,8 @@ function cancelHappyHeartHold(
         happyHeartHoldTimer = 
             null; 
     } 
-
+ 
+ 
     if ( 
         happyHeartShakeTimer 
     ) { 
@@ -3922,14 +4330,17 @@ function cancelHappyHeartHold(
         happyHeartShakeTimer = 
             null; 
     } 
-
+ 
+ 
     happyHeartShakeStartTime = 
         null; 
-
+ 
+ 
     happyHeart.classList.remove( 
         "holding" 
     ); 
-
+ 
+ 
     happyHeart.style.removeProperty( 
         "--shake-distance" 
     ); 
@@ -3945,7 +4356,8 @@ function cancelHappyHeartHold(
     happyHeart.style.removeProperty( 
         "--shake-scale" 
     ); 
-
+ 
+ 
     try { 
  
         if ( 
@@ -3962,17 +4374,24 @@ function cancelHappyHeartHold(
  
     } catch (error) {} 
 } 
-
+ 
+ 
 happyHeart.addEventListener( 
     "pointerup", 
     cancelHappyHeartHold 
 ); 
-
+ 
+ 
 happyHeart.addEventListener( 
     "pointercancel", 
     cancelHappyHeartHold 
 ); 
-
+ 
+ 
+/* ========================= 
+   LOVE ENDING 
+========================= */ 
+ 
 function startLove() { 
  
     if (raining) { 
@@ -3981,7 +4400,8 @@ function startLove() {
  
     raining = 
         true; 
-
+ 
+ 
     if (noMoveTimer) { 
  
         clearInterval( 
@@ -3991,7 +4411,8 @@ function startLove() {
         noMoveTimer = 
             null; 
     } 
-
+ 
+ 
     if (yesGrowTimer) { 
  
         clearInterval( 
@@ -4001,41 +4422,42 @@ function startLove() {
         yesGrowTimer = 
             null; 
     } 
-
+ 
+ 
     loveMusic.currentTime = 0; 
  
     loveMusic.play().catch( 
         function() {} 
     ); 
-
+ 
+ 
     background.style.display = 
-        "block"; 
-
-    question.innerHTML = 
-        'Yeheyyy! ' + 
-        '<img class="emoji" src="heart.png">' + 
-        '<img class="emoji" src="kissing_heart.png">'; 
-
-    question.style.display = 
-        "block"; 
-
+        "block";
+question.style.display = "none"; 
+ 
+ 
     question.style.transform = 
         "translate(0px, 0px)"; 
-
+ 
+ 
     yes.style.display = 
         "none"; 
-
+ 
+ 
     no.style.display = 
         "none"; 
  
     sad.style.display = 
         "none"; 
-
+ 
+ 
     heartbreakContainer.innerHTML = 
         ""; 
-
+ 
+ 
     hearts = []; 
-
+ 
+ 
     for ( 
         let i = 0; 
         i < 70; 
@@ -4078,41 +4500,58 @@ function startLove() {
  
         }); 
     } 
-
+ 
+ 
+    /* 
+       Show the big heart. 
+    */ 
+ 
     happyEndingMessage.style.display = 
-        "none"; 
+        "block"; 
  
     showHappyHeart(); 
 } 
-
+ 
+ 
+/* ========================= 
+   SECOND SCENE 
+========================= */ 
+ 
 function startSecondScene() { 
  
     secondSceneActive = 
         true; 
-
+ 
+ 
     firstScene.style.display = 
         "none"; 
-
+ 
+ 
     background.style.display = 
         "none"; 
-
+ 
+ 
     canvas.style.display = 
         "none"; 
-
+ 
+ 
     happyEndingMessage.style.display = 
         "none"; 
  
     resetHappyHeart(); 
-
+ 
+ 
     secondScene.style.display = 
         "block"; 
-
+ 
+ 
     secondQuestionX = 0; 
     secondQuestionY = 0; 
  
     secondSadX = 0; 
     secondSadY = 0; 
-
+ 
+ 
     secondYes1.style.left = 
         "30%"; 
  
@@ -4124,24 +4563,33 @@ function startSecondScene() {
  
     secondYes2.style.top = 
         "76%"; 
-
+ 
+ 
     secondYes1.style.transform = 
         "translate(-50%, -50%)"; 
  
     secondYes2.style.transform = 
         "translate(-50%, -50%)"; 
-
+ 
+ 
     secondQuestion.style.transform = 
         "translate(-50%, -50%)"; 
-
+ 
+ 
     secondSad.style.transform = 
         "translate(-50%, -50%)"; 
-
+ 
+ 
     startSecondSadChanges(); 
  
     startSecondRain(); 
 } 
-
+ 
+ 
+/* ========================= 
+   SECOND RECT HELPERS 
+========================= */ 
+ 
 function getSecondButtonRect( 
     button 
 ) { 
@@ -4166,7 +4614,8 @@ function getSecondButtonRect(
  
     }; 
 } 
-
+ 
+ 
 function getSecondQuestionRect() { 
  
     let rect = 
@@ -4190,7 +4639,8 @@ function getSecondQuestionRect() {
  
     }; 
 } 
-
+ 
+ 
 function getSecondSadRect() { 
  
     let rect = 
@@ -4214,7 +4664,8 @@ function getSecondSadRect() {
  
     }; 
 } 
-
+ 
+ 
 function rectsTouch( 
     a, 
     b, 
@@ -4241,7 +4692,12 @@ function rectsTouch(
  
     ); 
 } 
-
+ 
+ 
+/* ========================= 
+   SECOND QUESTION PUSH 
+========================= */ 
+ 
 function pushSecondQuestionFromButton( 
     button 
 ) { 
@@ -4253,7 +4709,8 @@ function pushSecondQuestionFromButton(
  
     let questionRect = 
         getSecondQuestionRect(); 
-
+ 
+ 
     if ( 
         !rectsTouch( 
             buttonRect, 
@@ -4267,7 +4724,8 @@ function pushSecondQuestionFromButton(
  
         secondQuestionY *= 
             0.96; 
-
+ 
+ 
         if ( 
             Math.abs( 
                 secondQuestionX 
@@ -4277,7 +4735,8 @@ function pushSecondQuestionFromButton(
             secondQuestionX = 
                 0; 
         } 
-
+ 
+ 
         if ( 
             Math.abs( 
                 secondQuestionY 
@@ -4287,7 +4746,8 @@ function pushSecondQuestionFromButton(
             secondQuestionY = 
                 0; 
         } 
-
+ 
+ 
         secondQuestion.style.transform = 
             "translate(calc(-50% + " + 
             secondQuestionX + 
@@ -4297,7 +4757,8 @@ function pushSecondQuestionFromButton(
  
         return; 
     } 
-
+ 
+ 
     let dx = 
         questionRect.centerX - 
         buttonRect.centerX; 
@@ -4305,13 +4766,15 @@ function pushSecondQuestionFromButton(
     let dy = 
         questionRect.centerY - 
         buttonRect.centerY; 
-
+ 
+ 
     let distance = 
         Math.sqrt( 
             dx * dx + 
             dy * dy 
         ); 
-
+ 
+ 
     if ( 
         distance < 1 
     ) { 
@@ -4321,13 +4784,15 @@ function pushSecondQuestionFromButton(
  
         distance = 1; 
     } 
-
+ 
+ 
     let dirX = 
         dx / distance; 
  
     let dirY = 
         dy / distance; 
-
+ 
+ 
     let overlapX = 
         Math.min( 
             buttonRect.right - 
@@ -4336,7 +4801,8 @@ function pushSecondQuestionFromButton(
             questionRect.right - 
                 buttonRect.left 
         ); 
-
+ 
+ 
     let overlapY = 
         Math.min( 
             buttonRect.bottom - 
@@ -4345,7 +4811,8 @@ function pushSecondQuestionFromButton(
             questionRect.bottom - 
                 buttonRect.top 
         ); 
-
+ 
+ 
     if ( 
         overlapX < 
         overlapY 
@@ -4367,7 +4834,8 @@ function pushSecondQuestionFromButton(
                 5 
             ); 
     } 
-
+ 
+ 
     secondQuestionX = 
         Math.max( 
             -window.innerWidth * 0.4, 
@@ -4376,7 +4844,8 @@ function pushSecondQuestionFromButton(
                 secondQuestionX 
             ) 
         ); 
-
+ 
+ 
     secondQuestionY = 
         Math.max( 
             -window.innerHeight * 0.35, 
@@ -4385,7 +4854,8 @@ function pushSecondQuestionFromButton(
                 secondQuestionY 
             ) 
         ); 
-
+ 
+ 
     secondQuestion.style.transform = 
         "translate(calc(-50% + " + 
         secondQuestionX + 
@@ -4393,7 +4863,12 @@ function pushSecondQuestionFromButton(
         secondQuestionY + 
         "px))"; 
 } 
-
+ 
+ 
+/* ========================= 
+   SECOND SAD PUSH 
+========================= */ 
+ 
 function pushSecondSadFromButton( 
     button 
 ) { 
@@ -4405,7 +4880,8 @@ function pushSecondSadFromButton(
  
     let sadRect = 
         getSecondSadRect(); 
-
+ 
+ 
     if ( 
         !rectsTouch( 
             buttonRect, 
@@ -4415,7 +4891,8 @@ function pushSecondSadFromButton(
     ) { 
         return; 
     } 
-
+ 
+ 
     let dx = 
         sadRect.centerX - 
         buttonRect.centerX; 
@@ -4423,13 +4900,15 @@ function pushSecondSadFromButton(
     let dy = 
         sadRect.centerY - 
         buttonRect.centerY; 
-
+ 
+ 
     let distance = 
         Math.sqrt( 
             dx * dx + 
             dy * dy 
         ); 
-
+ 
+ 
     if ( 
         distance < 1 
     ) { 
@@ -4439,19 +4918,22 @@ function pushSecondSadFromButton(
  
         distance = 1; 
     } 
-
+ 
+ 
     let dirX = 
         dx / distance; 
  
     let dirY = 
         dy / distance; 
-
+ 
+ 
     secondSadX += 
         dirX * 5; 
  
     secondSadY += 
         dirY * 5; 
-
+ 
+ 
     secondSadX = 
         Math.max( 
             -window.innerWidth * 0.42, 
@@ -4460,7 +4942,8 @@ function pushSecondSadFromButton(
                 secondSadX 
             ) 
         ); 
-
+ 
+ 
     secondSadY = 
         Math.max( 
             -window.innerHeight * 0.42, 
@@ -4469,7 +4952,8 @@ function pushSecondSadFromButton(
                 secondSadY 
             ) 
         ); 
-
+ 
+ 
     secondSad.style.transform = 
         "translate(calc(-50% + " + 
         secondSadX + 
@@ -4477,7 +4961,12 @@ function pushSecondSadFromButton(
         secondSadY + 
         "px))"; 
 } 
-
+ 
+ 
+/* ========================= 
+   SECOND BUTTON SEPARATION 
+========================= */ 
+ 
 function separateSecondButtons() { 
  
     let a = 
@@ -4489,7 +4978,8 @@ function separateSecondButtons() {
         getSecondButtonRect( 
             secondYes2 
         ); 
-
+ 
+ 
     if ( 
         !rectsTouch( 
             a, 
@@ -4499,7 +4989,8 @@ function separateSecondButtons() {
     ) { 
         return; 
     } 
-
+ 
+ 
     let dx = 
         a.centerX - 
         b.centerX; 
@@ -4507,13 +4998,15 @@ function separateSecondButtons() {
     let dy = 
         a.centerY - 
         b.centerY; 
-
+ 
+ 
     let distance = 
         Math.sqrt( 
             dx * dx + 
             dy * dy 
         ); 
-
+ 
+ 
     if ( 
         distance < 1 
     ) { 
@@ -4523,15 +5016,18 @@ function separateSecondButtons() {
  
         distance = 1; 
     } 
-
+ 
+ 
     let dirX = 
         dx / distance; 
  
     let dirY = 
         dy / distance; 
-
+ 
+ 
     let move = 3.5; 
-
+ 
+ 
     let left = 
         parseFloat( 
             secondYes1.style.left 
@@ -4541,7 +5037,8 @@ function separateSecondButtons() {
         parseFloat( 
             secondYes1.style.top 
         ); 
-
+ 
+ 
     let left2 = 
         parseFloat( 
             secondYes2.style.left 
@@ -4551,7 +5048,8 @@ function separateSecondButtons() {
         parseFloat( 
             secondYes2.style.top 
         ); 
-
+ 
+ 
     left += 
         ( 
             dirX * move 
@@ -4565,7 +5063,8 @@ function separateSecondButtons() {
         ) / 
         window.innerHeight * 
         100; 
-
+ 
+ 
     left2 -= 
         ( 
             dirX * move 
@@ -4579,7 +5078,8 @@ function separateSecondButtons() {
         ) / 
         window.innerHeight * 
         100; 
-
+ 
+ 
     secondYes1.style.left = 
         Math.max( 
             5, 
@@ -4588,7 +5088,8 @@ function separateSecondButtons() {
                 left 
             ) 
         ) + "%"; 
-
+ 
+ 
     secondYes1.style.top = 
         Math.max( 
             5, 
@@ -4597,7 +5098,8 @@ function separateSecondButtons() {
                 top 
             ) 
         ) + "%"; 
-
+ 
+ 
     secondYes2.style.left = 
         Math.max( 
             5, 
@@ -4606,7 +5108,8 @@ function separateSecondButtons() {
                 left2 
             ) 
         ) + "%"; 
-
+ 
+ 
     secondYes2.style.top = 
         Math.max( 
             5, 
@@ -4616,7 +5119,13 @@ function separateSecondButtons() {
             ) 
         ) + "%"; 
 } 
-
+ 
+ 
+/* ========================= 
+   SECOND SCENE LOOP 
+   NO BUTTON GROWTH 
+========================= */ 
+ 
 function secondSceneLoop() { 
  
     if ( 
@@ -4646,9 +5155,15 @@ function secondSceneLoop() {
         secondSceneLoop 
     ); 
 } 
-
+ 
+ 
 secondSceneLoop(); 
-
+ 
+ 
+/* ========================= 
+   SECOND YES BUTTONS 
+========================= */ 
+ 
 secondYes1.addEventListener( 
     "pointerdown", 
     function(event) { 
@@ -4659,7 +5174,8 @@ secondYes1.addEventListener(
  
     } 
 ); 
-
+ 
+ 
 secondYes2.addEventListener( 
     "pointerdown", 
     function(event) { 
@@ -4670,110 +5186,37 @@ secondYes2.addEventListener(
  
     } 
 ); 
+ 
+ 
+/* ========================= 
+   SECOND LOVE 
+========================= */ 
+ 
+function startLoveFromSecond() {
 
-function startLoveFromSecond() { 
- 
-    if (raining) { 
-        return; 
-    } 
- 
-    raining = 
-        true; 
- 
-    secondSceneActive = 
-        false; 
+    secondSceneActive = false;
 
-    if ( 
-        secondSadTimer 
-    ) { 
- 
-        clearInterval( 
-            secondSadTimer 
-        ); 
- 
-        secondSadTimer = 
-            null; 
-    } 
+    if (secondSadTimer) {
+        clearInterval(secondSadTimer);
+        secondSadTimer = null;
+    }
 
-    stopSecondRain(); 
+    stopSecondRain();
 
-    secondScene.style.display = 
-        "none"; 
+    secondScene.style.display = "none";
+    background.style.display = "block";
+    canvas.style.display = "block";
 
-    background.style.display = 
-        "block"; 
+    // Both second YES buttons use the exact same ending as the first YES.
+    raining = false;
+    startLove();
+}
 
-    canvas.style.display = 
-        "block"; 
 
-    loveMusic.currentTime = 0; 
+/* ========================= 
+   FALLING HEARTS 
+========================= */ 
  
-    loveMusic.play().catch( 
-        function() {} 
-    ); 
-
-    question.innerHTML = 
-        'Yeheyyy! ' + 
-        '<img class="emoji" src="heart.png">' + 
-        '<img class="emoji" src="kissing_heart.png">'; 
-
-    question.style.display = 
-        "block"; 
-
-    question.style.transform = 
-        "translate(0px, 0px)"; 
-
-    hearts = []; 
-
-    for ( 
-        let i = 0; 
-        i < 70; 
-        i++ 
-    ) { 
- 
-        hearts.push({ 
- 
-            x: 
-                Math.random() * 
-                canvas.width, 
- 
-            y: 
-                Math.random() * 
-                -canvas.height, 
- 
-            size: 
-                18 + 
-                Math.random() * 14, 
- 
-            speed: 
-                1 + 
-                Math.random() * 2.5, 
- 
-            rotation: 
-                Math.random() * 
-                Math.PI * 
-                2, 
- 
-            rotationSpeed: 
-                ( 
-                    Math.random() - 
-                    0.5 
-                ) * 0.04, 
- 
-            vx: 0, 
-            vy: 0, 
- 
-            dragging: false 
- 
-        }); 
-    } 
-
-    happyEndingMessage.style.display = 
-        "none"; 
- 
-    showHappyHeart(); 
-} 
-
 function drawHeart( 
     x, 
     y, 
@@ -4782,23 +5225,28 @@ function drawHeart(
 ) { 
  
     ctx.save(); 
-
+ 
+ 
     ctx.translate( 
         x, 
         y 
     ); 
-
+ 
+ 
     ctx.rotate( 
         rotation 
     ); 
-
+ 
+ 
     ctx.beginPath(); 
-
+ 
+ 
     ctx.moveTo( 
         0, 
         size * 0.45 
     ); 
-
+ 
+ 
     ctx.bezierCurveTo( 
         -size * 0.9, 
         -size * 0.15, 
@@ -4807,7 +5255,8 @@ function drawHeart(
         0, 
         -size * 0.35 
     ); 
-
+ 
+ 
     ctx.bezierCurveTo( 
         size * 0.6, 
         -size * 0.9, 
@@ -4816,15 +5265,19 @@ function drawHeart(
         0, 
         size * 0.45 
     ); 
-
+ 
+ 
     ctx.fillStyle = 
         "red"; 
-
+ 
+ 
     ctx.fill(); 
-
+ 
+ 
     ctx.restore(); 
 } 
-
+ 
+ 
 function getPointerPosition( 
     event 
 ) { 
@@ -4844,7 +5297,12 @@ function getPointerPosition(
  
     }; 
 } 
-
+ 
+ 
+/* ========================= 
+   DRAG HEARTS 
+========================= */ 
+ 
 canvas.addEventListener( 
     "pointerdown", 
     function(event) { 
@@ -4852,12 +5310,14 @@ canvas.addEventListener(
         if (!raining) { 
             return; 
         } 
-
+ 
+ 
         let pointer = 
             getPointerPosition( 
                 event 
             ); 
-
+ 
+ 
         for ( 
             let i = 
                 hearts.length - 1; 
@@ -4867,7 +5327,8 @@ canvas.addEventListener(
  
             let heart = 
                 hearts[i]; 
-
+ 
+ 
             let dx = 
                 pointer.x - 
                 heart.x; 
@@ -4875,13 +5336,15 @@ canvas.addEventListener(
             let dy = 
                 pointer.y - 
                 heart.y; 
-
+ 
+ 
             let distance = 
                 Math.sqrt( 
                     dx * dx + 
                     dy * dy 
                 ); 
-
+ 
+ 
             if ( 
                 distance < 
                 heart.size * 1.8 
@@ -4897,29 +5360,35 @@ canvas.addEventListener(
                 dragOffsetY = 
                     pointer.y - 
                     heart.y; 
-
+ 
+ 
                 lastPointerX = 
                     pointer.x; 
  
                 lastPointerY = 
                     pointer.y; 
-
+ 
+ 
                 swipeX = 0; 
                 swipeY = 0; 
-
+ 
+ 
                 heart.dragging = 
                     true; 
-
+ 
+ 
                 canvas.setPointerCapture( 
                     event.pointerId 
                 ); 
-
+ 
+ 
                 break; 
             } 
         } 
     } 
 ); 
-
+ 
+ 
 canvas.addEventListener( 
     "pointermove", 
     function(event) { 
@@ -4927,12 +5396,14 @@ canvas.addEventListener(
         if (!draggedHeart) { 
             return; 
         } 
-
+ 
+ 
         let pointer = 
             getPointerPosition( 
                 event 
             ); 
-
+ 
+ 
         swipeX = 
             pointer.x - 
             lastPointerX; 
@@ -4940,7 +5411,8 @@ canvas.addEventListener(
         swipeY = 
             pointer.y - 
             lastPointerY; 
-
+ 
+ 
         draggedHeart.x = 
             pointer.x - 
             dragOffsetX; 
@@ -4948,17 +5420,20 @@ canvas.addEventListener(
         draggedHeart.y = 
             pointer.y - 
             dragOffsetY; 
-
+ 
+ 
         lastPointerX = 
             pointer.x; 
  
         lastPointerY = 
             pointer.y; 
-
+ 
+ 
         repelNearbyHearts(); 
     } 
 ); 
-
+ 
+ 
 function repelNearbyHearts() { 
  
     for ( 
@@ -4971,7 +5446,8 @@ function repelNearbyHearts() {
         ) { 
             continue; 
         } 
-
+ 
+ 
         let dx = 
             heart.x - 
             draggedHeart.x; 
@@ -4985,12 +5461,14 @@ function repelNearbyHearts() {
                 dx * dx + 
                 dy * dy 
             ); 
-
+ 
+ 
         let touchingDistance = 
             heart.size + 
             draggedHeart.size + 
             35; 
-
+ 
+ 
         if ( 
             distance < 
             touchingDistance 
@@ -5001,7 +5479,8 @@ function repelNearbyHearts() {
             ) { 
                 distance = 1; 
             } 
-
+ 
+ 
             let dirX = 
                 dx / 
                 distance; 
@@ -5009,17 +5488,20 @@ function repelNearbyHearts() {
             let dirY = 
                 dy / 
                 distance; 
-
+ 
+ 
             let overlap = 
                 touchingDistance - 
                 distance; 
-
+ 
+ 
             let force = 
                 Math.min( 
                     overlap * 0.8, 
                     25 
                 ); 
-
+ 
+ 
             heart.x += 
                 dirX * 
                 force; 
@@ -5027,7 +5509,8 @@ function repelNearbyHearts() {
             heart.y += 
                 dirY * 
                 force; 
-
+ 
+ 
             heart.vx += 
                 dirX * 
                 force * 
@@ -5037,7 +5520,8 @@ function repelNearbyHearts() {
                 dirY * 
                 force * 
                 0.9; 
-
+ 
+ 
             heart.vx += 
                 swipeX * 
                 2.5; 
@@ -5048,7 +5532,8 @@ function repelNearbyHearts() {
         } 
     } 
 } 
-
+ 
+ 
 canvas.addEventListener( 
     "pointerup", 
     function(event) { 
@@ -5067,7 +5552,8 @@ canvas.addEventListener(
             draggedHeart = 
                 null; 
         } 
-
+ 
+ 
         if ( 
             canvas.hasPointerCapture( 
                 event.pointerId 
@@ -5080,7 +5566,8 @@ canvas.addEventListener(
         } 
     } 
 ); 
-
+ 
+ 
 canvas.addEventListener( 
     "pointercancel", 
     function(event) { 
@@ -5093,7 +5580,8 @@ canvas.addEventListener(
             draggedHeart = 
                 null; 
         } 
-
+ 
+ 
         if ( 
             canvas.hasPointerCapture( 
                 event.pointerId 
@@ -5106,7 +5594,12 @@ canvas.addEventListener(
         } 
     } 
 ); 
-
+ 
+ 
+/* ========================= 
+   ANIMATION 
+========================= */ 
+ 
 function animate() { 
  
     ctx.clearRect( 
@@ -5115,7 +5608,8 @@ function animate() {
         canvas.width, 
         canvas.height 
     ); 
-
+ 
+ 
     if (raining) { 
  
         for ( 
@@ -5144,14 +5638,16 @@ function animate() {
                 heart.rotation += 
                     heart.rotationSpeed; 
             } 
-
+ 
+ 
             drawHeart( 
                 heart.x, 
                 heart.y, 
                 heart.size, 
                 heart.rotation 
             ); 
-
+ 
+ 
             if ( 
                 heart.y > 
                 canvas.height + 50 
@@ -5166,7 +5662,8 @@ function animate() {
                 heart.vx = 0; 
                 heart.vy = 0; 
             } 
-
+ 
+ 
             if ( 
                 heart.x < -50 
             ) { 
@@ -5174,7 +5671,8 @@ function animate() {
                 heart.x = 
                     canvas.width + 50; 
             } 
-
+ 
+ 
             if ( 
                 heart.x > 
                 canvas.width + 50 
@@ -5184,20 +5682,28 @@ function animate() {
             } 
         } 
     } 
-
+ 
+ 
     requestAnimationFrame( 
         animate 
     ); 
 } 
-
+ 
+ 
 animate(); 
-
+ 
+ 
+/* ========================= 
+   RESIZE 
+========================= */ 
+ 
 window.addEventListener( 
     "resize", 
     function() { 
  
         resizeCanvas(); 
-
+ 
+ 
         if ( 
             noRunning && 
             !secondSceneActive && 
@@ -5210,7 +5716,8 @@ window.addEventListener(
  
             pushAllHeartbreaks(); 
         } 
-
+ 
+ 
         if ( 
             secondSceneActive 
         ) { 
