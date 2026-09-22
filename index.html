@@ -1,0 +1,4112 @@
+<!DOCTYPE html> 
+<html> 
+<head> 
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"> 
+<title>Do You Love Me?</title> 
+ 
+<style> 
+* { 
+    box-sizing: border-box; 
+} 
+ 
+body { 
+    margin: 0; 
+    background: black; 
+    color: white; 
+    font-family: Arial, sans-serif; 
+    text-align: center; 
+    overflow: hidden; 
+    width: 100vw; 
+    height: 100vh; 
+    touch-action: none; 
+} 
+ 
+.background { 
+    position: fixed; 
+    inset: 0; 
+    background: #FFCC99; 
+    z-index: 0; 
+    display: none; 
+} 
+ 
+.background img { 
+    width: 100%; 
+    height: 100%; 
+    object-fit: contain; 
+} 
+ 
+.box { 
+    position: relative; 
+    z-index: 2; 
+    width: 100%; 
+    margin-top: 28vh; 
+    padding: 0 20px; 
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+} 
+ 
+h1 { 
+    font-size: clamp(25px, 8vw, 36px); 
+    margin: 0 0 28px; 
+    text-shadow: 2px 2px 4px black; 
+    white-space: nowrap; 
+    transition: transform 0.12s ease-out; 
+} 
+ 
+.emoji { 
+    width: 1em; 
+    height: 1em; 
+    object-fit: contain; 
+    vertical-align: -0.15em; 
+} 
+ 
+.buttons { 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    gap: 15px; 
+    width: 100%; 
+    position: relative; 
+    z-index: 4; 
+} 
+ 
+button { 
+    border: none; 
+    border-radius: 12px; 
+    padding: 14px 25px; 
+    min-width: 120px; 
+    font-size: 17px; 
+    font-weight: bold; 
+    cursor: pointer; 
+    touch-action: manipulation; 
+} 
+ 
+#yes { 
+    background: red; 
+    color: white; 
+    transform-origin: center; 
+    transition: transform 0.12s ease-out; 
+    position: relative; 
+    z-index: 5; 
+} 
+ 
+#no { 
+    background: white; 
+    color: black; 
+    z-index: 6; 
+} 
+ 
+#no.moving { 
+    position: fixed; 
+} 
+ 
+#heartbreakContainer { 
+    position: fixed; 
+    inset: 0; 
+    z-index: 2; 
+    pointer-events: none; 
+    overflow: visible; 
+} 
+ 
+.broken-heart { 
+    position: absolute; 
+    width: 34px; 
+    height: 34px; 
+    font-size: 30px; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    transform: translate(-50%, -50%) scale(0); 
+    animation: pop 0.25s ease-out forwards; 
+    will-change: left, top, transform, opacity; 
+} 
+ 
+@keyframes pop { 
+    0% { 
+        transform: translate(-50%, -50%) scale(0); 
+        opacity: 0; 
+    } 
+ 
+    60% { 
+        transform: translate(-50%, -50%) scale(1.15); 
+        opacity: 1; 
+    } 
+ 
+    100% { 
+        transform: translate(-50%, -50%) scale(1); 
+        opacity: 1; 
+    } 
+} 
+ 
+#sad { 
+    position: fixed; 
+    left: 50%; 
+    bottom: 10%; 
+    transform: translateX(-50%); 
+    width: 180px; 
+    height: 180px; 
+    display: none; 
+    z-index: 5; 
+    pointer-events: none; 
+    transition: 
+        left 0.12s ease-out, 
+        top 0.12s ease-out, 
+        transform 0.12s ease-out; 
+} 
+ 
+#sad img { 
+    width: 100%; 
+    height: 100%; 
+    object-fit: contain; 
+} 
+ 
+ 
+/* ========================= 
+   COUNTDOWN 
+========================= */ 
+ 
+#countdown { 
+    position: fixed; 
+    inset: 0; 
+    display: none; 
+    align-items: center; 
+    justify-content: center; 
+    z-index: 100; 
+    pointer-events: none; 
+ 
+    font-size: 
+        clamp( 
+            100px, 
+            25vw, 
+            240px 
+        ); 
+ 
+    font-weight: bold; 
+ 
+    color: 
+        rgba( 
+            255, 
+            255, 
+            255, 
+            0.55 
+        ); 
+ 
+    text-shadow: 
+        0 0 12px 
+        rgba( 
+            255, 
+            255, 
+            255, 
+            0.25 
+        ), 
+ 
+        0 0 35px 
+        rgba( 
+            255, 
+            255, 
+            255, 
+            0.1 
+        ); 
+ 
+    animation: 
+        countdownPulse 
+        1s 
+        ease-in-out; 
+} 
+ 
+@keyframes countdownPulse { 
+ 
+    0% { 
+        opacity: 0; 
+        transform: scale(0.7); 
+    } 
+ 
+    25% { 
+        opacity: 1; 
+        transform: scale(1); 
+    } 
+ 
+    75% { 
+        opacity: 0.7; 
+        transform: scale(1.05); 
+    } 
+ 
+    100% { 
+        opacity: 0; 
+        transform: scale(1.15); 
+    } 
+} 
+ 
+ 
+/* ========================= 
+   EXPLOSION 
+========================= */ 
+ 
+#explosionContainer { 
+    position: fixed; 
+    inset: 0; 
+    z-index: 110; 
+    pointer-events: none; 
+    display: none; 
+} 
+ 
+.explosionParticle { 
+    position: absolute; 
+    border-radius: 50%; 
+    background: red; 
+ 
+    transform: 
+        translate(-50%, -50%); 
+ 
+    animation: 
+        explode 
+        0.75s 
+        ease-out 
+        forwards; 
+} 
+ 
+@keyframes explode { 
+ 
+    0% { 
+        opacity: 1; 
+ 
+        transform: 
+            translate(-50%, -50%) 
+            translate(0, 0) 
+            scale(1); 
+    } 
+ 
+    100% { 
+        opacity: 0; 
+ 
+        transform: 
+            translate(-50%, -50%) 
+            translate( 
+                var(--explode-x), 
+                var(--explode-y) 
+            ) 
+            scale(0.1); 
+    } 
+} 
+ 
+ 
+/* ========================= 
+   SECOND SCENE 
+========================= */ 
+ 
+#secondScene { 
+    position: fixed; 
+    inset: 0; 
+    background: black; 
+    z-index: 25; 
+    display: none; 
+    overflow: hidden; 
+} 
+ 
+/* ========================= 
+   DROPLET RAIN 
+========================= */ 
+ 
+#secondRain { 
+    position: absolute; 
+    inset: 0; 
+    z-index: 26; 
+    pointer-events: none; 
+    overflow: hidden; 
+} 
+ 
+.rainDrop { 
+    position: absolute; 
+    top: -80px; 
+    object-fit: contain; 
+    pointer-events: none; 
+    opacity: 0.45; 
+    will-change: transform, opacity; 
+    animation: 
+        rainFall 
+        var(--rain-duration) 
+        linear 
+        forwards; 
+} 
+ 
+@keyframes rainFall { 
+ 
+    0% { 
+        transform: 
+            translate( 
+                0, 
+                0 
+            ) 
+            rotate(0deg); 
+        opacity: 0; 
+    } 
+ 
+    10% { 
+        opacity: 0.45; 
+    } 
+ 
+    85% { 
+        opacity: 0.45; 
+    } 
+ 
+    100% { 
+        transform: 
+            translate( 
+                var(--rain-drift), 
+                115vh 
+            ) 
+            rotate( 
+                var(--rain-rotation) 
+            ); 
+        opacity: 0; 
+    } 
+} 
+ 
+ 
+#secondQuestion { 
+    position: absolute; 
+    left: 50%; 
+    top: 25%; 
+ 
+    transform: 
+        translate( 
+            -50%, 
+            -50% 
+        ); 
+ 
+    margin: 0; 
+ 
+    font-size: 
+        clamp( 
+            24px, 
+            7vw, 
+            38px 
+        ); 
+ 
+    white-space: nowrap; 
+ 
+    text-shadow: 
+        2px 2px 4px black; 
+ 
+    z-index: 31; 
+ 
+    transition: 
+        transform 
+        0.1s 
+        ease-out; 
+} 
+ 
+ 
+/* ========================= 
+   SECOND SAD EMOJI 
+========================= */ 
+ 
+#secondSad { 
+    position: absolute; 
+ 
+    width: 190px; 
+    height: 190px; 
+ 
+    left: 50%; 
+    top: 57%; 
+ 
+    transform: 
+        translate( 
+            -50%, 
+            -50% 
+        ); 
+ 
+    z-index: 28; 
+ 
+    pointer-events: none; 
+ 
+    opacity: 1; 
+ 
+    transition: 
+        transform 
+        0.1s 
+        ease-out, 
+ 
+        opacity 
+        3s 
+        ease-in-out; 
+} 
+ 
+#secondSad.fading { 
+    opacity: 0; 
+} 
+ 
+#secondSad img { 
+    width: 100%; 
+    height: 100%; 
+    object-fit: contain; 
+} 
+ 
+ 
+/* ========================= 
+   SECOND BUTTONS 
+========================= */ 
+ 
+.secondButton { 
+    position: absolute; 
+ 
+    background: red; 
+    color: white; 
+ 
+    z-index: 35; 
+ 
+    transform-origin: center; 
+ 
+    /* 
+       NO GROWING ANYMORE. 
+       Buttons stay at normal size. 
+    */ 
+ 
+    transition: 
+        left 
+        0.12s 
+        ease-out, 
+ 
+        top 
+        0.12s 
+        ease-out; 
+} 
+ 
+#secondYes1 { 
+    left: 30%; 
+    top: 76%; 
+ 
+    transform: 
+        translate( 
+            -50%, 
+            -50% 
+        ); 
+} 
+ 
+#secondYes2 { 
+    left: 70%; 
+    top: 76%; 
+ 
+    transform: 
+        translate( 
+            -50%, 
+            -50% 
+        ); 
+} 
+
+
+/* =========================
+   SECOND HAPPY ENDING MESSAGE
+========================= */
+
+#happyEndingMessage {
+    position: fixed;
+    left: 50%;
+    top: 28vh;
+    transform: translate(-50%, -50%);
+    z-index: 200;
+    display: none;
+    font-size: clamp(25px, 8vw, 36px);
+    font-weight: bold;
+    color: white;
+    text-shadow: 2px 2px 4px black;
+    white-space: nowrap;
+    pointer-events: none;
+}
+
+#happyEndingMessage .emoji {
+    width: 1em;
+    height: 1em;
+    object-fit: contain;
+    vertical-align: -0.15em;
+}
+ 
+ 
+/* ========================= 
+   CANVAS 
+========================= */ 
+ 
+canvas { 
+    position: fixed; 
+    inset: 0; 
+ 
+    width: 100vw; 
+    height: 100vh; 
+ 
+    z-index: 1; 
+ 
+    pointer-events: auto; 
+    touch-action: none; 
+} 
+ 
+ 
+@media (max-width: 600px) { 
+ 
+    .box { 
+        margin-top: 25vh; 
+    } 
+ 
+    h1 { 
+        font-size: 25px; 
+        margin-bottom: 25px; 
+    } 
+ 
+    .buttons { 
+        gap: 10px; 
+    } 
+ 
+    button { 
+        min-width: 105px; 
+        padding: 13px 18px; 
+        font-size: 16px; 
+    } 
+ 
+    #sad { 
+        width: 45vw; 
+        height: 45vw; 
+        max-width: 200px; 
+        max-height: 200px; 
+        bottom: 8%; 
+    } 
+ 
+    .broken-heart { 
+        width: 30px; 
+        height: 30px; 
+        font-size: 27px; 
+    } 
+ 
+    #secondQuestion { 
+        font-size: 25px; 
+    } 
+ 
+    #secondSad { 
+        width: 50vw; 
+        height: 50vw; 
+        max-width: 220px; 
+        max-height: 220px; 
+    } 
+ 
+    .secondButton { 
+        min-width: 100px; 
+        padding: 13px 18px; 
+        font-size: 16px; 
+    } 
+} 
+</style> 
+</head> 
+ 
+<body> 
+ 
+<div 
+    class="background" 
+    id="background"> 
+ 
+    <img src="gif.gif"> 
+ 
+</div> 
+ 
+ 
+<div 
+    class="box" 
+    id="firstScene"> 
+ 
+    <h1 id="question"> 
+ 
+        Do you love me? 
+ 
+        <img 
+            class="emoji" 
+            src="crying_cat_face.png"> 
+ 
+    </h1> 
+ 
+ 
+    <div class="buttons"> 
+ 
+        <button id="yes"> 
+            YES 
+        </button> 
+ 
+        <button id="no"> 
+            NO 
+        </button> 
+ 
+    </div> 
+ 
+</div> 
+ 
+ 
+<div id="sad"> 
+ 
+    <img 
+        id="sadImage" 
+        src=""> 
+ 
+</div> 
+ 
+ 
+<div 
+    id="heartbreakContainer"> 
+</div> 
+ 
+ 
+<div id="countdown"> 
+</div> 
+ 
+ 
+<div id="explosionContainer"> 
+</div> 
+
+
+<!-- =========================
+     SECOND HAPPY ENDING MESSAGE
+========================= -->
+
+<div id="happyEndingMessage">
+    Yeheyyy!
+    <img class="emoji" src="heart.png">
+    <img class="emoji" src="kissing_heart.png">
+</div>
+
+
+<!-- =========================
+     LOVE NEVER FELT SO GOOD
+========================= -->
+
+<audio
+    id="loveMusic"
+    src="Love Never Felt So Good.mp3"
+    preload="auto">
+</audio>
+ 
+ 
+<!-- ========================= 
+     SECOND SCENE 
+========================= --> 
+ 
+<div id="secondScene"> 
+ 
+    <!-- RAIN USING droplet.png --> 
+    <div id="secondRain"></div> 
+ 
+    <h1 id="secondQuestion"> 
+ 
+        Do you still love me? 
+ 
+        <img 
+            class="emoji" 
+            src="crying_cat_face.png"> 
+ 
+    </h1> 
+ 
+ 
+    <div id="secondSad"> 
+ 
+        <img 
+            id="secondSadImage" 
+            src="crying_cat_face.png"> 
+ 
+    </div> 
+ 
+ 
+    <button 
+        class="secondButton" 
+        id="secondYes1"> 
+ 
+        YES 
+ 
+    </button> 
+ 
+ 
+    <button 
+        class="secondButton" 
+        id="secondYes2"> 
+ 
+        YES 
+ 
+    </button> 
+ 
+</div> 
+ 
+ 
+<canvas id="canvas"></canvas> 
+ 
+ 
+<script> 
+ 
+/* ========================= 
+   ELEMENTS 
+========================= */ 
+ 
+const yes = 
+    document.getElementById( 
+        "yes" 
+    ); 
+ 
+const no = 
+    document.getElementById( 
+        "no" 
+    ); 
+ 
+const question = 
+    document.getElementById( 
+        "question" 
+    ); 
+ 
+const background = 
+    document.getElementById( 
+        "background" 
+    ); 
+ 
+const sad = 
+    document.getElementById( 
+        "sad" 
+    ); 
+ 
+const sadImage = 
+    document.getElementById( 
+        "sadImage" 
+    ); 
+ 
+const heartbreakContainer = 
+    document.getElementById( 
+        "heartbreakContainer" 
+    ); 
+ 
+const canvas = 
+    document.getElementById( 
+        "canvas" 
+    ); 
+ 
+const ctx = 
+    canvas.getContext( 
+        "2d" 
+    ); 
+ 
+const countdown = 
+    document.getElementById( 
+        "countdown" 
+    ); 
+ 
+const explosionContainer = 
+    document.getElementById( 
+        "explosionContainer" 
+    ); 
+ 
+const firstScene = 
+    document.getElementById( 
+        "firstScene" 
+    ); 
+ 
+const secondScene = 
+    document.getElementById( 
+        "secondScene" 
+    ); 
+ 
+const secondRain = 
+    document.getElementById( 
+        "secondRain" 
+    ); 
+ 
+const secondQuestion = 
+    document.getElementById( 
+        "secondQuestion" 
+    ); 
+ 
+const secondSad = 
+    document.getElementById( 
+        "secondSad" 
+    ); 
+ 
+const secondSadImage = 
+    document.getElementById( 
+        "secondSadImage" 
+    ); 
+ 
+const secondYes1 = 
+    document.getElementById( 
+        "secondYes1" 
+    ); 
+ 
+const secondYes2 = 
+    document.getElementById( 
+        "secondYes2" 
+    ); 
+
+
+const happyEndingMessage =
+    document.getElementById(
+        "happyEndingMessage"
+    );
+
+
+const loveMusic =
+    document.getElementById(
+        "loveMusic"
+    );
+ 
+ 
+/* ========================= 
+   STATE 
+========================= */ 
+ 
+let hearts = []; 
+ 
+let raining = false; 
+ 
+let draggedHeart = null; 
+ 
+let dragOffsetX = 0; 
+let dragOffsetY = 0; 
+ 
+let lastPointerX = 0; 
+let lastPointerY = 0; 
+ 
+let swipeX = 0; 
+let swipeY = 0; 
+ 
+let sadTimer = null; 
+ 
+let noRunning = false; 
+let noMoveTimer = null; 
+ 
+let yesScale = 1; 
+let yesGrowTimer = null; 
+ 
+let questionPushX = 0; 
+let questionPushY = 0; 
+ 
+let sadPushX = 0; 
+let sadPushY = 0; 
+ 
+let countdownStarted = false; 
+ 
+let growthStartTime = null; 
+ 
+let secondSceneActive = false; 
+ 
+let secondQuestionX = 0; 
+let secondQuestionY = 0; 
+ 
+let secondSadX = 0; 
+let secondSadY = 0; 
+ 
+let secondSadTimer = null; 
+ 
+let secondSadIndex = 0; 
+ 
+/* 
+   Rain timer 
+*/ 
+let secondRainTimer = null; 
+ 
+ 
+/* ========================= 
+   CANVAS 
+========================= */ 
+ 
+function resizeCanvas() { 
+ 
+    canvas.width = 
+        window.innerWidth; 
+ 
+    canvas.height = 
+        window.innerHeight; 
+} 
+ 
+resizeCanvas(); 
+ 
+ 
+/* ========================= 
+   SAD FACES 
+========================= */ 
+ 
+const sadFaces = [ 
+ 
+    "crying_cat_face.png", 
+    "tired_face.png", 
+    "weary.png", 
+    "disappointed.png", 
+    "sweat.png", 
+    "confounded.png", 
+    "fearful.png", 
+    "cold_sweat.png", 
+    "disappointed_relieved.png", 
+    "cry.png", 
+    "sob.png" 
+ 
+]; 
+ 
+ 
+function showSadFace() { 
+ 
+    let face = 
+        sadFaces[ 
+            Math.floor( 
+                Math.random() * 
+                sadFaces.length 
+            ) 
+        ]; 
+ 
+    sadImage.src = 
+        face; 
+ 
+    sad.style.display = 
+        "block"; 
+ 
+    if (sadTimer) { 
+ 
+        clearTimeout( 
+            sadTimer 
+        ); 
+    } 
+ 
+    sadTimer = 
+        setTimeout( 
+            function() { 
+ 
+                sad.style.display = 
+                    "none"; 
+ 
+            }, 
+            2500 
+        ); 
+} 
+ 
+ 
+/* ========================= 
+   SECOND SCENE SAD FACE 
+   CHANGES EVERY 5 SECONDS 
+   WITH 3 SECOND FADE 
+========================= */ 
+ 
+function startSecondSadChanges() { 
+ 
+    if (secondSadTimer) { 
+ 
+        clearInterval( 
+            secondSadTimer 
+        ); 
+ 
+        secondSadTimer = 
+            null; 
+    } 
+ 
+    secondSadIndex = 0; 
+ 
+    secondSadImage.src = 
+        sadFaces[ 
+            secondSadIndex 
+        ]; 
+ 
+    secondSad.classList.remove( 
+        "fading" 
+    ); 
+ 
+ 
+    secondSadTimer = 
+        setInterval( 
+            function() { 
+ 
+                if ( 
+                    !secondSceneActive 
+                ) { 
+ 
+                    clearInterval( 
+                        secondSadTimer 
+                    ); 
+ 
+                    secondSadTimer = 
+                        null; 
+ 
+                    return; 
+ 
+                } 
+ 
+ 
+                secondSad.classList.add( 
+                    "fading" 
+                ); 
+ 
+ 
+                setTimeout( 
+                    function() { 
+ 
+                        if ( 
+                            !secondSceneActive 
+                        ) { 
+                            return; 
+                        } 
+ 
+                        secondSadIndex++; 
+ 
+                        if ( 
+                            secondSadIndex >= 
+                            sadFaces.length 
+                        ) { 
+ 
+                            secondSadIndex = 
+                                0; 
+                        } 
+ 
+                        secondSadImage.src = 
+                            sadFaces[ 
+                                secondSadIndex 
+                            ]; 
+ 
+                        secondSad.classList.remove( 
+                            "fading" 
+                        ); 
+ 
+                    }, 
+                    1500 
+                ); 
+ 
+            }, 
+            5000 
+        ); 
+} 
+ 
+ 
+/* ========================= 
+   SECOND SCENE RAIN 
+========================= */ 
+ 
+function createRainDrop() { 
+ 
+    if ( 
+        !secondSceneActive 
+    ) { 
+        return; 
+    } 
+ 
+    const drop = 
+        document.createElement( 
+            "img" 
+        ); 
+ 
+    drop.className = 
+        "rainDrop"; 
+ 
+    drop.src = 
+        "droplet.png"; 
+ 
+ 
+    const size = 
+        22 + 
+        Math.random() * 35; 
+ 
+    const left = 
+        Math.random() * 100; 
+ 
+    const duration = 
+        1.4 + 
+        Math.random() * 2.4; 
+ 
+    const drift = 
+        -45 + 
+        Math.random() * 90; 
+ 
+    const rotation = 
+        -12 + 
+        Math.random() * 24; 
+ 
+ 
+    drop.style.width = 
+        size + "px"; 
+ 
+    drop.style.height = 
+        size + "px"; 
+ 
+    drop.style.left = 
+        left + "vw"; 
+ 
+    drop.style.setProperty( 
+        "--rain-duration", 
+        duration + "s" 
+    ); 
+ 
+    drop.style.setProperty( 
+        "--rain-drift", 
+        drift + "px" 
+    ); 
+ 
+    drop.style.setProperty( 
+        "--rain-rotation", 
+        rotation + "deg" 
+    ); 
+ 
+ 
+    secondRain.appendChild( 
+        drop 
+    ); 
+ 
+ 
+    setTimeout( 
+        function() { 
+ 
+            drop.remove(); 
+ 
+        }, 
+        duration * 1000 + 300 
+    ); 
+} 
+ 
+ 
+function startSecondRain() { 
+ 
+    stopSecondRain(); 
+ 
+ 
+    for ( 
+        let i = 0; 
+        i < 25; 
+        i++ 
+    ) { 
+ 
+        setTimeout( 
+            function() { 
+ 
+                if ( 
+                    secondSceneActive 
+                ) { 
+ 
+                    createRainDrop(); 
+ 
+                } 
+ 
+            }, 
+            i * 90 
+        ); 
+    } 
+ 
+ 
+    secondRainTimer = 
+        setInterval( 
+            function() { 
+ 
+                createRainDrop(); 
+ 
+            }, 
+            120 
+        ); 
+} 
+ 
+ 
+function stopSecondRain() { 
+ 
+    if ( 
+        secondRainTimer 
+    ) { 
+ 
+        clearInterval( 
+            secondRainTimer 
+        ); 
+ 
+        secondRainTimer = 
+            null; 
+    } 
+ 
+ 
+    secondRain.innerHTML = 
+        ""; 
+} 
+ 
+ 
+/* ========================= 
+   RECT HELPERS 
+========================= */ 
+ 
+function getYesRect() { 
+ 
+    let rect = 
+        yes.getBoundingClientRect(); 
+ 
+    return { 
+ 
+        left: rect.left, 
+        right: rect.right, 
+        top: rect.top, 
+        bottom: rect.bottom, 
+ 
+        centerX: 
+            rect.left + 
+            rect.width / 2, 
+ 
+        centerY: 
+            rect.top + 
+            rect.height / 2 
+ 
+    }; 
+} 
+ 
+ 
+function getQuestionRect() { 
+ 
+    let rect = 
+        question.getBoundingClientRect(); 
+ 
+    return { 
+ 
+        left: rect.left, 
+        right: rect.right, 
+        top: rect.top, 
+        bottom: rect.bottom, 
+ 
+        centerX: 
+            rect.left + 
+            rect.width / 2, 
+ 
+        centerY: 
+            rect.top + 
+            rect.height / 2 
+ 
+    }; 
+} 
+ 
+ 
+function getSadRect() { 
+ 
+    let rect = 
+        sad.getBoundingClientRect(); 
+ 
+    return { 
+ 
+        left: rect.left, 
+        right: rect.right, 
+        top: rect.top, 
+        bottom: rect.bottom, 
+ 
+        centerX: 
+            rect.left + 
+            rect.width / 2, 
+ 
+        centerY: 
+            rect.top + 
+            rect.height / 2 
+ 
+    }; 
+} 
+ 
+ 
+function insideRect( 
+    x, 
+    y, 
+    rect, 
+    padding 
+) { 
+ 
+    return ( 
+ 
+        x > 
+            rect.left - 
+            padding && 
+ 
+        x < 
+            rect.right + 
+            padding && 
+ 
+        y > 
+            rect.top - 
+            padding && 
+ 
+        y < 
+            rect.bottom + 
+            padding 
+ 
+    ); 
+} 
+ 
+ 
+/* ========================= 
+   HEART COLLISION 
+========================= */ 
+ 
+function heartTooClose( 
+    x, 
+    y, 
+    ignoreHeart 
+) { 
+ 
+    let existingHearts = 
+        document.querySelectorAll( 
+            ".broken-heart" 
+        ); 
+ 
+    for ( 
+        let other of existingHearts 
+    ) { 
+ 
+        if ( 
+            other === 
+            ignoreHeart 
+        ) { 
+            continue; 
+        } 
+ 
+        let otherX = 
+            parseFloat( 
+                other.style.left 
+            ); 
+ 
+        let otherY = 
+            parseFloat( 
+                other.style.top 
+            ); 
+ 
+        let dx = 
+            x - otherX; 
+ 
+        let dy = 
+            y - otherY; 
+ 
+        let distance = 
+            Math.sqrt( 
+                dx * dx + 
+                dy * dy 
+            ); 
+ 
+        if ( 
+            distance < 45 
+        ) { 
+            return true; 
+        } 
+    } 
+ 
+    return false; 
+} 
+ 
+ 
+/* ========================= 
+   VALID HEART POSITION 
+========================= */ 
+ 
+function validHeartPosition( 
+    x, 
+    y 
+) { 
+ 
+    let yesRect = 
+        getYesRect(); 
+ 
+    let questionRect = 
+        getQuestionRect(); 
+ 
+    if ( 
+        insideRect( 
+            x, 
+            y, 
+            yesRect, 
+            40 
+        ) 
+    ) { 
+        return false; 
+    } 
+ 
+    if ( 
+        insideRect( 
+            x, 
+            y, 
+            questionRect, 
+            35 
+        ) 
+    ) { 
+        return false; 
+    } 
+ 
+    if ( 
+        heartTooClose( 
+            x, 
+            y 
+        ) 
+    ) { 
+        return false; 
+    } 
+ 
+    if ( 
+        x < 20 || 
+        x > 
+            window.innerWidth - 
+            20 || 
+        y < 20 || 
+        y > 
+            window.innerHeight - 
+            20 
+    ) { 
+        return false; 
+    } 
+ 
+    return true; 
+} 
+ 
+ 
+/* ========================= 
+   PUSH HEART FROM RECT 
+========================= */ 
+ 
+function pushHeartFromRect( 
+    heart, 
+    rect, 
+    minimumDistance 
+) { 
+ 
+    let x = 
+        parseFloat( 
+            heart.style.left 
+        ); 
+ 
+    let y = 
+        parseFloat( 
+            heart.style.top 
+        ); 
+ 
+    if ( 
+        isNaN(x) || 
+        isNaN(y) 
+    ) { 
+        return; 
+    } 
+ 
+    let closestX = 
+        Math.max( 
+            rect.left, 
+            Math.min( 
+                x, 
+                rect.right 
+            ) 
+        ); 
+ 
+    let closestY = 
+        Math.max( 
+            rect.top, 
+            Math.min( 
+                y, 
+                rect.bottom 
+            ) 
+        ); 
+ 
+    let dx = 
+        x - closestX; 
+ 
+    let dy = 
+        y - closestY; 
+ 
+    let distance = 
+        Math.sqrt( 
+            dx * dx + 
+            dy * dy 
+        ); 
+ 
+    if ( 
+        distance >= 
+        minimumDistance 
+    ) { 
+        return; 
+    } 
+ 
+    if ( 
+        distance < 0.1 
+    ) { 
+ 
+        let leftDistance = 
+            Math.abs( 
+                x - rect.left 
+            ); 
+ 
+        let rightDistance = 
+            Math.abs( 
+                rect.right - x 
+            ); 
+ 
+        let topDistance = 
+            Math.abs( 
+                y - rect.top 
+            ); 
+ 
+        let bottomDistance = 
+            Math.abs( 
+                rect.bottom - y 
+            ); 
+ 
+        let smallest = 
+            Math.min( 
+                leftDistance, 
+                rightDistance, 
+                topDistance, 
+                bottomDistance 
+            ); 
+ 
+        if ( 
+            smallest === 
+            leftDistance 
+        ) { 
+ 
+            dx = -1; 
+            dy = 0; 
+ 
+        } else if ( 
+            smallest === 
+            rightDistance 
+        ) { 
+ 
+            dx = 1; 
+            dy = 0; 
+ 
+        } else if ( 
+            smallest === 
+            topDistance 
+        ) { 
+ 
+            dx = 0; 
+            dy = -1; 
+ 
+        } else { 
+ 
+            dx = 0; 
+            dy = 1; 
+        } 
+ 
+        distance = 1; 
+    } 
+ 
+    let dirX = 
+        dx / distance; 
+ 
+    let dirY = 
+        dy / distance; 
+ 
+    let amount = 
+        Math.max( 
+            minimumDistance - 
+            distance + 
+            4, 
+            5 
+        ); 
+ 
+    amount = 
+        Math.min( 
+            amount, 
+            24 
+        ); 
+ 
+    x += 
+        dirX * 
+        amount; 
+ 
+    y += 
+        dirY * 
+        amount; 
+ 
+    heart.style.left = 
+        x + "px"; 
+ 
+    heart.style.top = 
+        y + "px"; 
+} 
+ 
+ 
+/* ========================= 
+   PUSH HEART OUT OF FRAME 
+========================= */ 
+ 
+function pushHeartOutOfFrame( 
+    heart 
+) { 
+ 
+    let x = 
+        parseFloat( 
+            heart.style.left 
+        ); 
+ 
+    let y = 
+        parseFloat( 
+            heart.style.top 
+        ); 
+ 
+    if ( 
+        isNaN(x) || 
+        isNaN(y) 
+    ) { 
+        return; 
+    } 
+ 
+    let edgePush = 0; 
+ 
+    if (x < 35) { 
+ 
+        x -= 8; 
+ 
+        edgePush = 1; 
+    } 
+ 
+    if ( 
+        x > 
+        window.innerWidth - 
+        35 
+    ) { 
+ 
+        x += 8; 
+ 
+        edgePush = 1; 
+    } 
+ 
+    if (y < 35) { 
+ 
+        y -= 8; 
+ 
+        edgePush = 1; 
+    } 
+ 
+    if ( 
+        y > 
+        window.innerHeight - 
+        35 
+    ) { 
+ 
+        y += 8; 
+ 
+        edgePush = 1; 
+    } 
+ 
+    if (edgePush) { 
+ 
+        heart.style.left = 
+            x + "px"; 
+ 
+        heart.style.top = 
+            y + "px"; 
+    } 
+ 
+    if ( 
+        x < -60 || 
+        x > 
+            window.innerWidth + 
+            60 || 
+        y < -60 || 
+        y > 
+            window.innerHeight + 
+            60 
+    ) { 
+ 
+        heart.remove(); 
+    } 
+} 
+ 
+ 
+/* ========================= 
+   PUSH ALL HEARTBREAKS 
+========================= */ 
+ 
+function pushAllHeartbreaks() { 
+ 
+    let heartbreaks = 
+        document.querySelectorAll( 
+            ".broken-heart" 
+        ); 
+ 
+    let yesRect = 
+        getYesRect(); 
+ 
+    let questionRect = 
+        getQuestionRect(); 
+ 
+    for ( 
+        let heart of heartbreaks 
+    ) { 
+ 
+        pushHeartFromRect( 
+            heart, 
+            yesRect, 
+            42 
+        ); 
+ 
+        pushHeartFromRect( 
+            heart, 
+            questionRect, 
+            35 
+        ); 
+ 
+        pushHeartOutOfFrame( 
+            heart 
+        ); 
+    } 
+} 
+ 
+ 
+/* ========================= 
+   SEPARATE HEARTBREAKS 
+========================= */ 
+ 
+function separateHeartbreaks() { 
+ 
+    let heartbreaks = 
+        document.querySelectorAll( 
+            ".broken-heart" 
+        ); 
+ 
+    if ( 
+        heartbreaks.length < 2 
+    ) { 
+        return; 
+    } 
+ 
+    let newest = 
+        heartbreaks[ 
+            heartbreaks.length - 1 
+        ]; 
+ 
+    let x = 
+        parseFloat( 
+            newest.style.left 
+        ); 
+ 
+    let y = 
+        parseFloat( 
+            newest.style.top 
+        ); 
+ 
+    for ( 
+        let i = 0; 
+        i < 
+        heartbreaks.length - 1; 
+        i++ 
+    ) { 
+ 
+        let other = 
+            heartbreaks[i]; 
+ 
+        let otherX = 
+            parseFloat( 
+                other.style.left 
+            ); 
+ 
+        let otherY = 
+            parseFloat( 
+                other.style.top 
+            ); 
+ 
+        let dx = 
+            x - otherX; 
+ 
+        let dy = 
+            y - otherY; 
+ 
+        let distance = 
+            Math.sqrt( 
+                dx * dx + 
+                dy * dy 
+            ); 
+ 
+        if ( 
+            distance < 45 
+        ) { 
+ 
+            if ( 
+                distance < 0.1 
+            ) { 
+ 
+                dx = 1; 
+                dy = 0; 
+ 
+                distance = 1; 
+            } 
+ 
+            let push = 
+                45 - 
+                distance; 
+ 
+            let dirX = 
+                dx / distance; 
+ 
+            let dirY = 
+                dy / distance; 
+ 
+            x += 
+                dirX * 
+                push; 
+ 
+            y += 
+                dirY * 
+                push; 
+        } 
+    } 
+ 
+    newest.style.left = 
+        x + "px"; 
+ 
+    newest.style.top = 
+        y + "px"; 
+} 
+ 
+ 
+/* ========================= 
+   CREATE HEARTBREAK 
+========================= */ 
+ 
+function createBrokenHeart( 
+    x, 
+    y 
+) { 
+ 
+    let originalX = x; 
+    let originalY = y; 
+ 
+    if ( 
+        !validHeartPosition( 
+            x, 
+            y 
+        ) 
+    ) { 
+ 
+        let found = false; 
+ 
+        let directions = [ 
+ 
+            [1, 0], 
+            [-1, 0], 
+            [0, 1], 
+            [0, -1], 
+ 
+            [1, 1], 
+            [-1, 1], 
+            [1, -1], 
+            [-1, -1] 
+ 
+        ]; 
+ 
+        for ( 
+            let distance = 40; 
+            distance <= 160; 
+            distance += 20 
+        ) { 
+ 
+            for ( 
+                let direction of directions 
+            ) { 
+ 
+                let testX = 
+                    originalX + 
+                    direction[0] * 
+                    distance; 
+ 
+                let testY = 
+                    originalY + 
+                    direction[1] * 
+                    distance; 
+ 
+                if ( 
+                    validHeartPosition( 
+                        testX, 
+                        testY 
+                    ) 
+                ) { 
+ 
+                    x = testX; 
+                    y = testY; 
+ 
+                    found = true; 
+ 
+                    break; 
+                } 
+            } 
+ 
+            if (found) { 
+                break; 
+            } 
+        } 
+ 
+        if (!found) { 
+ 
+            for ( 
+                let attempt = 0; 
+                attempt < 50; 
+                attempt++ 
+            ) { 
+ 
+                let testX = 
+                    25 + 
+                    Math.random() * 
+                    ( 
+                        window.innerWidth - 
+                        50 
+                    ); 
+ 
+                let testY = 
+                    25 + 
+                    Math.random() * 
+                    ( 
+                        window.innerHeight - 
+                        50 
+                    ); 
+ 
+                if ( 
+                    validHeartPosition( 
+                        testX, 
+                        testY 
+                    ) 
+                ) { 
+ 
+                    x = testX; 
+                    y = testY; 
+ 
+                    found = true; 
+ 
+                    break; 
+                } 
+            } 
+        } 
+ 
+        if (!found) { 
+            return; 
+        } 
+    } 
+ 
+    let heart = 
+        document.createElement( 
+            "div" 
+        ); 
+ 
+    heart.className = 
+        "broken-heart"; 
+ 
+    heart.textContent = 
+        "💔"; 
+ 
+    heart.style.left = 
+        x + "px"; 
+ 
+    heart.style.top = 
+        y + "px"; 
+ 
+    heartbreakContainer.appendChild( 
+        heart 
+    ); 
+ 
+    separateHeartbreaks(); 
+ 
+    let yesRect = 
+        getYesRect(); 
+ 
+    pushHeartFromRect( 
+        heart, 
+        yesRect, 
+        42 
+    ); 
+} 
+ 
+ 
+/* ========================= 
+   SAD PUSH 
+========================= */ 
+ 
+function pushSadFromYes() { 
+ 
+    if ( 
+        sad.style.display === 
+        "none" 
+    ) { 
+        return; 
+    } 
+ 
+    let yesRect = 
+        getYesRect(); 
+ 
+    let sadRect = 
+        getSadRect(); 
+ 
+    let padding = 15; 
+ 
+    let touching = 
+ 
+        yesRect.right + 
+            padding > 
+            sadRect.left && 
+ 
+        yesRect.left - 
+            padding < 
+            sadRect.right && 
+ 
+        yesRect.bottom + 
+            padding > 
+            sadRect.top && 
+ 
+        yesRect.top - 
+            padding < 
+            sadRect.bottom; 
+ 
+    if (!touching) { 
+        return; 
+    } 
+ 
+    let dx = 
+        sadRect.centerX - 
+        yesRect.centerX; 
+ 
+    let dy = 
+        sadRect.centerY - 
+        yesRect.centerY; 
+ 
+    let distance = 
+        Math.sqrt( 
+            dx * dx + 
+            dy * dy 
+        ); 
+ 
+    if ( 
+        distance < 1 
+    ) { 
+ 
+        dx = 0; 
+        dy = -1; 
+ 
+        distance = 1; 
+    } 
+ 
+    let dirX = 
+        dx / distance; 
+ 
+    let dirY = 
+        dy / distance; 
+ 
+    sadPushX += 
+        dirX * 12; 
+ 
+    sadPushY += 
+        dirY * 12; 
+ 
+    sadPushX = 
+        Math.max( 
+            -window.innerWidth * 0.4, 
+            Math.min( 
+                window.innerWidth * 0.4, 
+                sadPushX 
+            ) 
+        ); 
+ 
+    sadPushY = 
+        Math.max( 
+            -window.innerHeight * 0.35, 
+            Math.min( 
+                window.innerHeight * 0.35, 
+                sadPushY 
+            ) 
+        ); 
+ 
+    sad.style.transform = 
+        "translateX(calc(-50% + " + 
+        sadPushX + 
+        "px)) translateY(" + 
+        sadPushY + 
+        "px)"; 
+} 
+ 
+ 
+/* ========================= 
+   MOVE NO 
+========================= */ 
+ 
+function moveNo() { 
+ 
+    let oldRect = 
+        no.getBoundingClientRect(); 
+ 
+    let oldX = 
+        oldRect.left + 
+        oldRect.width / 2; 
+ 
+    let oldY = 
+        oldRect.top + 
+        oldRect.height / 2; 
+ 
+    createBrokenHeart( 
+        oldX, 
+        oldY 
+    ); 
+ 
+    no.classList.add( 
+        "moving" 
+    ); 
+ 
+    let padding = 15; 
+ 
+    let maxX = 
+        window.innerWidth - 
+        no.offsetWidth - 
+        padding; 
+ 
+    let maxY = 
+        window.innerHeight - 
+        no.offsetHeight - 
+        padding; 
+ 
+    let x = 
+        padding + 
+        Math.random() * 
+        Math.max( 
+            0, 
+            maxX - padding 
+        ); 
+ 
+    let y = 
+        padding + 
+        Math.random() * 
+        Math.max( 
+            0, 
+            maxY - padding 
+        ); 
+ 
+    no.style.left = 
+        x + "px"; 
+ 
+    no.style.top = 
+        y + "px"; 
+ 
+    showSadFace(); 
+} 
+ 
+ 
+/* ========================= 
+   PUSH QUESTION 
+========================= */ 
+ 
+function pushQuestion() { 
+ 
+    let yesRect = 
+        yes.getBoundingClientRect(); 
+ 
+    let questionRect = 
+        question.getBoundingClientRect(); 
+ 
+    let touching = 
+ 
+        yesRect.right > 
+            questionRect.left && 
+ 
+        yesRect.left < 
+            questionRect.right && 
+ 
+        yesRect.bottom > 
+            questionRect.top && 
+ 
+        yesRect.top < 
+            questionRect.bottom; 
+ 
+    if (!touching) { 
+ 
+        questionPushX *= 
+            0.85; 
+ 
+        questionPushY *= 
+            0.85; 
+ 
+        if ( 
+            Math.abs( 
+                questionPushX 
+            ) < 0.1 
+        ) { 
+            questionPushX = 0; 
+        } 
+ 
+        if ( 
+            Math.abs( 
+                questionPushY 
+            ) < 0.1 
+        ) { 
+            questionPushY = 0; 
+        } 
+ 
+        question.style.transform = 
+            "translate(" + 
+            questionPushX + 
+            "px, " + 
+            questionPushY + 
+            "px)"; 
+ 
+        return; 
+    } 
+ 
+    let yesCenterX = 
+        yesRect.left + 
+        yesRect.width / 2; 
+ 
+    let yesCenterY = 
+        yesRect.top + 
+        yesRect.height / 2; 
+ 
+    let questionCenterX = 
+        questionRect.left + 
+        questionRect.width / 2; 
+ 
+    let questionCenterY = 
+        questionRect.top + 
+        questionRect.height / 2; 
+ 
+    let dirX = 
+        questionCenterX >= 
+        yesCenterX 
+            ? 1 
+            : -1; 
+ 
+    let dirY = 
+        questionCenterY >= 
+        yesCenterY 
+            ? 1 
+            : -1; 
+ 
+    let overlapX = 
+        Math.min( 
+            yesRect.right - 
+                questionRect.left, 
+ 
+            questionRect.right - 
+                yesRect.left 
+        ); 
+ 
+    let overlapY = 
+        Math.min( 
+            yesRect.bottom - 
+                questionRect.top, 
+ 
+            questionRect.bottom - 
+                yesRect.top 
+        ); 
+ 
+    if ( 
+        overlapY < 
+        overlapX 
+    ) { 
+ 
+        questionPushY += 
+            dirY * 
+            Math.min( 
+                overlapY * 0.18, 
+                8 
+            ); 
+ 
+    } else { 
+ 
+        questionPushX += 
+            dirX * 
+            Math.min( 
+                overlapX * 0.18, 
+                8 
+            ); 
+    } 
+ 
+    questionPushX = 
+        Math.max( 
+            -window.innerWidth * 0.45, 
+            Math.min( 
+                window.innerWidth * 0.45, 
+                questionPushX 
+            ) 
+        ); 
+ 
+    questionPushY = 
+        Math.max( 
+            -window.innerHeight * 0.35, 
+            Math.min( 
+                window.innerHeight * 0.35, 
+                questionPushY 
+            ) 
+        ); 
+ 
+    question.style.transform = 
+        "translate(" + 
+        questionPushX + 
+        "px, " + 
+        questionPushY + 
+        "px)"; 
+} 
+ 
+ 
+/* ========================= 
+   YES GROWTH 
+   45 SECONDS 
+========================= */ 
+ 
+function startYesGrowth() { 
+ 
+    if (yesGrowTimer) { 
+        return; 
+    } 
+ 
+    growthStartTime = 
+        performance.now(); 
+ 
+    yesGrowTimer = 
+        setInterval( 
+            function() { 
+ 
+                if (raining) { 
+ 
+                    clearInterval( 
+                        yesGrowTimer 
+                    ); 
+ 
+                    yesGrowTimer = 
+                        null; 
+ 
+                    return; 
+                } 
+ 
+                yesScale += 
+                    0.035; 
+ 
+                yes.style.transform = 
+                    "scale(" + 
+                    yesScale + 
+                    ")"; 
+ 
+                pushQuestion(); 
+ 
+                pushSadFromYes(); 
+ 
+                pushAllHeartbreaks(); 
+ 
+ 
+                let elapsed = 
+                    performance.now() - 
+                    growthStartTime; 
+ 
+                if ( 
+                    !countdownStarted && 
+                    elapsed >= 45000 
+                ) { 
+ 
+                    startCountdown(); 
+                } 
+ 
+            }, 
+            250 
+        ); 
+} 
+ 
+ 
+/* ========================= 
+   COUNTDOWN 
+========================= */ 
+ 
+function startCountdown() { 
+ 
+    if ( 
+        countdownStarted 
+    ) { 
+        return; 
+    } 
+ 
+    countdownStarted = 
+        true; 
+ 
+    let numbers = [ 
+        "3", 
+        "2", 
+        "1" 
+    ]; 
+ 
+    let index = 0; 
+ 
+ 
+    function showNumber() { 
+ 
+        if ( 
+            index >= 
+            numbers.length 
+        ) { 
+ 
+            explodeYes(); 
+ 
+            return; 
+ 
+        } 
+ 
+        countdown.textContent = 
+            numbers[index]; 
+ 
+        countdown.style.display = 
+            "flex"; 
+ 
+        countdown.style.animation = 
+            "none"; 
+ 
+        void countdown.offsetWidth; 
+ 
+        countdown.style.animation = 
+            "countdownPulse 1s ease-in-out"; 
+ 
+ 
+        setTimeout( 
+            function() { 
+ 
+                countdown.style.display = 
+                    "none"; 
+ 
+                index++; 
+ 
+                showNumber(); 
+ 
+            }, 
+            1000 
+        ); 
+    } 
+ 
+ 
+    showNumber(); 
+} 
+ 
+ 
+/* ========================= 
+   EXPLODE YES 
+========================= */ 
+ 
+function explodeYes() { 
+ 
+    if (yesGrowTimer) { 
+ 
+        clearInterval( 
+            yesGrowTimer 
+        ); 
+ 
+        yesGrowTimer = 
+            null; 
+    } 
+ 
+    if (noMoveTimer) { 
+ 
+        clearInterval( 
+            noMoveTimer 
+        ); 
+ 
+        noMoveTimer = 
+            null; 
+    } 
+ 
+    countdown.style.display = 
+        "none"; 
+ 
+    explosionContainer.innerHTML = 
+        ""; 
+ 
+    explosionContainer.style.display = 
+        "block"; 
+ 
+ 
+    let rect = 
+        yes.getBoundingClientRect(); 
+ 
+    let centerX = 
+        rect.left + 
+        rect.width / 2; 
+ 
+    let centerY = 
+        rect.top + 
+        rect.height / 2; 
+ 
+ 
+    for ( 
+        let i = 0; 
+        i < 100; 
+        i++ 
+    ) { 
+ 
+        let particle = 
+            document.createElement( 
+                "div" 
+            ); 
+ 
+        particle.className = 
+            "explosionParticle"; 
+ 
+        let angle = 
+            Math.random() * 
+            Math.PI * 
+            2; 
+ 
+        let distance = 
+            180 + 
+            Math.random() * 
+            Math.max( 
+                window.innerWidth, 
+                window.innerHeight 
+            ) * 
+            0.8; 
+ 
+        let x = 
+            Math.cos(angle) * 
+            distance; 
+ 
+        let y = 
+            Math.sin(angle) * 
+            distance; 
+ 
+        particle.style.left = 
+            centerX + "px"; 
+ 
+        particle.style.top = 
+            centerY + "px"; 
+ 
+        particle.style.setProperty( 
+            "--explode-x", 
+            x + "px" 
+        ); 
+ 
+        particle.style.setProperty( 
+            "--explode-y", 
+            y + "px" 
+        ); 
+ 
+        let size = 
+            6 + 
+            Math.random() * 14; 
+ 
+        particle.style.width = 
+            size + "px"; 
+ 
+        particle.style.height = 
+            size + "px"; 
+ 
+        explosionContainer.appendChild( 
+            particle 
+        ); 
+    } 
+ 
+ 
+    yes.style.display = 
+        "none"; 
+ 
+    no.style.display = 
+        "none"; 
+ 
+    sad.style.display = 
+        "none"; 
+ 
+    heartbreakContainer.innerHTML = 
+        ""; 
+ 
+    question.style.display = 
+        "none"; 
+ 
+ 
+    setTimeout( 
+        function() { 
+ 
+            explosionContainer.style.display = 
+                "none"; 
+ 
+            explosionContainer.innerHTML = 
+                ""; 
+ 
+            startSecondScene(); 
+ 
+        }, 
+        850 
+    ); 
+} 
+ 
+ 
+/* ========================= 
+   NO BUTTON 
+========================= */ 
+ 
+no.addEventListener( 
+    "pointerdown", 
+    function(event) { 
+ 
+        event.preventDefault(); 
+ 
+        if (noRunning) { 
+            return; 
+        } 
+ 
+        noRunning = 
+            true; 
+ 
+        moveNo(); 
+ 
+        startYesGrowth(); 
+ 
+ 
+        noMoveTimer = 
+            setInterval( 
+                function() { 
+ 
+                    moveNo(); 
+ 
+                }, 
+                80 
+            ); 
+    } 
+); 
+ 
+ 
+/* ========================= 
+   ORIGINAL YES 
+========================= */ 
+ 
+yes.addEventListener( 
+    "pointerdown", 
+    function(event) { 
+ 
+        event.preventDefault(); 
+ 
+        startLove(); 
+ 
+    } 
+); 
+ 
+ 
+/* ========================= 
+   LOVE ENDING 
+========================= */ 
+ 
+function startLove() { 
+ 
+    if (raining) { 
+        return; 
+    } 
+ 
+    raining = 
+        true; 
+ 
+ 
+    if (noMoveTimer) { 
+ 
+        clearInterval( 
+            noMoveTimer 
+        ); 
+ 
+        noMoveTimer = 
+            null; 
+    } 
+ 
+ 
+    if (yesGrowTimer) { 
+ 
+        clearInterval( 
+            yesGrowTimer 
+        ); 
+ 
+        yesGrowTimer = 
+            null; 
+    } 
+
+
+    loveMusic.currentTime = 0;
+
+    loveMusic.play().catch(
+        function() {}
+    );
+ 
+ 
+    background.style.display = 
+        "block"; 
+ 
+ 
+    question.innerHTML = 
+        'Yeheyyy! ' + 
+        '<img class="emoji" src="heart.png">' + 
+        '<img class="emoji" src="kissing_heart.png">'; 
+ 
+ 
+    question.style.display = 
+        "block"; 
+ 
+ 
+    question.style.transform = 
+        "translate(0px, 0px)"; 
+ 
+ 
+    yes.style.display = 
+        "none"; 
+ 
+    no.style.display = 
+        "none"; 
+ 
+    sad.style.display = 
+        "none"; 
+ 
+ 
+    heartbreakContainer.innerHTML = 
+        ""; 
+ 
+ 
+    hearts = []; 
+ 
+ 
+    for ( 
+        let i = 0; 
+        i < 70; 
+        i++ 
+    ) { 
+ 
+        hearts.push({ 
+ 
+            x: 
+                Math.random() * 
+                canvas.width, 
+ 
+            y: 
+                Math.random() * 
+                -canvas.height, 
+ 
+            size: 
+                18 + 
+                Math.random() * 14, 
+ 
+            speed: 
+                1 + 
+                Math.random() * 2.5, 
+ 
+            rotation: 
+                Math.random() * 
+                Math.PI * 
+                2, 
+ 
+            rotationSpeed: 
+                ( 
+                    Math.random() - 
+                    0.5 
+                ) * 
+                0.04, 
+ 
+            vx: 0, 
+            vy: 0, 
+ 
+            dragging: false 
+ 
+        }); 
+    } 
+} 
+ 
+ 
+/* ========================= 
+   SECOND SCENE 
+========================= */ 
+ 
+function startSecondScene() { 
+ 
+    secondSceneActive = 
+        true; 
+ 
+ 
+    firstScene.style.display = 
+        "none"; 
+ 
+ 
+    background.style.display = 
+        "none"; 
+ 
+ 
+    canvas.style.display = 
+        "none"; 
+
+
+    happyEndingMessage.style.display =
+        "none";
+ 
+ 
+    secondScene.style.display = 
+        "block"; 
+ 
+ 
+    secondQuestionX = 0; 
+    secondQuestionY = 0; 
+ 
+    secondSadX = 0; 
+    secondSadY = 0; 
+ 
+ 
+    secondYes1.style.left = 
+        "30%"; 
+ 
+    secondYes1.style.top = 
+        "76%"; 
+ 
+    secondYes2.style.left = 
+        "70%"; 
+ 
+    secondYes2.style.top = 
+        "76%"; 
+ 
+ 
+    secondYes1.style.transform = 
+        "translate(-50%, -50%)"; 
+ 
+    secondYes2.style.transform = 
+        "translate(-50%, -50%)"; 
+ 
+ 
+    secondQuestion.style.transform = 
+        "translate(-50%, -50%)"; 
+ 
+ 
+    secondSad.style.transform = 
+        "translate(-50%, -50%)"; 
+ 
+ 
+    startSecondSadChanges(); 
+ 
+    startSecondRain(); 
+} 
+ 
+ 
+/* ========================= 
+   SECOND RECT HELPERS 
+========================= */ 
+ 
+function getSecondButtonRect( 
+    button 
+) { 
+ 
+    let rect = 
+        button.getBoundingClientRect(); 
+ 
+    return { 
+ 
+        left: rect.left, 
+        right: rect.right, 
+        top: rect.top, 
+        bottom: rect.bottom, 
+ 
+        centerX: 
+            rect.left + 
+            rect.width / 2, 
+ 
+        centerY: 
+            rect.top + 
+            rect.height / 2 
+ 
+    }; 
+} 
+ 
+ 
+function getSecondQuestionRect() { 
+ 
+    let rect = 
+        secondQuestion 
+            .getBoundingClientRect(); 
+ 
+    return { 
+ 
+        left: rect.left, 
+        right: rect.right, 
+        top: rect.top, 
+        bottom: rect.bottom, 
+ 
+        centerX: 
+            rect.left + 
+            rect.width / 2, 
+ 
+        centerY: 
+            rect.top + 
+            rect.height / 2 
+ 
+    }; 
+} 
+ 
+ 
+function getSecondSadRect() { 
+ 
+    let rect = 
+        secondSad 
+            .getBoundingClientRect(); 
+ 
+    return { 
+ 
+        left: rect.left, 
+        right: rect.right, 
+        top: rect.top, 
+        bottom: rect.bottom, 
+ 
+        centerX: 
+            rect.left + 
+            rect.width / 2, 
+ 
+        centerY: 
+            rect.top + 
+            rect.height / 2 
+ 
+    }; 
+} 
+ 
+ 
+function rectsTouch( 
+    a, 
+    b, 
+    padding = 0 
+) { 
+ 
+    return ( 
+ 
+        a.right + 
+            padding > 
+            b.left && 
+ 
+        a.left - 
+            padding < 
+            b.right && 
+ 
+        a.bottom + 
+            padding > 
+            b.top && 
+ 
+        a.top - 
+            padding < 
+            b.bottom 
+ 
+    ); 
+} 
+ 
+ 
+/* ========================= 
+   SECOND QUESTION PUSH 
+========================= */ 
+ 
+function pushSecondQuestionFromButton( 
+    button 
+) { 
+ 
+    let buttonRect = 
+        getSecondButtonRect( 
+            button 
+        ); 
+ 
+    let questionRect = 
+        getSecondQuestionRect(); 
+ 
+ 
+    if ( 
+        !rectsTouch( 
+            buttonRect, 
+            questionRect, 
+            8 
+        ) 
+    ) { 
+ 
+        secondQuestionX *= 
+            0.96; 
+ 
+        secondQuestionY *= 
+            0.96; 
+ 
+ 
+        if ( 
+            Math.abs( 
+                secondQuestionX 
+            ) < 0.1 
+        ) { 
+ 
+            secondQuestionX = 
+                0; 
+        } 
+ 
+ 
+        if ( 
+            Math.abs( 
+                secondQuestionY 
+            ) < 0.1 
+        ) { 
+ 
+            secondQuestionY = 
+                0; 
+        } 
+ 
+ 
+        secondQuestion.style.transform = 
+            "translate(calc(-50% + " + 
+            secondQuestionX + 
+            "px), calc(-50% + " + 
+            secondQuestionY + 
+            "px))"; 
+ 
+        return; 
+    } 
+ 
+ 
+    let dx = 
+        questionRect.centerX - 
+        buttonRect.centerX; 
+ 
+    let dy = 
+        questionRect.centerY - 
+        buttonRect.centerY; 
+ 
+ 
+    let distance = 
+        Math.sqrt( 
+            dx * dx + 
+            dy * dy 
+        ); 
+ 
+ 
+    if ( 
+        distance < 1 
+    ) { 
+ 
+        dx = 0; 
+        dy = -1; 
+ 
+        distance = 1; 
+    } 
+ 
+ 
+    let dirX = 
+        dx / distance; 
+ 
+    let dirY = 
+        dy / distance; 
+ 
+ 
+    let overlapX = 
+        Math.min( 
+            buttonRect.right - 
+                questionRect.left, 
+ 
+            questionRect.right - 
+                buttonRect.left 
+        ); 
+ 
+ 
+    let overlapY = 
+        Math.min( 
+            buttonRect.bottom - 
+                questionRect.top, 
+ 
+            questionRect.bottom - 
+                buttonRect.top 
+        ); 
+ 
+ 
+    if ( 
+        overlapX < 
+        overlapY 
+    ) { 
+ 
+        secondQuestionX += 
+            dirX * 
+            Math.min( 
+                overlapX * 0.12, 
+                5 
+            ); 
+ 
+    } else { 
+ 
+        secondQuestionY += 
+            dirY * 
+            Math.min( 
+                overlapY * 0.12, 
+                5 
+            ); 
+    } 
+ 
+ 
+    secondQuestionX = 
+        Math.max( 
+            -window.innerWidth * 0.4, 
+            Math.min( 
+                window.innerWidth * 0.4, 
+                secondQuestionX 
+            ) 
+        ); 
+ 
+ 
+    secondQuestionY = 
+        Math.max( 
+            -window.innerHeight * 0.35, 
+            Math.min( 
+                window.innerHeight * 0.35, 
+                secondQuestionY 
+            ) 
+        ); 
+ 
+ 
+    secondQuestion.style.transform = 
+        "translate(calc(-50% + " + 
+        secondQuestionX + 
+        "px), calc(-50% + " + 
+        secondQuestionY + 
+        "px))"; 
+} 
+ 
+ 
+/* ========================= 
+   SECOND SAD PUSH 
+========================= */ 
+ 
+function pushSecondSadFromButton( 
+    button 
+) { 
+ 
+    let buttonRect = 
+        getSecondButtonRect( 
+            button 
+        ); 
+ 
+    let sadRect = 
+        getSecondSadRect(); 
+ 
+ 
+    if ( 
+        !rectsTouch( 
+            buttonRect, 
+            sadRect, 
+            10 
+        ) 
+    ) { 
+        return; 
+    } 
+ 
+ 
+    let dx = 
+        sadRect.centerX - 
+        buttonRect.centerX; 
+ 
+    let dy = 
+        sadRect.centerY - 
+        buttonRect.centerY; 
+ 
+ 
+    let distance = 
+        Math.sqrt( 
+            dx * dx + 
+            dy * dy 
+        ); 
+ 
+ 
+    if ( 
+        distance < 1 
+    ) { 
+ 
+        dx = 0; 
+        dy = -1; 
+ 
+        distance = 1; 
+    } 
+ 
+ 
+    let dirX = 
+        dx / distance; 
+ 
+    let dirY = 
+        dy / distance; 
+ 
+ 
+    secondSadX += 
+        dirX * 5; 
+ 
+    secondSadY += 
+        dirY * 5; 
+ 
+ 
+    secondSadX = 
+        Math.max( 
+            -window.innerWidth * 0.42, 
+            Math.min( 
+                window.innerWidth * 0.42, 
+                secondSadX 
+            ) 
+        ); 
+ 
+ 
+    secondSadY = 
+        Math.max( 
+            -window.innerHeight * 0.42, 
+            Math.min( 
+                window.innerHeight * 0.42, 
+                secondSadY 
+            ) 
+        ); 
+ 
+ 
+    secondSad.style.transform = 
+        "translate(calc(-50% + " + 
+        secondSadX + 
+        "px), calc(-50% + " + 
+        secondSadY + 
+        "px))"; 
+} 
+ 
+ 
+/* ========================= 
+   SECOND BUTTON SEPARATION 
+========================= */ 
+ 
+function separateSecondButtons() { 
+ 
+    let a = 
+        getSecondButtonRect( 
+            secondYes1 
+        ); 
+ 
+    let b = 
+        getSecondButtonRect( 
+            secondYes2 
+        ); 
+ 
+ 
+    if ( 
+        !rectsTouch( 
+            a, 
+            b, 
+            5 
+        ) 
+    ) { 
+        return; 
+    } 
+ 
+ 
+    let dx = 
+        a.centerX - 
+        b.centerX; 
+ 
+    let dy = 
+        a.centerY - 
+        b.centerY; 
+ 
+ 
+    let distance = 
+        Math.sqrt( 
+            dx * dx + 
+            dy * dy 
+        ); 
+ 
+ 
+    if ( 
+        distance < 1 
+    ) { 
+ 
+        dx = -1; 
+        dy = 0; 
+ 
+        distance = 1; 
+    } 
+ 
+ 
+    let dirX = 
+        dx / distance; 
+ 
+    let dirY = 
+        dy / distance; 
+ 
+ 
+    let move = 3.5; 
+ 
+ 
+    let left = 
+        parseFloat( 
+            secondYes1.style.left 
+        ); 
+ 
+    let top = 
+        parseFloat( 
+            secondYes1.style.top 
+        ); 
+ 
+ 
+    let left2 = 
+        parseFloat( 
+            secondYes2.style.left 
+        ); 
+ 
+    let top2 = 
+        parseFloat( 
+            secondYes2.style.top 
+        ); 
+ 
+ 
+    left += 
+        ( 
+            dirX * move 
+        ) / 
+        window.innerWidth * 
+        100; 
+ 
+    top += 
+        ( 
+            dirY * move 
+        ) / 
+        window.innerHeight * 
+        100; 
+ 
+ 
+    left2 -= 
+        ( 
+            dirX * move 
+        ) / 
+        window.innerWidth * 
+        100; 
+ 
+    top2 -= 
+        ( 
+            dirY * move 
+        ) / 
+        window.innerHeight * 
+        100; 
+ 
+ 
+    secondYes1.style.left = 
+        Math.max( 
+            5, 
+            Math.min( 
+                95, 
+                left 
+            ) 
+        ) + "%"; 
+ 
+ 
+    secondYes1.style.top = 
+        Math.max( 
+            5, 
+            Math.min( 
+                95, 
+                top 
+            ) 
+        ) + "%"; 
+ 
+ 
+    secondYes2.style.left = 
+        Math.max( 
+            5, 
+            Math.min( 
+                95, 
+                left2 
+            ) 
+        ) + "%"; 
+ 
+ 
+    secondYes2.style.top = 
+        Math.max( 
+            5, 
+            Math.min( 
+                95, 
+                top2 
+            ) 
+        ) + "%"; 
+} 
+ 
+ 
+/* ========================= 
+   SECOND SCENE LOOP 
+   NO BUTTON GROWTH 
+========================= */ 
+ 
+function secondSceneLoop() { 
+ 
+    if ( 
+        secondSceneActive 
+    ) { 
+ 
+        pushSecondQuestionFromButton( 
+            secondYes1 
+        ); 
+ 
+        pushSecondQuestionFromButton( 
+            secondYes2 
+        ); 
+ 
+        pushSecondSadFromButton( 
+            secondYes1 
+        ); 
+ 
+        pushSecondSadFromButton( 
+            secondYes2 
+        ); 
+ 
+        separateSecondButtons(); 
+    } 
+ 
+    requestAnimationFrame( 
+        secondSceneLoop 
+    ); 
+} 
+ 
+ 
+secondSceneLoop(); 
+ 
+ 
+/* ========================= 
+   SECOND YES BUTTONS 
+========================= */ 
+ 
+secondYes1.addEventListener( 
+    "pointerdown", 
+    function(event) { 
+ 
+        event.preventDefault(); 
+ 
+        startLoveFromSecond(); 
+ 
+    } 
+); 
+ 
+ 
+secondYes2.addEventListener( 
+    "pointerdown", 
+    function(event) { 
+ 
+        event.preventDefault(); 
+ 
+        startLoveFromSecond(); 
+ 
+    } 
+); 
+ 
+ 
+/* ========================= 
+   SECOND LOVE 
+========================= */ 
+ 
+function startLoveFromSecond() { 
+ 
+    if (raining) { 
+        return; 
+    } 
+ 
+    raining = 
+        true; 
+ 
+    secondSceneActive = 
+        false; 
+ 
+ 
+    if ( 
+        secondSadTimer 
+    ) { 
+ 
+        clearInterval( 
+            secondSadTimer 
+        ); 
+ 
+        secondSadTimer = 
+            null; 
+    } 
+ 
+ 
+    stopSecondRain(); 
+ 
+ 
+    secondScene.style.display = 
+        "none"; 
+ 
+ 
+    background.style.display = 
+        "block"; 
+ 
+ 
+    canvas.style.display = 
+        "block"; 
+
+
+    loveMusic.currentTime = 0;
+
+    loveMusic.play().catch(
+        function() {}
+    );
+ 
+ 
+    question.innerHTML = 
+        'Yeheyyy! ' + 
+        '<img class="emoji" src="heart.png">' + 
+        '<img class="emoji" src="kissing_heart.png">'; 
+ 
+ 
+    question.style.display = 
+        "block"; 
+ 
+ 
+    question.style.transform = 
+        "translate(0px, 0px)"; 
+ 
+ 
+    hearts = []; 
+ 
+ 
+    for ( 
+        let i = 0; 
+        i < 70; 
+        i++ 
+    ) { 
+ 
+        hearts.push({ 
+ 
+            x: 
+                Math.random() * 
+                canvas.width, 
+ 
+            y: 
+                Math.random() * 
+                -canvas.height, 
+ 
+            size: 
+                18 + 
+                Math.random() * 14, 
+ 
+            speed: 
+                1 + 
+                Math.random() * 2.5, 
+ 
+            rotation: 
+                Math.random() * 
+                Math.PI * 
+                2, 
+ 
+            rotationSpeed: 
+                ( 
+                    Math.random() - 
+                    0.5 
+                ) * 
+                0.04, 
+ 
+            vx: 0, 
+            vy: 0, 
+ 
+            dragging: false 
+ 
+        }); 
+    }
+
+
+    /* 
+       Show the separate happy-ending
+       message because firstScene is
+       still hidden after the second scene.
+    */
+    happyEndingMessage.style.display =
+        "block";
+} 
+ 
+ 
+/* ========================= 
+   FALLING HEARTS 
+========================= */ 
+ 
+function drawHeart( 
+    x, 
+    y, 
+    size, 
+    rotation 
+) { 
+ 
+    ctx.save(); 
+ 
+ 
+    ctx.translate( 
+        x, 
+        y 
+    ); 
+ 
+ 
+    ctx.rotate( 
+        rotation 
+    ); 
+ 
+ 
+    ctx.beginPath(); 
+ 
+ 
+    ctx.moveTo( 
+        0, 
+        size * 0.45 
+    ); 
+ 
+ 
+    ctx.bezierCurveTo( 
+        -size * 0.9, 
+        -size * 0.15, 
+        -size * 0.6, 
+        -size * 0.9, 
+        0, 
+        -size * 0.35 
+    ); 
+ 
+ 
+    ctx.bezierCurveTo( 
+        size * 0.6, 
+        -size * 0.9, 
+        size * 0.9, 
+        -size * 0.15, 
+        0, 
+        size * 0.45 
+    ); 
+ 
+ 
+    ctx.fillStyle = 
+        "red"; 
+ 
+ 
+    ctx.fill(); 
+ 
+ 
+    ctx.restore(); 
+} 
+ 
+ 
+function getPointerPosition( 
+    event 
+) { 
+ 
+    let rect = 
+        canvas.getBoundingClientRect(); 
+ 
+    return { 
+ 
+        x: 
+            event.clientX - 
+            rect.left, 
+ 
+        y: 
+            event.clientY - 
+            rect.top 
+ 
+    }; 
+} 
+ 
+ 
+/* ========================= 
+   DRAG HEARTS 
+========================= */ 
+ 
+canvas.addEventListener( 
+    "pointerdown", 
+    function(event) { 
+ 
+        if (!raining) { 
+            return; 
+        } 
+ 
+ 
+        let pointer = 
+            getPointerPosition( 
+                event 
+            ); 
+ 
+ 
+        for ( 
+            let i = 
+                hearts.length - 1; 
+            i >= 0; 
+            i-- 
+        ) { 
+ 
+            let heart = 
+                hearts[i]; 
+ 
+ 
+            let dx = 
+                pointer.x - 
+                heart.x; 
+ 
+            let dy = 
+                pointer.y - 
+                heart.y; 
+ 
+ 
+            let distance = 
+                Math.sqrt( 
+                    dx * dx + 
+                    dy * dy 
+                ); 
+ 
+ 
+            if ( 
+                distance < 
+                heart.size * 1.8 
+            ) { 
+ 
+                draggedHeart = 
+                    heart; 
+ 
+ 
+                dragOffsetX = 
+                    pointer.x - 
+                    heart.x; 
+ 
+                dragOffsetY = 
+                    pointer.y - 
+                    heart.y; 
+ 
+ 
+                lastPointerX = 
+                    pointer.x; 
+ 
+                lastPointerY = 
+                    pointer.y; 
+ 
+ 
+                swipeX = 0; 
+                swipeY = 0; 
+ 
+ 
+                heart.dragging = 
+                    true; 
+ 
+ 
+                canvas.setPointerCapture( 
+                    event.pointerId 
+                ); 
+ 
+ 
+                break; 
+            } 
+        } 
+    } 
+); 
+ 
+ 
+canvas.addEventListener( 
+    "pointermove", 
+    function(event) { 
+ 
+        if (!draggedHeart) { 
+            return; 
+        } 
+ 
+ 
+        let pointer = 
+            getPointerPosition( 
+                event 
+            ); 
+ 
+ 
+        swipeX = 
+            pointer.x - 
+            lastPointerX; 
+ 
+        swipeY = 
+            pointer.y - 
+            lastPointerY; 
+ 
+ 
+        draggedHeart.x = 
+            pointer.x - 
+            dragOffsetX; 
+ 
+        draggedHeart.y = 
+            pointer.y - 
+            dragOffsetY; 
+ 
+ 
+        lastPointerX = 
+            pointer.x; 
+ 
+        lastPointerY = 
+            pointer.y; 
+ 
+ 
+        repelNearbyHearts(); 
+    } 
+); 
+ 
+ 
+function repelNearbyHearts() { 
+ 
+    for ( 
+        let heart of hearts 
+    ) { 
+ 
+        if ( 
+            heart === 
+            draggedHeart 
+        ) { 
+            continue; 
+        } 
+ 
+ 
+        let dx = 
+            heart.x - 
+            draggedHeart.x; 
+ 
+        let dy = 
+            heart.y - 
+            draggedHeart.y; 
+ 
+ 
+        let distance = 
+            Math.sqrt( 
+                dx * dx + 
+                dy * dy 
+            ); 
+ 
+ 
+        let touchingDistance = 
+            heart.size + 
+            draggedHeart.size + 
+            35; 
+ 
+ 
+        if ( 
+            distance < 
+            touchingDistance 
+        ) { 
+ 
+            if ( 
+                distance < 1 
+            ) { 
+                distance = 1; 
+            } 
+ 
+ 
+            let dirX = 
+                dx / 
+                distance; 
+ 
+            let dirY = 
+                dy / 
+                distance; 
+ 
+ 
+            let overlap = 
+                touchingDistance - 
+                distance; 
+ 
+ 
+            let force = 
+                Math.min( 
+                    overlap * 0.8, 
+                    25 
+                ); 
+ 
+ 
+            heart.x += 
+                dirX * 
+                force; 
+ 
+            heart.y += 
+                dirY * 
+                force; 
+ 
+ 
+            heart.vx += 
+                dirX * 
+                force * 
+                0.9; 
+ 
+            heart.vy += 
+                dirY * 
+                force * 
+                0.9; 
+ 
+ 
+            heart.vx += 
+                swipeX * 
+                2.5; 
+ 
+            heart.vy += 
+                swipeY * 
+                2.5; 
+        } 
+    } 
+} 
+ 
+ 
+canvas.addEventListener( 
+    "pointerup", 
+    function(event) { 
+ 
+        if (draggedHeart) { 
+ 
+            draggedHeart.dragging = 
+                false; 
+ 
+            draggedHeart.vx = 
+                swipeX * 2.5; 
+ 
+            draggedHeart.vy = 
+                swipeY * 2.5; 
+ 
+            draggedHeart = 
+                null; 
+        } 
+ 
+ 
+        if ( 
+            canvas.hasPointerCapture( 
+                event.pointerId 
+            ) 
+        ) { 
+ 
+            canvas.releasePointerCapture( 
+                event.pointerId 
+            ); 
+        } 
+    } 
+); 
+ 
+ 
+canvas.addEventListener( 
+    "pointercancel", 
+    function(event) { 
+ 
+        if (draggedHeart) { 
+ 
+            draggedHeart.dragging = 
+                false; 
+ 
+            draggedHeart = 
+                null; 
+        } 
+ 
+ 
+        if ( 
+            canvas.hasPointerCapture( 
+                event.pointerId 
+            ) 
+        ) { 
+ 
+            canvas.releasePointerCapture( 
+                event.pointerId 
+            ); 
+        } 
+    } 
+); 
+ 
+ 
+/* ========================= 
+   ANIMATION 
+========================= */ 
+ 
+function animate() { 
+ 
+    ctx.clearRect( 
+        0, 
+        0, 
+        canvas.width, 
+        canvas.height 
+    ); 
+ 
+ 
+    if (raining) { 
+ 
+        for ( 
+            let heart of hearts 
+        ) { 
+ 
+            if ( 
+                !heart.dragging 
+            ) { 
+ 
+                heart.y += 
+                    heart.speed; 
+ 
+                heart.x += 
+                    heart.vx; 
+ 
+                heart.y += 
+                    heart.vy; 
+ 
+                heart.vx *= 
+                    0.94; 
+ 
+                heart.vy *= 
+                    0.94; 
+ 
+                heart.rotation += 
+                    heart.rotationSpeed; 
+            } 
+ 
+ 
+            drawHeart( 
+                heart.x, 
+                heart.y, 
+                heart.size, 
+                heart.rotation 
+            ); 
+ 
+ 
+            if ( 
+                heart.y > 
+                canvas.height + 50 
+            ) { 
+ 
+                heart.y = -50; 
+ 
+                heart.x = 
+                    Math.random() * 
+                    canvas.width; 
+ 
+                heart.vx = 0; 
+                heart.vy = 0; 
+            } 
+ 
+ 
+            if ( 
+                heart.x < -50 
+            ) { 
+ 
+                heart.x = 
+                    canvas.width + 50; 
+            } 
+ 
+ 
+            if ( 
+                heart.x > 
+                canvas.width + 50 
+            ) { 
+ 
+                heart.x = -50; 
+            } 
+        } 
+    } 
+ 
+ 
+    requestAnimationFrame( 
+        animate 
+    ); 
+} 
+ 
+ 
+animate(); 
+ 
+ 
+/* ========================= 
+   RESIZE 
+========================= */ 
+ 
+window.addEventListener( 
+    "resize", 
+    function() { 
+ 
+        resizeCanvas(); 
+ 
+ 
+        if ( 
+            noRunning && 
+            !secondSceneActive 
+        ) { 
+ 
+            pushQuestion(); 
+ 
+            pushSadFromYes(); 
+ 
+            pushAllHeartbreaks(); 
+        } 
+ 
+ 
+        if ( 
+            secondSceneActive 
+        ) { 
+ 
+            pushSecondQuestionFromButton( 
+                secondYes1 
+            ); 
+ 
+            pushSecondQuestionFromButton( 
+                secondYes2 
+            ); 
+ 
+            pushSecondSadFromButton( 
+                secondYes1 
+            ); 
+ 
+            pushSecondSadFromButton( 
+                secondYes2 
+            ); 
+        } 
+    } 
+); 
+ 
+</script> 
+ 
+</body> 
+</html>
