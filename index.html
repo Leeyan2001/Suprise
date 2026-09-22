@@ -173,174 +173,108 @@ canvas {
 
 <body>
 
-
 <div class="background" id="background">
-
     <img src="gif.gif">
-
 </div>
-
 
 <div class="box">
 
     <h1 id="question">
-
         Do you love me?
-        
-        <img
-            class="emoji"
-            src="https://static.xx.fbcdn.net/images/emoji.php/v9/t55/1/32/1f97a.png"
-        >
-
+        <img class="emoji" src="emojis/crying_cat_face.png">
     </h1>
 
-
     <div class="buttons">
-
-        <button id="yes">
-            YES
-        </button>
-
-        <button id="no">
-            NO
-        </button>
-
+        <button id="yes">YES</button>
+        <button id="no">NO</button>
     </div>
 
 </div>
 
-
 <div id="sad">
-
     <img id="sadImage" src="">
-
 </div>
 
-
 <canvas id="canvas"></canvas>
-
 
 <script>
 
 const yes = document.getElementById("yes");
-
 const no = document.getElementById("no");
-
 const question = document.getElementById("question");
-
 const background = document.getElementById("background");
-
 const sad = document.getElementById("sad");
-
 const sadImage = document.getElementById("sadImage");
-
 const canvas = document.getElementById("canvas");
-
 const ctx = canvas.getContext("2d");
 
-
 let hearts = [];
-
 let raining = false;
 
 let draggedHeart = null;
 
 let dragOffsetX = 0;
-
 let dragOffsetY = 0;
 
 let lastPointerX = 0;
-
 let lastPointerY = 0;
 
 let swipeX = 0;
-
 let swipeY = 0;
 
-
 function resizeCanvas() {
-
     canvas.width = window.innerWidth;
-
     canvas.height = window.innerHeight;
-
 }
-
 
 resizeCanvas();
 
+const sadFaces = [
 
-let sadFaces = [
-
-    "https://static.xx.fbcdn.net/images/emoji.php/v9/t55/1/32/1f97a.png",
-
-    "https://static.xx.fbcdn.net/images/emoji.php/v9/tfa/1/32/1f62d.png",
-
-    "https://static.xx.fbcdn.net/images/emoji.php/v9/t2b/1/32/1f614.png",
-
-    "https://static.xx.fbcdn.net/images/emoji.php/v9/tdc/1/32/1f61e.png",
-
-    "https://static.xx.fbcdn.net/images/emoji.php/v9/t85/1/32/1f641.png",
-
-    "https://static.xx.fbcdn.net/images/emoji.php/v9/td9/1/32/2639.png",
-
-    "https://static.xx.fbcdn.net/images/emoji.php/v9/t4f/1/32/1f629.png",
-
-    "https://static.xx.fbcdn.net/images/emoji.php/v9/t5d/1/32/1f61f.png",
-
-    "https://static.xx.fbcdn.net/images/emoji.php/v9/tac/1/32/1f615.png",
-
-    "https://static.xx.fbcdn.net/images/emoji.php/v9/t49/1/32/1f623.png",
-
-    "https://static.xx.fbcdn.net/images/emoji.php/v9/t2d/1/32/1f616.png",
-
-    "https://static.xx.fbcdn.net/images/emoji.php/v9/tf8/1/32/1f62b.png",
-
-    "https://static.xx.fbcdn.net/images/emoji.php/v9/tc8/1/32/1f622.png",
-
-    "https://static.xx.fbcdn.net/images/emoji.php/v9/t65/1/32/1f630.png",
-
-    "https://static.xx.fbcdn.net/images/emoji.php/v9/t4b/1/32/1f625.png",
-
-    "https://static.xx.fbcdn.net/images/emoji.php/v9/tce/1/32/1f628.png",
-
-    "https://static.xx.fbcdn.net/images/emoji.php/v9/taa/1/32/1f613.png"
+    "emojis/crying_cat_face.png",
+    "emojis/tired_face.png",
+    "emojis/weary.png",
+    "emojis/disappointed.png",
+    "emojis/sweat.png",
+    "emojis/confounded.png",
+    "emojis/fearful.png",
+    "emojis/cold_sweat.png",
+    "emojis/disappointed_relieved.png",
+    "emojis/cry.png",
+    "emojis/sob.png"
 
 ];
-
 
 function moveNo() {
 
     no.classList.add("moving");
 
-    let padding = 15;
+    const padding = 15;
 
-    let maxX =
+    const maxX =
         window.innerWidth -
         no.offsetWidth -
         padding;
 
-    let maxY =
+    const maxY =
         window.innerHeight -
         no.offsetHeight -
         padding;
 
-    let x =
+    const x =
         padding +
         Math.random() *
         Math.max(0, maxX - padding);
 
-    let y =
+    const y =
         padding +
         Math.random() *
         Math.max(0, maxY - padding);
 
     no.style.left = x + "px";
-
     no.style.top = y + "px";
 
-
-    let face =
+    const face =
         sadFaces[
             Math.floor(
                 Math.random() *
@@ -348,20 +282,14 @@ function moveNo() {
             )
         ];
 
-
     sadImage.src = face;
 
     sad.style.display = "block";
 
-
     setTimeout(function() {
-
         sad.style.display = "none";
-
     }, 1200);
-
 }
-
 
 no.addEventListener("pointerdown", function(event) {
 
@@ -371,7 +299,6 @@ no.addEventListener("pointerdown", function(event) {
 
 });
 
-
 yes.addEventListener("pointerdown", function(event) {
 
     event.preventDefault();
@@ -380,68 +307,42 @@ yes.addEventListener("pointerdown", function(event) {
 
 });
 
-
 function startLove() {
 
     if (raining) {
         return;
     }
 
-
     raining = true;
-
 
     background.style.display = "block";
 
-
     question.innerHTML =
         'I knew it! ' +
-
-        '<img class="emoji" src="' +
-        'https://static.xx.fbcdn.net/images/emoji.php/v9/t72/1/32/2764.png' +
-        '">' +
-
-        '<img class="emoji" src="' +
-        'https://static.xx.fbcdn.net/images/emoji.php/v9/t2f/1/32/1f618.png' +
-        '">';
-
+        '<img class="emoji" src="emojis/heart.png">' +
+        '<img class="emoji" src="emojis/kissing_heart.png">';
 
     yes.style.display = "none";
-
     no.style.display = "none";
 
-
     hearts = [];
-
 
     for (let i = 0; i < 70; i++) {
 
         hearts.push({
 
-            x:
-                Math.random() *
-                canvas.width,
+            x: Math.random() * canvas.width,
 
-            y:
-                Math.random() *
-                -canvas.height,
+            y: Math.random() * -canvas.height,
 
-            size:
-                18 +
-                Math.random() * 14,
+            size: 18 + Math.random() * 14,
 
-            speed:
-                1 +
-                Math.random() * 2.5,
+            speed: 1 + Math.random() * 2.5,
 
-            rotation:
-                Math.random() *
-                Math.PI *
-                2,
+            rotation: Math.random() * Math.PI * 2,
 
             rotationSpeed:
-                (Math.random() - 0.5) *
-                0.04,
+                (Math.random() - 0.5) * 0.04,
 
             vx: 0,
 
@@ -455,13 +356,7 @@ function startLove() {
 
 }
 
-
-function drawHeart(
-    x,
-    y,
-    size,
-    rotation
-) {
+function drawHeart(x, y, size, rotation) {
 
     ctx.save();
 
@@ -502,7 +397,6 @@ function drawHeart(
 
 }
 
-
 function getPointerPosition(event) {
 
     const rect =
@@ -522,7 +416,6 @@ function getPointerPosition(event) {
 
 }
 
-
 canvas.addEventListener(
     "pointerdown",
     function(event) {
@@ -531,10 +424,8 @@ canvas.addEventListener(
             return;
         }
 
-
         const pointer =
             getPointerPosition(event);
-
 
         for (
             let i = hearts.length - 1;
@@ -542,70 +433,51 @@ canvas.addEventListener(
             i--
         ) {
 
-            const heart =
-                hearts[i];
+            const heart = hearts[i];
 
+            const dx =
+                pointer.x -
+                heart.x;
+
+            const dy =
+                pointer.y -
+                heart.y;
 
             const distance =
                 Math.sqrt(
-
-                    Math.pow(
-                        pointer.x -
-                        heart.x,
-                        2
-                    )
-
-                    +
-
-                    Math.pow(
-                        pointer.y -
-                        heart.y,
-                        2
-                    )
-
+                    dx * dx +
+                    dy * dy
                 );
-
 
             if (
                 distance <
-                heart.size * 1.5
+                heart.size * 1.8
             ) {
 
-                draggedHeart =
-                    heart;
-
+                draggedHeart = heart;
 
                 dragOffsetX =
                     pointer.x -
                     heart.x;
 
-
                 dragOffsetY =
                     pointer.y -
                     heart.y;
 
-
                 lastPointerX =
                     pointer.x;
-
 
                 lastPointerY =
                     pointer.y;
 
-
                 swipeX = 0;
-
                 swipeY = 0;
 
-
-                heart.dragging =
-                    true;
-
+                heart.dragging = true;
 
                 canvas.setPointerCapture(
                     event.pointerId
                 );
-
 
                 break;
 
@@ -616,7 +488,6 @@ canvas.addEventListener(
     }
 );
 
-
 canvas.addEventListener(
     "pointermove",
     function(event) {
@@ -625,68 +496,51 @@ canvas.addEventListener(
             return;
         }
 
-
         const pointer =
             getPointerPosition(event);
-
 
         swipeX =
             pointer.x -
             lastPointerX;
 
-
         swipeY =
             pointer.y -
             lastPointerY;
-
 
         draggedHeart.x =
             pointer.x -
             dragOffsetX;
 
-
         draggedHeart.y =
             pointer.y -
             dragOffsetY;
 
-
         lastPointerX =
             pointer.x;
 
-
         lastPointerY =
             pointer.y;
-
 
         repelNearbyHearts();
 
     }
 );
 
-
 function repelNearbyHearts() {
 
-    for (
-        let heart of hearts
-    ) {
+    for (let heart of hearts) {
 
-        if (
-            heart ===
-            draggedHeart
-        ) {
+        if (heart === draggedHeart) {
             continue;
         }
-
 
         let dx =
             heart.x -
             draggedHeart.x;
 
-
         let dy =
             heart.y -
             draggedHeart.y;
-
 
         let distance =
             Math.sqrt(
@@ -694,12 +548,10 @@ function repelNearbyHearts() {
                 dy * dy
             );
 
-
-        let touchingDistance =
+        const touchingDistance =
             heart.size +
             draggedHeart.size +
-            20;
-
+            35;
 
         if (
             distance <
@@ -710,63 +562,53 @@ function repelNearbyHearts() {
                 distance = 1;
             }
 
-
-            let push =
-                (
-                    touchingDistance -
-                    distance
-                ) / touchingDistance;
-
-
-            let directionX =
+            const directionX =
                 dx / distance;
 
-
-            let directionY =
+            const directionY =
                 dy / distance;
 
+            const overlap =
+                touchingDistance -
+                distance;
 
-            heart.vx +=
-                directionX *
-                push *
-                8;
-
-
-            heart.vy +=
-                directionY *
-                push *
-                8;
-
-
-            heart.vx +=
-                swipeX *
-                push *
-                1.5;
-
-
-            heart.vy +=
-                swipeY *
-                push *
-                1.5;
-
+            const force =
+                Math.min(
+                    overlap * 0.8,
+                    25
+                );
 
             heart.x +=
                 directionX *
-                push *
-                5;
-
+                force;
 
             heart.y +=
                 directionY *
-                push *
-                5;
+                force;
+
+            heart.vx +=
+                directionX *
+                force *
+                0.9;
+
+            heart.vy +=
+                directionY *
+                force *
+                0.9;
+
+            heart.vx +=
+                swipeX *
+                2.5;
+
+            heart.vy +=
+                swipeY *
+                2.5;
 
         }
 
     }
 
 }
-
 
 canvas.addEventListener(
     "pointerup",
@@ -777,20 +619,15 @@ canvas.addEventListener(
             draggedHeart.dragging =
                 false;
 
-
             draggedHeart.vx =
-                swipeX * 1.8;
-
+                swipeX * 2.5;
 
             draggedHeart.vy =
-                swipeY * 1.8;
+                swipeY * 2.5;
 
-
-            draggedHeart =
-                null;
+            draggedHeart = null;
 
         }
-
 
         if (
             canvas.hasPointerCapture(
@@ -806,7 +643,6 @@ canvas.addEventListener(
 
     }
 );
-
 
 canvas.addEventListener(
     "pointercancel",
@@ -817,12 +653,9 @@ canvas.addEventListener(
             draggedHeart.dragging =
                 false;
 
-
-            draggedHeart =
-                null;
+            draggedHeart = null;
 
         }
-
 
         if (
             canvas.hasPointerCapture(
@@ -839,7 +672,6 @@ canvas.addEventListener(
     }
 );
 
-
 function animate() {
 
     ctx.clearRect(
@@ -849,55 +681,36 @@ function animate() {
         canvas.height
     );
 
-
     if (raining) {
 
-        for (
-            let heart of hearts
-        ) {
+        for (let heart of hearts) {
 
-            if (
-                !heart.dragging
-            ) {
+            if (!heart.dragging) {
 
                 heart.y +=
                     heart.speed;
 
-
                 heart.x +=
                     heart.vx;
-
 
                 heart.y +=
                     heart.vy;
 
+                heart.vx *= 0.94;
 
-                heart.vx *=
-                    0.94;
-
-
-                heart.vy *=
-                    0.94;
-
+                heart.vy *= 0.94;
 
                 heart.rotation +=
                     heart.rotationSpeed;
 
             }
 
-
             drawHeart(
-
                 heart.x,
-
                 heart.y,
-
                 heart.size,
-
                 heart.rotation
-
             );
-
 
             if (
                 heart.y >
@@ -906,18 +719,15 @@ function animate() {
 
                 heart.y = -50;
 
-
                 heart.x =
                     Math.random() *
                     canvas.width;
-
 
                 heart.vx = 0;
 
                 heart.vy = 0;
 
             }
-
 
             if (
                 heart.x <
@@ -928,7 +738,6 @@ function animate() {
                     canvas.width + 50;
 
             }
-
 
             if (
                 heart.x >
@@ -943,16 +752,13 @@ function animate() {
 
     }
 
-
     requestAnimationFrame(
         animate
     );
 
 }
 
-
 animate();
-
 
 window.addEventListener(
     "resize",
@@ -966,4 +772,5 @@ window.addEventListener(
 </script>
 
 </body>
+
 </html>
