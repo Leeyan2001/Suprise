@@ -62,8 +62,8 @@ h1 {
 }
 
 .emoji {
-    width: 32px;
-    height: 32px;
+    width: 22px;
+    height: 22px;
     object-fit: contain;
     vertical-align: middle;
 }
@@ -108,8 +108,8 @@ button {
     left: 50%;
     top: 62%;
     transform: translate(-50%, -50%);
-    width: 280px;
-    height: 280px;
+    width: 180px;
+    height: 180px;
     display: none;
     z-index: 5;
     pointer-events: none;
@@ -154,15 +154,15 @@ canvas {
     }
 
     #sad {
-        width: 70vw;
-        height: 70vw;
-        max-width: 300px;
-        max-height: 300px;
+        width: 45vw;
+        height: 45vw;
+        max-width: 200px;
+        max-height: 200px;
     }
 
     .emoji {
-        width: 28px;
-        height: 28px;
+        width: 20px;
+        height: 20px;
     }
 
 }
@@ -223,8 +223,10 @@ let swipeX = 0;
 let swipeY = 0;
 
 function resizeCanvas() {
+
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
+
 }
 
 resizeCanvas();
@@ -287,8 +289,11 @@ function moveNo() {
     sad.style.display = "block";
 
     setTimeout(function() {
+
         sad.style.display = "none";
+
     }, 1200);
+
 }
 
 no.addEventListener("pointerdown", function(event) {
@@ -331,18 +336,30 @@ function startLove() {
 
         hearts.push({
 
-            x: Math.random() * canvas.width,
+            x:
+                Math.random() *
+                canvas.width,
 
-            y: Math.random() * -canvas.height,
+            y:
+                Math.random() *
+                -canvas.height,
 
-            size: 18 + Math.random() * 14,
+            size:
+                18 +
+                Math.random() * 14,
 
-            speed: 1 + Math.random() * 2.5,
+            speed:
+                1 +
+                Math.random() * 2.5,
 
-            rotation: Math.random() * Math.PI * 2,
+            rotation:
+                Math.random() *
+                Math.PI *
+                2,
 
             rotationSpeed:
-                (Math.random() - 0.5) * 0.04,
+                (Math.random() - 0.5) *
+                0.04,
 
             vx: 0,
 
@@ -356,7 +373,12 @@ function startLove() {
 
 }
 
-function drawHeart(x, y, size, rotation) {
+function drawHeart(
+    x,
+    y,
+    size,
+    rotation
+) {
 
     ctx.save();
 
@@ -563,10 +585,12 @@ function repelNearbyHearts() {
             }
 
             const directionX =
-                dx / distance;
+                dx /
+                distance;
 
             const directionY =
-                dy / distance;
+                dy /
+                distance;
 
             const overlap =
                 touchingDistance -
