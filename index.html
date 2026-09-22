@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html>
 
 <head>
@@ -62,10 +63,10 @@ h1 {
 }
 
 .emoji {
-    width: 22px;
-    height: 22px;
+    width: 1em;
+    height: 1em;
     object-fit: contain;
-    vertical-align: middle;
+    vertical-align: -0.15em;
 }
 
 .buttons {
@@ -96,7 +97,7 @@ button {
 #no {
     background: white;
     color: black;
-    z-index: 3;
+    z-index: 6;
 }
 
 #no.moving {
@@ -106,8 +107,8 @@ button {
 #sad {
     position: fixed;
     left: 50%;
-    top: 62%;
-    transform: translate(-50%, -50%);
+    bottom: 10%;
+    transform: translateX(-50%);
     width: 180px;
     height: 180px;
     display: none;
@@ -158,11 +159,7 @@ canvas {
         height: 45vw;
         max-width: 200px;
         max-height: 200px;
-    }
-
-    .emoji {
-        width: 20px;
-        height: 20px;
+        bottom: 8%;
     }
 
 }
@@ -181,7 +178,7 @@ canvas {
 
     <h1 id="question">
         Do you love me?
-        <img class="emoji" src="emojis/crying_cat_face.png">
+        <img class="emoji" src="crying_cat_face.png">
     </h1>
 
     <div class="buttons">
@@ -222,6 +219,8 @@ let lastPointerY = 0;
 let swipeX = 0;
 let swipeY = 0;
 
+let sadTimer = null;
+
 function resizeCanvas() {
 
     canvas.width = window.innerWidth;
@@ -233,19 +232,45 @@ resizeCanvas();
 
 const sadFaces = [
 
-    "emojis/crying_cat_face.png",
-    "emojis/tired_face.png",
-    "emojis/weary.png",
-    "emojis/disappointed.png",
-    "emojis/sweat.png",
-    "emojis/confounded.png",
-    "emojis/fearful.png",
-    "emojis/cold_sweat.png",
-    "emojis/disappointed_relieved.png",
-    "emojis/cry.png",
-    "emojis/sob.png"
+    "crying_cat_face.png",
+    "tired_face.png",
+    "weary.png",
+    "disappointed.png",
+    "sweat.png",
+    "confounded.png",
+    "fearful.png",
+    "cold_sweat.png",
+    "disappointed_relieved.png",
+    "cry.png",
+    "sob.png"
 
 ];
+
+function showSadFace() {
+
+    const face =
+        sadFaces[
+            Math.floor(
+                Math.random() *
+                sadFaces.length
+            )
+        ];
+
+    sadImage.src = face;
+
+    sad.style.display = "block";
+
+    if (sadTimer) {
+        clearTimeout(sadTimer);
+    }
+
+    sadTimer = setTimeout(function() {
+
+        sad.style.display = "none";
+
+    }, 2500);
+
+}
 
 function moveNo() {
 
@@ -266,51 +291,47 @@ function moveNo() {
     const x =
         padding +
         Math.random() *
-        Math.max(0, maxX - padding);
+        Math.max(
+            0,
+            maxX - padding
+        );
 
     const y =
         padding +
         Math.random() *
-        Math.max(0, maxY - padding);
+        Math.max(
+            0,
+            maxY - padding
+        );
 
     no.style.left = x + "px";
     no.style.top = y + "px";
 
-    const face =
-        sadFaces[
-            Math.floor(
-                Math.random() *
-                sadFaces.length
-            )
-        ];
-
-    sadImage.src = face;
-
-    sad.style.display = "block";
-
-    setTimeout(function() {
-
-        sad.style.display = "none";
-
-    }, 1200);
+    showSadFace();
 
 }
 
-no.addEventListener("pointerdown", function(event) {
+no.addEventListener(
+    "pointerdown",
+    function(event) {
 
-    event.preventDefault();
+        event.preventDefault();
 
-    moveNo();
+        moveNo();
 
-});
+    }
+);
 
-yes.addEventListener("pointerdown", function(event) {
+yes.addEventListener(
+    "pointerdown",
+    function(event) {
 
-    event.preventDefault();
+        event.preventDefault();
 
-    startLove();
+        startLove();
 
-});
+    }
+);
 
 function startLove() {
 
@@ -324,11 +345,13 @@ function startLove() {
 
     question.innerHTML =
         'I knew it! ' +
-        '<img class="emoji" src="emojis/heart.png">' +
-        '<img class="emoji" src="emojis/kissing_heart.png">';
+        '<img class="emoji" src="heart.png">' +
+        '<img class="emoji" src="kissing_heart.png">';
 
     yes.style.display = "none";
     no.style.display = "none";
+
+    sad.style.display = "none";
 
     hearts = [];
 
@@ -382,7 +405,10 @@ function drawHeart(
 
     ctx.save();
 
-    ctx.translate(x, y);
+    ctx.translate(
+        x,
+        y
+    );
 
     ctx.rotate(rotation);
 
@@ -748,7 +774,6 @@ function animate() {
                     canvas.width;
 
                 heart.vx = 0;
-
                 heart.vy = 0;
 
             }
