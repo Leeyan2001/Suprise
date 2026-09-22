@@ -160,12 +160,7 @@ button {
     height: 100%; 
     object-fit: contain; 
 } 
- 
- 
-/* ========================= 
-   COUNTDOWN 
-========================= */ 
- 
+
 #countdown { 
     position: fixed; 
     inset: 0; 
@@ -237,12 +232,7 @@ button {
         transform: scale(1.15); 
     } 
 } 
- 
- 
-/* ========================= 
-   EXPLOSION 
-========================= */ 
- 
+
 #explosionContainer { 
     position: fixed; 
     inset: 0; 
@@ -289,12 +279,7 @@ button {
             scale(0.1); 
     } 
 } 
- 
- 
-/* ========================= 
-   SECOND SCENE 
-========================= */ 
- 
+
 #secondScene { 
     position: fixed; 
     inset: 0; 
@@ -303,11 +288,7 @@ button {
     display: none; 
     overflow: hidden; 
 } 
- 
-/* ========================= 
-   DROPLET RAIN 
-========================= */ 
- 
+
 #secondRain { 
     position: absolute; 
     inset: 0; 
@@ -362,8 +343,7 @@ button {
         opacity: 0; 
     } 
 } 
- 
- 
+
 #secondQuestion { 
     position: absolute; 
     left: 50%; 
@@ -396,12 +376,7 @@ button {
         0.1s 
         ease-out; 
 } 
- 
- 
-/* ========================= 
-   SECOND SAD EMOJI 
-========================= */ 
- 
+
 #secondSad { 
     position: absolute; 
  
@@ -442,12 +417,7 @@ button {
     height: 100%; 
     object-fit: contain; 
 } 
- 
- 
-/* ========================= 
-   SECOND BUTTONS 
-========================= */ 
- 
+
 .secondButton { 
     position: absolute; 
  
@@ -457,11 +427,6 @@ button {
     z-index: 35; 
  
     transform-origin: center; 
- 
-    /* 
-       NO GROWING ANYMORE. 
-       Buttons stay at normal size. 
-    */ 
  
     transition: 
         left 
@@ -495,38 +460,569 @@ button {
         ); 
 } 
 
+#happyEndingMessage { 
+    position: fixed; 
+    left: 50%; 
+    top: 28vh; 
+    transform: translate(-50%, -50%); 
+    z-index: 200; 
+    display: none; 
+    font-size: clamp(25px, 8vw, 36px); 
+    font-weight: bold; 
+    color: white; 
+    text-shadow: 2px 2px 4px black; 
+    white-space: nowrap; 
+    pointer-events: none; 
+} 
+ 
+#happyEndingMessage .emoji { 
+    width: 1em; 
+    height: 1em; 
+    object-fit: contain; 
+    vertical-align: -0.15em; 
+} 
 
-/* =========================
-   SECOND HAPPY ENDING MESSAGE
-========================= */
+#happyHeart { 
+    position: fixed; 
+    left: 50%; 
+    top: 50%; 
+ 
+    transform: 
+        translate(-50%, -50%) 
+        scale(1); 
+ 
+    z-index: 201; 
+ 
+    display: none; 
+ 
+    font-size: 
+        clamp( 
+            150px, 
+            34vw, 
+            300px 
+        ); 
+ 
+    line-height: 1; 
+ 
+    opacity: 0.65; 
+ 
+    pointer-events: auto; 
+    cursor: pointer; 
+ 
+    user-select: none; 
+    -webkit-user-select: none; 
+ 
+    touch-action: none; 
+ 
+    filter: 
+        drop-shadow( 
+            0 0 25px 
+            rgba( 
+                255, 
+                0, 
+                0, 
+                0.4 
+            ) 
+        ); 
+} 
 
-#happyEndingMessage {
-    position: fixed;
-    left: 50%;
-    top: 28vh;
-    transform: translate(-50%, -50%);
-    z-index: 200;
+#happyHeart.holding { 
+    animation: 
+        happyHeartGradualShake 
+        0.08s 
+        infinite; 
+} 
+ 
+@keyframes happyHeartGradualShake { 
+ 
+    0% { 
+        transform: 
+            translate(-50%, -50%) 
+            rotate(-1deg) 
+            scale(1.01); 
+    } 
+ 
+    25% { 
+        transform: 
+            translate( 
+                calc(-50% - var(--shake-distance)), 
+                calc(-50% + var(--shake-distance-small)) 
+            ) 
+            rotate(calc(-2deg - var(--shake-angle))) 
+            scale(var(--shake-scale)); 
+    } 
+ 
+    50% { 
+        transform: 
+            translate( 
+                calc(-50% + var(--shake-distance)), 
+                calc(-50% - var(--shake-distance-small)) 
+            ) 
+            rotate(calc(2deg + var(--shake-angle))) 
+            scale(var(--shake-scale)); 
+    } 
+ 
+    75% { 
+        transform: 
+            translate( 
+                calc(-50% - var(--shake-distance-small)), 
+                calc(-50% - var(--shake-distance-small)) 
+            ) 
+            rotate(calc(-2deg - var(--shake-angle))) 
+            scale(var(--shake-scale)); 
+    } 
+ 
+    100% { 
+        transform: 
+            translate(-50%, -50%) 
+            rotate(1deg) 
+            scale(1.01); 
+    } 
+} 
+
+#happyHeart.exploding { 
+    animation: 
+        happyHeartExplode 
+        0.45s 
+        ease-out 
+        forwards; 
+} 
+ 
+@keyframes happyHeartExplode { 
+ 
+    0% { 
+        opacity: 0.65; 
+ 
+        transform: 
+            translate(-50%, -50%) 
+            scale(1); 
+    } 
+ 
+    35% { 
+        opacity: 1; 
+ 
+        transform: 
+            translate(-50%, -50%) 
+            scale(1.35); 
+    } 
+ 
+    100% { 
+        opacity: 0; 
+ 
+        transform: 
+            translate(-50%, -50%) 
+            scale(3.2); 
+    } 
+} 
+
+#happyHeartParticles { 
+    position: fixed; 
+    inset: 0; 
+ 
+    z-index: 204; 
+ 
+    pointer-events: none; 
+    overflow: hidden; 
+} 
+ 
+.happyHeartParticle { 
+    position: absolute; 
+ 
+    left: 50%; 
+    top: 50%; 
+ 
+    font-size: 24px; 
+ 
+    opacity: 1; 
+ 
+    transform: 
+        translate(-50%, -50%) 
+        scale(1); 
+ 
+    animation: 
+        happyParticleExplode 
+        0.9s 
+        ease-out 
+        forwards; 
+} 
+ 
+@keyframes happyParticleExplode { 
+ 
+    0% { 
+        opacity: 1; 
+ 
+        transform: 
+            translate(-50%, -50%) 
+            translate(0, 0) 
+            scale(1); 
+    } 
+ 
+    100% { 
+        opacity: 0; 
+ 
+        transform: 
+            translate(-50%, -50%) 
+            translate( 
+                var(--particle-x), 
+                var(--particle-y) 
+            ) 
+            rotate( 
+                var(--particle-rotation) 
+            ) 
+            scale(0.3); 
+    } 
+} 
+
+#loveMessage { 
+    position: fixed; 
+ 
+    left: 50%; 
+    top: 50%; 
+ 
+    transform: 
+        translate(-50%, -50%) 
+        scale(0.7); 
+ 
+    z-index: 205; 
+ 
+    display: none; 
+ 
+    width: 90vw; 
+ 
+    font-size: 
+        clamp( 
+            30px, 
+            8vw, 
+            58px 
+        ); 
+ 
+    font-weight: bold; 
+ 
+    color: white; 
+ 
+    text-shadow: 
+        0 0 15px 
+        rgba( 
+            255, 
+            0, 
+            0, 
+            0.8 
+        ), 
+ 
+        2px 2px 5px black; 
+ 
+    opacity: 0; 
+ 
+    pointer-events: none; 
+ 
+    white-space: normal; 
+} 
+ 
+#loveMessage.show { 
+    display: block; 
+ 
+    animation: 
+        loveMessageIn 
+        0.7s 
+        ease-out 
+        forwards; 
+} 
+ 
+@keyframes loveMessageIn { 
+ 
+    0% { 
+        opacity: 0; 
+ 
+        transform: 
+            translate(-50%, -50%) 
+            scale(0.7); 
+    } 
+ 
+    100% { 
+        opacity: 1; 
+ 
+        transform: 
+            translate(-50%, -50%) 
+            scale(1); 
+    } 
+} 
+
+#finalLoveScene { 
+    position: fixed; 
+    inset: 0; 
+    z-index: 1000; 
+    display: none; 
+    background: black; 
+    color: white; 
+    opacity: 0; 
+    overflow: hidden; 
+    pointer-events: none; 
+} 
+ 
+#finalLoveScene.show { 
+    display: block; 
+    animation: 
+        finalSceneFadeIn 
+        3s 
+        ease-in-out 
+        forwards; 
+    pointer-events: auto; 
+} 
+ 
+@keyframes finalSceneFadeIn { 
+    0% { 
+        opacity: 0; 
+    } 
+ 
+    100% { 
+        opacity: 1; 
+    } 
+} 
+
+#finalHeartRain { 
+    position: absolute; 
+    inset: 0; 
+    z-index: 1; 
+    overflow: hidden; 
+    pointer-events: none; 
+} 
+ 
+.finalRainHeart { 
+    position: absolute; 
+    top: -80px; 
+    left: 0; 
+    color: #ff4d6d; 
+    opacity: 0.32; 
+    font-size: 24px; 
+    line-height: 1; 
+    pointer-events: none; 
+    will-change: transform, opacity; 
+    animation: 
+        finalHeartFall 
+        var(--final-rain-duration) 
+        linear 
+        infinite; 
+} 
+ 
+@keyframes finalHeartFall { 
+ 
+    0% { 
+        transform: 
+            translate3d( 
+                var(--final-rain-repel-x, 0px), 
+                calc(-100px + var(--final-rain-repel-y, 0px)), 
+                0 
+            ) 
+            rotate( 
+                var(--final-rain-start-rotation) 
+            ); 
+        opacity: 0; 
+    } 
+ 
+    10% { 
+        opacity: var(--final-rain-opacity); 
+    } 
+ 
+    50% { 
+        transform: 
+            translate3d( 
+                calc(var(--final-rain-drift-half) + var(--final-rain-repel-x, 0px)), 
+                calc(50vh + var(--final-rain-repel-y, 0px)), 
+                0 
+            ) 
+            rotate( 
+                var(--final-rain-middle-rotation) 
+            ); 
+    } 
+ 
+    90% { 
+        opacity: var(--final-rain-opacity); 
+    } 
+ 
+    100% { 
+        transform: 
+            translate3d( 
+                calc(var(--final-rain-drift) + var(--final-rain-repel-x, 0px)), 
+                calc(115vh + var(--final-rain-repel-y, 0px)), 
+                0 
+            ) 
+            rotate( 
+                var(--final-rain-end-rotation) 
+            ); 
+        opacity: 0; 
+    } 
+} 
+
+#finalLoveContent { 
+    position: relative; 
+    z-index: 5; 
+    width: min(900px, 94vw); 
+    height: 100%; 
+    margin: 0 auto; 
+    padding: 4vh 0 3vh; 
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    justify-content: center; 
+    overflow: visible; 
+    touch-action: none; 
+} 
+ 
+#finalSongTitle { 
     display: none;
-    font-size: clamp(25px, 8vw, 36px);
+    flex-shrink: 0; 
+    margin: 0 0 10px; 
+    font-size: clamp(30px, 7vw, 58px); 
+    font-weight: bold; 
+    letter-spacing: 1px; 
+    color: white; 
+    text-shadow: 
+        0 0 10px rgba(255, 80, 120, 0.45), 
+        0 0 30px rgba(255, 0, 80, 0.25); 
+    opacity: 0; 
+    animation: 
+        finalTitleIn 
+        1.8s 
+        1.1s 
+        ease-out 
+        forwards; 
+} 
+ 
+#finalSongSubtitle { 
+    display: none;
+    flex-shrink: 0; 
+    margin: 0 0 35px; 
+    font-size: clamp(13px, 3.2vw, 18px); 
+    color: rgba(255,255,255,0.55); 
+    letter-spacing: 3px; 
+    text-transform: uppercase; 
+    opacity: 0; 
+    animation: 
+        finalTitleIn 
+        1.8s 
+        1.5s 
+        ease-out 
+        forwards; 
+} 
+ 
+@keyframes finalTitleIn { 
+    0% { 
+        opacity: 0; 
+        transform: translateY(25px); 
+    } 
+ 
+    100% { 
+        opacity: 1; 
+        transform: translateY(0); 
+    } 
+} 
+
+#finalSwipeIntro {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 14px;
+    z-index: 10;
+    font-size: clamp(22px, 6vw, 38px);
     font-weight: bold;
-    color: white;
-    text-shadow: 2px 2px 4px black;
-    white-space: nowrap;
-    pointer-events: none;
+    letter-spacing: 2px;
+    text-shadow: 0 0 14px rgba(255,255,255,0.12);
+    touch-action: none;
+    user-select: none;
 }
 
-#happyEndingMessage .emoji {
-    width: 1em;
-    height: 1em;
+#finalSwipeIntro .swipeHeart {
+    width: 34px;
+    height: 34px;
     object-fit: contain;
-    vertical-align: -0.15em;
+    vertical-align: middle;
+    filter: drop-shadow(0 0 8px rgba(255, 0, 50, 0.5));
 }
- 
- 
-/* ========================= 
-   CANVAS 
-========================= */ 
- 
+
+#finalSwipeIntro.hide {
+    display: none;
+}
+
+#finalLoveMessage {
+    width: 100%;
+    max-width: 850px;
+    max-height: 88vh;
+    margin: 0 auto;
+    padding: 0 12px;
+    box-sizing: border-box;
+    text-align: center;
+    font-size: clamp(16px, min(2.4vw, 2.7vh), 22px);
+    line-height: 1.45;
+    font-weight: 400;
+    color: rgba(255,255,255,0.92);
+    text-shadow: 0 0 12px rgba(255,255,255,0.08);
+    white-space: normal;
+    opacity: 0;
+    animation: finalMessageIn 1.2s 0.4s ease-out forwards;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    touch-action: pan-y;
+    user-select: none;
+}
+
+#finalLoveMessage p {
+    display: none;
+    width: 100%;
+    margin: 0;
+    animation: paragraphIn 0.45s ease-out;
+}
+
+#finalLoveMessage p.active { display: block; }
+
+#finalLoveHeart {
+    display: none;
+    position: relative;
+    z-index: 20;
+    font-size: clamp(90px, 20vw, 170px);
+    line-height: 1;
+    cursor: grab;
+    user-select: none;
+    touch-action: none;
+    will-change: transform;
+    filter: drop-shadow(0 0 18px rgba(255, 0, 50, 0.55));
+}
+
+#finalLoveHeart.show {
+    display: block;
+    animation: finalHeartPop 0.9s ease-out forwards, finalHeartBeat 1.5s 0.9s ease-in-out infinite;
+}
+
+#finalLoveHeart.dragging {
+    cursor: grabbing;
+    animation: none !important;
+}
+
+@keyframes paragraphIn {
+    0% { opacity: 0; transform: translateX(35px); }
+    100% { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes finalHeartPop {
+    0% { opacity: 0; transform: scale(0.25); }
+    70% { opacity: 1; transform: scale(1.12); }
+    100% { opacity: 1; transform: scale(1); }
+}
+
+@keyframes finalHeartBeat {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.12); }
+}
+
+@keyframes finalMessageIn {
+    0% { opacity: 0; transform: translateY(25px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
 canvas { 
     position: fixed; 
     inset: 0; 
@@ -539,8 +1035,7 @@ canvas {
     pointer-events: auto; 
     touch-action: none; 
 } 
- 
- 
+
 @media (max-width: 600px) { 
  
     .box { 
@@ -580,18 +1075,39 @@ canvas {
         font-size: 25px; 
     } 
  
-    #secondSad { 
-        width: 50vw; 
-        height: 50vw; 
-        max-width: 220px; 
-        max-height: 220px; 
-    } 
- 
     .secondButton { 
         min-width: 100px; 
         padding: 13px 18px; 
         font-size: 16px; 
     } 
+ 
+    #happyHeart { 
+        font-size: 190px; 
+    } 
+ 
+    #finalLoveContent { 
+        width: 92vw; 
+        padding-top: 7vh; 
+        padding-bottom: 7vh; 
+    } 
+ 
+    #finalSongTitle { 
+        margin-bottom: 8px; 
+    } 
+ 
+    #finalSongSubtitle { 
+        margin-bottom: 28px; 
+        letter-spacing: 2px; 
+    } 
+ 
+    #finalLoveMessage { 
+        max-height: 86vh; 
+        font-size: clamp(13px, min(4.1vw, 2.25vh), 18px); 
+        line-height: 1.38; 
+        padding-left: 4px; 
+        padding-right: 4px; 
+    }
+
 } 
 </style> 
 </head> 
@@ -605,8 +1121,7 @@ canvas {
     <img src="gif.gif"> 
  
 </div> 
- 
- 
+
 <div 
     class="box" 
     id="firstScene"> 
@@ -620,8 +1135,7 @@ canvas {
             src="crying_cat_face.png"> 
  
     </h1> 
- 
- 
+
     <div class="buttons"> 
  
         <button id="yes"> 
@@ -635,8 +1149,7 @@ canvas {
     </div> 
  
 </div> 
- 
- 
+
 <div id="sad"> 
  
     <img 
@@ -644,50 +1157,39 @@ canvas {
         src=""> 
  
 </div> 
- 
- 
+
 <div 
     id="heartbreakContainer"> 
 </div> 
- 
- 
+
 <div id="countdown"> 
 </div> 
- 
- 
+
 <div id="explosionContainer"> 
 </div> 
 
+<div id="happyEndingMessage"> 
+    Yeheyyy! 
+    <img class="emoji" src="heart.png"> 
+    <img class="emoji" src="kissing_heart.png"> 
+</div> 
 
-<!-- =========================
-     SECOND HAPPY ENDING MESSAGE
-========================= -->
-
-<div id="happyEndingMessage">
-    Yeheyyy!
-    <img class="emoji" src="heart.png">
-    <img class="emoji" src="kissing_heart.png">
-</div>
-
-
-<!-- =========================
-     LOVE NEVER FELT SO GOOD
-========================= -->
-
-<audio
-    id="loveMusic"
-    src="Love Never Felt So Good.mp3"
-    preload="auto">
-</audio>
+<div id="happyHeart">❤️</div> 
  
+<div id="happyHeartParticles"></div> 
  
-<!-- ========================= 
-     SECOND SCENE 
-========================= --> 
- 
+<div id="loveMessage"> 
+    I LOVE YOU! ❤️ 
+</div> 
+
+<audio 
+    id="loveMusic" 
+    src="Love Never Felt So Good.mp3" 
+    preload="auto"> 
+</audio> 
+
 <div id="secondScene"> 
  
-    <!-- RAIN USING droplet.png --> 
     <div id="secondRain"></div> 
  
     <h1 id="secondQuestion"> 
@@ -699,8 +1201,7 @@ canvas {
             src="crying_cat_face.png"> 
  
     </h1> 
- 
- 
+
     <div id="secondSad"> 
  
         <img 
@@ -708,8 +1209,7 @@ canvas {
             src="crying_cat_face.png"> 
  
     </div> 
- 
- 
+
     <button 
         class="secondButton" 
         id="secondYes1"> 
@@ -717,8 +1217,7 @@ canvas {
         YES 
  
     </button> 
- 
- 
+
     <button 
         class="secondButton" 
         id="secondYes2"> 
@@ -728,16 +1227,72 @@ canvas {
     </button> 
  
 </div> 
+
+<div id="finalLoveScene"> 
  
+    <div id="finalHeartRain"></div> 
  
+    <div id="finalLoveContent"> 
+ 
+        <div id="finalSongTitle"> 
+            When I Met You 
+        </div> 
+ 
+        <div id="finalSongSubtitle"> 
+            A message from my heart 
+        </div> 
+ 
+        <div id="finalSwipeIntro">
+            <img class="swipeHeart" src="heart.png" alt="heart">
+            <span>Swipe</span>
+            <img class="swipeHeart" src="heart.png" alt="heart">
+        </div>
+
+        <div id="finalLoveMessage">
+
+            <p> 
+                I want to you know that I truly love you, and I’m very  
+                serious about our relationship. I know nagkaroon ako ng mistakes in the past,  
+                and I know some of those mistakes have hurt you Talaga. Hinde ko na sya  
+                mababago and hinde ako gagawa ng any excuses for it. But I’ll take  
+                responsibility and show you through my actions na ginagawa ko best ko na hinde  
+                na ulit mangyare yun. 
+            </p> 
+ 
+            <p> 
+                Hinde ako perpektong tao. I have flaws, and I still have a  
+                lot to learn and improve about myself. But one thing I am certain of is  
+                that I don’t want to lose you. Gusto maging better as a person not just for  
+                myself, but for you and for the relationship we’re building together. 
+            </p> 
+ 
+            <p> 
+                I’m willing to put in the effort, to listen, to understand  
+                you, to communicate better, and to work on the things that need to change. Alam  
+                ko sorry isn’t enough, so I want my actions to prove how serious I am. 
+            </p> 
+ 
+            <p> 
+                I love you deeply, and gusto ko maging someone that you can  
+                trust, respect, and feel safe loving. I will keep choosing you, keep learning  
+                and keep doing my best to become the man you deserve. 
+            </p> 
+ 
+            <p> 
+                I love you, and I’m serious sa relationship natin. I hope that, with time, I can show you that my love for you is real hinde lang sa salita but through everything I do. 
+            </p> 
+ 
+        </div> 
+
+        <div id="finalLoveHeart" aria-label="red heart">❤️</div>
+
+    </div> 
+ 
+</div> 
+
 <canvas id="canvas"></canvas> 
- 
- 
+
 <script> 
- 
-/* ========================= 
-   ELEMENTS 
-========================= */ 
  
 const yes = 
     document.getElementById( 
@@ -834,22 +1389,61 @@ const secondYes2 =
         "secondYes2" 
     ); 
 
+const happyEndingMessage = 
+    document.getElementById( 
+        "happyEndingMessage" 
+    ); 
 
-const happyEndingMessage =
-    document.getElementById(
-        "happyEndingMessage"
+const loveMusic = 
+    document.getElementById( 
+        "loveMusic" 
+    ); 
+
+const happyHeart = 
+    document.getElementById( 
+        "happyHeart" 
+    ); 
+ 
+const happyHeartParticles = 
+    document.getElementById( 
+        "happyHeartParticles" 
+    ); 
+ 
+const loveMessage = 
+    document.getElementById( 
+        "loveMessage" 
+    ); 
+
+const finalLoveScene = 
+    document.getElementById( 
+        "finalLoveScene" 
+    ); 
+ 
+const finalHeartRain = 
+    document.getElementById( 
+        "finalHeartRain" 
     );
 
+const finalLoveMessage =
+    document.getElementById("finalLoveMessage");
 
-const loveMusic =
-    document.getElementById(
-        "loveMusic"
-    );
- 
- 
-/* ========================= 
-   STATE 
-========================= */ 
+const finalSwipeIntro =
+    document.getElementById("finalSwipeIntro");
+
+const finalLoveHeart =
+    document.getElementById("finalLoveHeart");
+
+let finalParagraphIndex = -1;
+let finalHeartDragging = false;
+let finalHeartDragStartX = 0;
+let finalHeartDragStartY = 0;
+let finalHeartOffsetX = 0;
+let finalHeartOffsetY = 0;
+let finalHeartBaseCenterX = 0;
+let finalHeartBaseCenterY = 0;
+let finalSwipeStartX = 0;
+let finalSwipeStartY = 0;
+
  
 let hearts = []; 
  
@@ -896,16 +1490,18 @@ let secondSadTimer = null;
  
 let secondSadIndex = 0; 
  
-/* 
-   Rain timer 
-*/ 
 let secondRainTimer = null; 
+
+let happyHeartHoldTimer = null; 
  
+let happyHeartShakeTimer = null; 
  
-/* ========================= 
-   CANVAS 
-========================= */ 
+let happyHeartShakeStartTime = null; 
  
+let happyHeartExploded = false; 
+ 
+let finalLoveSceneShown = false; 
+
 function resizeCanvas() { 
  
     canvas.width = 
@@ -916,12 +1512,7 @@ function resizeCanvas() {
 } 
  
 resizeCanvas(); 
- 
- 
-/* ========================= 
-   SAD FACES 
-========================= */ 
- 
+
 const sadFaces = [ 
  
     "crying_cat_face.png", 
@@ -937,8 +1528,7 @@ const sadFaces = [
     "sob.png" 
  
 ]; 
- 
- 
+
 function showSadFace() { 
  
     let face = 
@@ -973,14 +1563,7 @@ function showSadFace() {
             2500 
         ); 
 } 
- 
- 
-/* ========================= 
-   SECOND SCENE SAD FACE 
-   CHANGES EVERY 5 SECONDS 
-   WITH 3 SECOND FADE 
-========================= */ 
- 
+
 function startSecondSadChanges() { 
  
     if (secondSadTimer) { 
@@ -1003,8 +1586,7 @@ function startSecondSadChanges() {
     secondSad.classList.remove( 
         "fading" 
     ); 
- 
- 
+
     secondSadTimer = 
         setInterval( 
             function() { 
@@ -1021,15 +1603,12 @@ function startSecondSadChanges() {
                         null; 
  
                     return; 
- 
                 } 
- 
- 
+
                 secondSad.classList.add( 
                     "fading" 
                 ); 
- 
- 
+
                 setTimeout( 
                     function() { 
  
@@ -1067,12 +1646,7 @@ function startSecondSadChanges() {
             5000 
         ); 
 } 
- 
- 
-/* ========================= 
-   SECOND SCENE RAIN 
-========================= */ 
- 
+
 function createRainDrop() { 
  
     if ( 
@@ -1091,8 +1665,7 @@ function createRainDrop() {
  
     drop.src = 
         "droplet.png"; 
- 
- 
+
     const size = 
         22 + 
         Math.random() * 35; 
@@ -1111,8 +1684,7 @@ function createRainDrop() {
     const rotation = 
         -12 + 
         Math.random() * 24; 
- 
- 
+
     drop.style.width = 
         size + "px"; 
  
@@ -1136,13 +1708,11 @@ function createRainDrop() {
         "--rain-rotation", 
         rotation + "deg" 
     ); 
- 
- 
+
     secondRain.appendChild( 
         drop 
     ); 
- 
- 
+
     setTimeout( 
         function() { 
  
@@ -1152,13 +1722,11 @@ function createRainDrop() {
         duration * 1000 + 300 
     ); 
 } 
- 
- 
+
 function startSecondRain() { 
  
     stopSecondRain(); 
- 
- 
+
     for ( 
         let i = 0; 
         i < 25; 
@@ -1180,8 +1748,7 @@ function startSecondRain() {
             i * 90 
         ); 
     } 
- 
- 
+
     secondRainTimer = 
         setInterval( 
             function() { 
@@ -1192,8 +1759,7 @@ function startSecondRain() {
             120 
         ); 
 } 
- 
- 
+
 function stopSecondRain() { 
  
     if ( 
@@ -1207,17 +1773,11 @@ function stopSecondRain() {
         secondRainTimer = 
             null; 
     } 
- 
- 
+
     secondRain.innerHTML = 
         ""; 
 } 
- 
- 
-/* ========================= 
-   RECT HELPERS 
-========================= */ 
- 
+
 function getYesRect() { 
  
     let rect = 
@@ -1240,8 +1800,7 @@ function getYesRect() {
  
     }; 
 } 
- 
- 
+
 function getQuestionRect() { 
  
     let rect = 
@@ -1264,8 +1823,7 @@ function getQuestionRect() {
  
     }; 
 } 
- 
- 
+
 function getSadRect() { 
  
     let rect = 
@@ -1288,8 +1846,7 @@ function getSadRect() {
  
     }; 
 } 
- 
- 
+
 function insideRect( 
     x, 
     y, 
@@ -1317,12 +1874,7 @@ function insideRect(
  
     ); 
 } 
- 
- 
-/* ========================= 
-   HEART COLLISION 
-========================= */ 
- 
+
 function heartTooClose( 
     x, 
     y, 
@@ -1376,12 +1928,7 @@ function heartTooClose(
  
     return false; 
 } 
- 
- 
-/* ========================= 
-   VALID HEART POSITION 
-========================= */ 
- 
+
 function validHeartPosition( 
     x, 
     y 
@@ -1439,12 +1986,7 @@ function validHeartPosition(
  
     return true; 
 } 
- 
- 
-/* ========================= 
-   PUSH HEART FROM RECT 
-========================= */ 
- 
+
 function pushHeartFromRect( 
     heart, 
     rect, 
@@ -1579,8 +2121,7 @@ function pushHeartFromRect(
     let amount = 
         Math.max( 
             minimumDistance - 
-            distance + 
-            4, 
+            distance + 4, 
             5 
         ); 
  
@@ -1604,12 +2145,7 @@ function pushHeartFromRect(
     heart.style.top = 
         y + "px"; 
 } 
- 
- 
-/* ========================= 
-   PUSH HEART OUT OF FRAME 
-========================= */ 
- 
+
 function pushHeartOutOfFrame( 
     heart 
 ) { 
@@ -1692,12 +2228,7 @@ function pushHeartOutOfFrame(
         heart.remove(); 
     } 
 } 
- 
- 
-/* ========================= 
-   PUSH ALL HEARTBREAKS 
-========================= */ 
- 
+
 function pushAllHeartbreaks() { 
  
     let heartbreaks = 
@@ -1732,12 +2263,7 @@ function pushAllHeartbreaks() {
         ); 
     } 
 } 
- 
- 
-/* ========================= 
-   SEPARATE HEARTBREAKS 
-========================= */ 
- 
+
 function separateHeartbreaks() { 
  
     let heartbreaks = 
@@ -1838,12 +2364,7 @@ function separateHeartbreaks() {
     newest.style.top = 
         y + "px"; 
 } 
- 
- 
-/* ========================= 
-   CREATE HEARTBREAK 
-========================= */ 
- 
+
 function createBrokenHeart( 
     x, 
     y 
@@ -1994,12 +2515,7 @@ function createBrokenHeart(
         42 
     ); 
 } 
- 
- 
-/* ========================= 
-   SAD PUSH 
-========================= */ 
- 
+
 function pushSadFromYes() { 
  
     if ( 
@@ -2100,12 +2616,7 @@ function pushSadFromYes() {
         sadPushY + 
         "px)"; 
 } 
- 
- 
-/* ========================= 
-   MOVE NO 
-========================= */ 
- 
+
 function moveNo() { 
  
     let oldRect = 
@@ -2164,12 +2675,7 @@ function moveNo() {
  
     showSadFace(); 
 } 
- 
- 
-/* ========================= 
-   PUSH QUESTION 
-========================= */ 
- 
+
 function pushQuestion() { 
  
     let yesRect = 
@@ -2319,13 +2825,7 @@ function pushQuestion() {
         questionPushY + 
         "px)"; 
 } 
- 
- 
-/* ========================= 
-   YES GROWTH 
-   45 SECONDS 
-========================= */ 
- 
+
 function startYesGrowth() { 
  
     if (yesGrowTimer) { 
@@ -2364,8 +2864,7 @@ function startYesGrowth() {
                 pushSadFromYes(); 
  
                 pushAllHeartbreaks(); 
- 
- 
+
                 let elapsed = 
                     performance.now() - 
                     growthStartTime; 
@@ -2382,12 +2881,7 @@ function startYesGrowth() {
             250 
         ); 
 } 
- 
- 
-/* ========================= 
-   COUNTDOWN 
-========================= */ 
- 
+
 function startCountdown() { 
  
     if ( 
@@ -2406,8 +2900,7 @@ function startCountdown() {
     ]; 
  
     let index = 0; 
- 
- 
+
     function showNumber() { 
  
         if ( 
@@ -2434,8 +2927,7 @@ function startCountdown() {
  
         countdown.style.animation = 
             "countdownPulse 1s ease-in-out"; 
- 
- 
+
         setTimeout( 
             function() { 
  
@@ -2450,16 +2942,10 @@ function startCountdown() {
             1000 
         ); 
     } 
- 
- 
+
     showNumber(); 
 } 
- 
- 
-/* ========================= 
-   EXPLODE YES 
-========================= */ 
- 
+
 function explodeYes() { 
  
     if (yesGrowTimer) { 
@@ -2490,8 +2976,7 @@ function explodeYes() {
  
     explosionContainer.style.display = 
         "block"; 
- 
- 
+
     let rect = 
         yes.getBoundingClientRect(); 
  
@@ -2502,8 +2987,7 @@ function explodeYes() {
     let centerY = 
         rect.top + 
         rect.height / 2; 
- 
- 
+
     for ( 
         let i = 0; 
         i < 100; 
@@ -2570,8 +3054,7 @@ function explodeYes() {
             particle 
         ); 
     } 
- 
- 
+
     yes.style.display = 
         "none"; 
  
@@ -2586,8 +3069,7 @@ function explodeYes() {
  
     question.style.display = 
         "none"; 
- 
- 
+
     setTimeout( 
         function() { 
  
@@ -2603,12 +3085,7 @@ function explodeYes() {
         850 
     ); 
 } 
- 
- 
-/* ========================= 
-   NO BUTTON 
-========================= */ 
- 
+
 no.addEventListener( 
     "pointerdown", 
     function(event) { 
@@ -2625,8 +3102,7 @@ no.addEventListener(
         moveNo(); 
  
         startYesGrowth(); 
- 
- 
+
         noMoveTimer = 
             setInterval( 
                 function() { 
@@ -2638,12 +3114,7 @@ no.addEventListener(
             ); 
     } 
 ); 
- 
- 
-/* ========================= 
-   ORIGINAL YES 
-========================= */ 
- 
+
 yes.addEventListener( 
     "pointerdown", 
     function(event) { 
@@ -2654,12 +3125,854 @@ yes.addEventListener(
  
     } 
 ); 
+
+function resetHappyHeart() { 
  
+    if ( 
+        happyHeartHoldTimer 
+    ) { 
  
-/* ========================= 
-   LOVE ENDING 
-========================= */ 
+        clearTimeout( 
+            happyHeartHoldTimer 
+        ); 
  
+        happyHeartHoldTimer = 
+            null; 
+    } 
+ 
+    if ( 
+        happyHeartShakeTimer 
+    ) { 
+ 
+        clearInterval( 
+            happyHeartShakeTimer 
+        ); 
+ 
+        happyHeartShakeTimer = 
+            null; 
+    } 
+ 
+    happyHeartShakeStartTime = 
+        null; 
+ 
+    happyHeart.classList.remove( 
+        "holding", 
+        "exploding" 
+    ); 
+ 
+    happyHeart.style.display = 
+        "none"; 
+ 
+    happyHeart.style.opacity = 
+        "0.65"; 
+ 
+    happyHeart.style.transform = 
+        "translate(-50%, -50%) scale(1)"; 
+ 
+    happyHeart.style.removeProperty( 
+        "--shake-distance" 
+    ); 
+ 
+    happyHeart.style.removeProperty( 
+        "--shake-distance-small" 
+    ); 
+ 
+    happyHeart.style.removeProperty( 
+        "--shake-angle" 
+    ); 
+ 
+    happyHeart.style.removeProperty( 
+        "--shake-scale" 
+    ); 
+ 
+    loveMessage.classList.remove( 
+        "show" 
+    ); 
+ 
+    loveMessage.style.display = 
+        "none"; 
+ 
+    loveMessage.style.opacity = 
+        "0"; 
+ 
+    happyHeartParticles.innerHTML = 
+        ""; 
+ 
+    happyHeartExploded = 
+        false; 
+} 
+
+function showHappyHeart() { 
+ 
+    resetHappyHeart(); 
+ 
+    happyHeart.style.display = 
+        "block"; 
+ 
+    happyHeart.style.opacity = 
+        "0.65"; 
+ 
+    happyHeart.style.transform = 
+        "translate(-50%, -50%) scale(1)"; 
+} 
+
+function createFinalHeartRain() { 
+ 
+    finalHeartRain.innerHTML = 
+        ""; 
+ 
+    const amount = 
+        window.innerWidth < 600 
+            ? 75 
+            : 115; 
+ 
+    for ( 
+        let i = 0; 
+        i < amount; 
+        i++ 
+    ) { 
+ 
+        const heart = 
+            document.createElement( 
+                "span" 
+            ); 
+ 
+        heart.className = 
+            "finalRainHeart";
+
+        heart.style.setProperty("--final-rain-repel-x", "0px");
+        heart.style.setProperty("--final-rain-repel-y", "0px"); 
+ 
+        heart.textContent = 
+            Math.random() < 0.8 
+                ? "♥" 
+                : "❤"; 
+ 
+        const size = 
+            12 + 
+            Math.random() * 22; 
+ 
+        const left = 
+            Math.random() * 100; 
+ 
+        const duration = 
+            5 + 
+            Math.random() * 8; 
+ 
+        const delay = 
+            -Math.random() * 
+            duration; 
+ 
+        const drift = 
+            -90 + 
+            Math.random() * 180; 
+ 
+        const driftHalf = 
+            drift * 0.45; 
+ 
+        const opacity = 
+            0.22 + 
+            Math.random() * 0.25; 
+ 
+        const startRotation = 
+            -30 + 
+            Math.random() * 60; 
+ 
+        const middleRotation = 
+            -90 + 
+            Math.random() * 180; 
+ 
+        const endRotation = 
+            -180 + 
+            Math.random() * 360; 
+ 
+        heart.style.left = 
+            left + "vw"; 
+ 
+        heart.style.fontSize = 
+            size + "px"; 
+ 
+        heart.style.setProperty( 
+            "--final-rain-duration", 
+            duration + "s" 
+        ); 
+ 
+        heart.style.animationDelay = 
+            delay + "s"; 
+ 
+        heart.style.setProperty( 
+            "--final-rain-drift", 
+            drift + "px" 
+        ); 
+ 
+        heart.style.setProperty( 
+            "--final-rain-drift-half", 
+            driftHalf + "px" 
+        ); 
+ 
+        heart.style.setProperty( 
+            "--final-rain-opacity", 
+            opacity 
+        ); 
+ 
+        heart.style.setProperty( 
+            "--final-rain-start-rotation", 
+            startRotation + "deg" 
+        ); 
+ 
+        heart.style.setProperty( 
+            "--final-rain-middle-rotation", 
+            middleRotation + "deg" 
+        ); 
+ 
+        heart.style.setProperty( 
+            "--final-rain-end-rotation", 
+            endRotation + "deg" 
+        ); 
+ 
+        finalHeartRain.appendChild( 
+            heart 
+        ); 
+    } 
+} 
+
+function setupFinalLoveSwipe() {
+    const paragraphs = finalLoveMessage.querySelectorAll("p");
+    if (!paragraphs.length) return;
+
+    paragraphs.forEach(function(p) { p.classList.remove("active"); });
+    finalParagraphIndex = -1;
+    finalLoveHeart.classList.remove("show", "dragging");
+    finalLoveHeart.style.transform = "";
+    finalHeartOffsetX = 0;
+    finalHeartOffsetY = 0;
+    finalSwipeIntro.classList.remove("hide");
+    finalLoveMessage.style.display = "none";
+}
+
+function showNextFinalParagraph() {
+    const paragraphs = finalLoveMessage.querySelectorAll("p");
+    if (!paragraphs.length) return;
+
+    finalSwipeIntro.classList.add("hide");
+
+    if (finalParagraphIndex < paragraphs.length - 1) {
+        if (finalParagraphIndex >= 0) {
+            paragraphs[finalParagraphIndex].classList.remove("active");
+        }
+
+        finalParagraphIndex++;
+        paragraphs[finalParagraphIndex].classList.add("active");
+        finalLoveMessage.style.display = "flex";
+        finalLoveHeart.classList.remove("show");
+    } else {
+        finalLoveMessage.style.display = "none";
+        finalLoveHeart.classList.add("show");
+        finalLoveHeart.classList.remove("dragging");
+        finalLoveHeart.style.transform = "";
+        finalHeartOffsetX = 0;
+        finalHeartOffsetY = 0;
+    }
+}
+
+function showPreviousFinalParagraph() {
+    const paragraphs = finalLoveMessage.querySelectorAll("p");
+    if (!paragraphs.length) return;
+
+    if (finalParagraphIndex === 0) {
+        paragraphs[0].classList.remove("active");
+        finalParagraphIndex = -1;
+        finalLoveMessage.style.display = "none";
+        finalSwipeIntro.classList.remove("hide");
+        finalLoveHeart.classList.remove("show", "dragging");
+        finalLoveHeart.style.transform = "";
+        finalHeartOffsetX = 0;
+        finalHeartOffsetY = 0;
+        return;
+    }
+
+    if (finalParagraphIndex < 0) return;
+
+    paragraphs[finalParagraphIndex].classList.remove("active");
+    finalParagraphIndex--;
+    paragraphs[finalParagraphIndex].classList.add("active");
+    finalLoveMessage.style.display = "flex";
+    finalLoveHeart.classList.remove("show", "dragging");
+    finalLoveHeart.style.transform = "";
+}
+
+finalSwipeIntro.addEventListener("pointerdown", function(event) {
+    finalSwipeStartX = event.clientX;
+    finalSwipeStartY = event.clientY;
+});
+
+finalSwipeIntro.addEventListener("pointerup", function(event) {
+    const dx = event.clientX - finalSwipeStartX;
+    const dy = event.clientY - finalSwipeStartY;
+    if (Math.abs(dx) < 35 || Math.abs(dx) < Math.abs(dy)) return;
+    if (dx < 0) showNextFinalParagraph();
+});
+
+finalLoveMessage.addEventListener("pointerdown", function(event) {
+    finalSwipeStartX = event.clientX;
+    finalSwipeStartY = event.clientY;
+});
+
+finalLoveMessage.addEventListener("pointerup", function(event) {
+    const dx = event.clientX - finalSwipeStartX;
+    const dy = event.clientY - finalSwipeStartY;
+    if (Math.abs(dx) < 45 || Math.abs(dx) < Math.abs(dy)) return;
+    if (dx < 0) showNextFinalParagraph();
+    else showPreviousFinalParagraph();
+});
+
+function updateFinalHeartRepulsion() {
+    if (!finalLoveHeart.classList.contains("show") || !finalHeartDragging) {
+        clearFinalHeartRepulsion();
+        return;
+    }
+
+    const heartRect = finalLoveHeart.getBoundingClientRect();
+    const heartX = heartRect.left + heartRect.width / 2;
+    const heartY = heartRect.top + heartRect.height / 2;
+    const heartRadius = Math.max(heartRect.width, heartRect.height) * 0.48;
+
+    document.querySelectorAll(".finalRainHeart").forEach(function(rainHeart) {
+        const rect = rainHeart.getBoundingClientRect();
+        const x = rect.left + rect.width / 2;
+        const y = rect.top + rect.height / 2;
+        const dx = x - heartX;
+        const dy = y - heartY;
+        const distance = Math.hypot(dx, dy) || 0.001;
+        const range = heartRadius + Math.max(rect.width, rect.height) * 0.9 + 35;
+
+        if (distance < range) {
+            const strength = Math.pow((range - distance) / range, 1.35) * 125;
+            rainHeart.style.setProperty("--final-rain-repel-x", ((dx / distance) * strength).toFixed(1) + "px");
+            rainHeart.style.setProperty("--final-rain-repel-y", ((dy / distance) * strength).toFixed(1) + "px");
+        } else {
+            rainHeart.style.setProperty("--final-rain-repel-x", "0px");
+            rainHeart.style.setProperty("--final-rain-repel-y", "0px");
+        }
+    });
+}
+
+function clearFinalHeartRepulsion() {
+    document.querySelectorAll(".finalRainHeart").forEach(function(rainHeart) {
+        rainHeart.style.setProperty("--final-rain-repel-x", "0px");
+        rainHeart.style.setProperty("--final-rain-repel-y", "0px");
+    });
+}
+
+finalLoveHeart.addEventListener("pointerdown", function(event) {
+    if (!finalLoveHeart.classList.contains("show")) return;
+
+    const baseRect = finalLoveHeart.getBoundingClientRect();
+    finalHeartBaseCenterX = baseRect.left + baseRect.width / 2 - finalHeartOffsetX;
+    finalHeartBaseCenterY = baseRect.top + baseRect.height / 2 - finalHeartOffsetY;
+
+    finalHeartDragging = true;
+    finalLoveHeart.classList.add("dragging");
+    finalHeartDragStartX = event.clientX - finalHeartOffsetX;
+    finalHeartDragStartY = event.clientY - finalHeartOffsetY;
+    finalLoveHeart.setPointerCapture(event.pointerId);
+    event.preventDefault();
+    updateFinalHeartRepulsion();
+});
+
+finalLoveHeart.addEventListener("pointermove", function(event) {
+    if (!finalHeartDragging) return;
+
+    let nextX = event.clientX - finalHeartDragStartX;
+    let nextY = event.clientY - finalHeartDragStartY;
+
+    const sceneRect = finalLoveScene.getBoundingClientRect();
+    const heartRect = finalLoveHeart.getBoundingClientRect();
+    const scale = 1.06;
+    const halfW = (heartRect.width * scale) / 2;
+    const halfH = (heartRect.height * scale) / 2;
+
+    const minX = sceneRect.left + halfW - finalHeartBaseCenterX;
+    const maxX = sceneRect.right - halfW - finalHeartBaseCenterX;
+    const minY = sceneRect.top + halfH - finalHeartBaseCenterY;
+    const maxY = sceneRect.bottom - halfH - finalHeartBaseCenterY;
+
+    finalHeartOffsetX = Math.max(minX, Math.min(maxX, nextX));
+    finalHeartOffsetY = Math.max(minY, Math.min(maxY, nextY));
+
+    finalLoveHeart.style.transform = `translate(${finalHeartOffsetX}px, ${finalHeartOffsetY}px) scale(${scale})`;
+    updateFinalHeartRepulsion();
+    event.preventDefault();
+});
+
+function finishFinalHeartDrag(event) {
+    if (!finalHeartDragging) return;
+    finalHeartDragging = false;
+    finalLoveHeart.classList.remove("dragging");
+    finalLoveHeart.style.transform = `translate(${finalHeartOffsetX}px, ${finalHeartOffsetY}px)`;
+    clearFinalHeartRepulsion();
+    if (event && finalLoveHeart.hasPointerCapture(event.pointerId)) {
+        finalLoveHeart.releasePointerCapture(event.pointerId);
+    }
+}
+
+finalLoveHeart.addEventListener("pointerup", finishFinalHeartDrag);
+finalLoveHeart.addEventListener("pointercancel", finishFinalHeartDrag);
+
+function showFinalLoveScene() { 
+ 
+    if ( 
+        finalLoveSceneShown 
+    ) { 
+        return; 
+    } 
+ 
+    finalLoveSceneShown = 
+        true; 
+
+    happyHeart.style.display = 
+        "none"; 
+ 
+    happyHeartParticles.innerHTML = 
+        ""; 
+ 
+    loveMessage.classList.remove( 
+        "show" 
+    ); 
+ 
+    loveMessage.style.display = 
+        "none"; 
+ 
+    happyEndingMessage.style.display = 
+        "none"; 
+ 
+    question.style.display = 
+        "none"; 
+ 
+    canvas.style.display = 
+        "none"; 
+ 
+    background.style.display = 
+        "none"; 
+ 
+    firstScene.style.display = 
+        "none"; 
+ 
+    secondScene.style.display = 
+        "none"; 
+
+    createFinalHeartRain(); 
+
+    finalLoveScene.classList.remove( 
+        "show" 
+    ); 
+ 
+    void finalLoveScene.offsetWidth; 
+ 
+    finalLoveScene.classList.add( 
+        "show" 
+    );
+
+    setupFinalLoveSwipe();
+} 
+
+function explodeHappyHeart() { 
+ 
+    if ( 
+        happyHeartExploded 
+    ) { 
+        return; 
+    } 
+ 
+    happyHeartExploded = 
+        true; 
+
+    if ( 
+        happyHeartHoldTimer 
+    ) { 
+ 
+        clearTimeout( 
+            happyHeartHoldTimer 
+        ); 
+ 
+        happyHeartHoldTimer = 
+            null; 
+    } 
+ 
+    if ( 
+        happyHeartShakeTimer 
+    ) { 
+ 
+        clearInterval( 
+            happyHeartShakeTimer 
+        ); 
+ 
+        happyHeartShakeTimer = 
+            null; 
+    } 
+ 
+    happyHeartShakeStartTime = 
+        null; 
+
+    happyHeart.classList.remove( 
+        "holding" 
+    ); 
+ 
+    happyHeart.classList.add( 
+        "exploding" 
+    );
+
+    loveMusic.pause();
+    loveMusic.src = "When I Met You.mp3";
+    loveMusic.load();
+    loveMusic.currentTime = 0;
+    loveMusic.play().catch(
+        function() {}
+    ); 
+
+    for ( 
+        let i = 0; 
+        i < 40; 
+        i++ 
+    ) { 
+ 
+        const particle = 
+            document.createElement( 
+                "div" 
+            ); 
+ 
+        particle.className = 
+            "happyHeartParticle"; 
+ 
+        particle.textContent = 
+            Math.random() < 0.65 
+                ? "❤️" 
+                : "💕"; 
+
+        const angle = 
+            Math.random() * 
+            Math.PI * 
+            2; 
+ 
+        const distance = 
+            90 + 
+            Math.random() * 
+            300; 
+
+        particle.style.setProperty( 
+            "--particle-x", 
+            Math.cos(angle) * 
+            distance + 
+            "px" 
+        ); 
+ 
+        particle.style.setProperty( 
+            "--particle-y", 
+            Math.sin(angle) * 
+            distance + 
+            "px" 
+        ); 
+ 
+        particle.style.setProperty( 
+            "--particle-rotation", 
+            ( 
+                Math.random() * 
+                720 - 
+                360 
+            ) + 
+            "deg" 
+        ); 
+
+        particle.style.fontSize = 
+            18 + 
+            Math.random() * 
+            30 + 
+            "px"; 
+
+        happyHeartParticles.appendChild( 
+            particle 
+        ); 
+
+        setTimeout( 
+            function() { 
+ 
+                particle.remove(); 
+ 
+            }, 
+            1000 
+        ); 
+    } 
+
+    setTimeout( 
+        function() { 
+ 
+            showFinalLoveScene(); 
+ 
+        }, 
+        650 
+    ); 
+} 
+
+function startHappyHeartHold() { 
+ 
+    if ( 
+        happyHeartExploded 
+    ) { 
+        return; 
+    } 
+
+    if ( 
+        happyHeartHoldTimer 
+    ) { 
+ 
+        clearTimeout( 
+            happyHeartHoldTimer 
+        ); 
+ 
+        happyHeartHoldTimer = 
+            null; 
+    } 
+
+    if ( 
+        happyHeartShakeTimer 
+    ) { 
+ 
+        clearInterval( 
+            happyHeartShakeTimer 
+        ); 
+ 
+        happyHeartShakeTimer = 
+            null; 
+    } 
+
+    happyHeart.classList.add( 
+        "holding" 
+    ); 
+ 
+    happyHeartShakeStartTime = 
+        performance.now(); 
+
+    happyHeartShakeTimer = 
+        setInterval( 
+            function() { 
+ 
+                if ( 
+                    happyHeartExploded 
+                ) { 
+ 
+                    clearInterval( 
+                        happyHeartShakeTimer 
+                    ); 
+ 
+                    happyHeartShakeTimer = 
+                        null; 
+ 
+                    return; 
+ 
+                } 
+
+                let elapsed = 
+                    performance.now() - 
+                    happyHeartShakeStartTime; 
+
+                let progress = 
+                    Math.min( 
+                        elapsed / 4000, 
+                        1 
+                    ); 
+
+                let intensity = 
+                    progress * 
+                    progress; 
+
+                let distance = 
+                    2 + 
+                    intensity * 12; 
+ 
+                let smallDistance = 
+                    1 + 
+                    intensity * 5; 
+ 
+                let angle = 
+                    1 + 
+                    intensity * 7; 
+ 
+                let scale = 
+                    1.01 + 
+                    intensity * 0.12; 
+
+                happyHeart.style.setProperty( 
+                    "--shake-distance", 
+                    distance + "px" 
+                ); 
+ 
+                happyHeart.style.setProperty( 
+                    "--shake-distance-small", 
+                    smallDistance + "px" 
+                ); 
+ 
+                happyHeart.style.setProperty( 
+                    "--shake-angle", 
+                    angle + "deg" 
+                ); 
+ 
+                happyHeart.style.setProperty( 
+                    "--shake-scale", 
+                    scale 
+                ); 
+
+                if ( 
+                    elapsed >= 4000 
+                ) { 
+ 
+                    clearInterval( 
+                        happyHeartShakeTimer 
+                    ); 
+ 
+                    happyHeartShakeTimer = 
+                        null; 
+ 
+                    explodeHappyHeart(); 
+                } 
+ 
+            }, 
+            16 
+        ); 
+} 
+
+happyHeart.addEventListener( 
+    "pointerdown", 
+    function(event) { 
+ 
+        event.preventDefault(); 
+ 
+        if ( 
+            happyHeartExploded 
+        ) { 
+            return; 
+        } 
+
+        if ( 
+            happyHeartHoldTimer 
+        ) { 
+ 
+            clearTimeout( 
+                happyHeartHoldTimer 
+            ); 
+ 
+            happyHeartHoldTimer = 
+                null; 
+        } 
+
+        if ( 
+            happyHeartShakeTimer 
+        ) { 
+ 
+            clearInterval( 
+                happyHeartShakeTimer 
+            ); 
+ 
+            happyHeartShakeTimer = 
+                null; 
+        } 
+
+        try { 
+ 
+            happyHeart.setPointerCapture( 
+                event.pointerId 
+            ); 
+ 
+        } catch (error) {} 
+
+        startHappyHeartHold(); 
+ 
+    } 
+); 
+
+function cancelHappyHeartHold( 
+    event 
+) { 
+ 
+    if ( 
+        happyHeartExploded 
+    ) { 
+        return; 
+    } 
+
+    if ( 
+        happyHeartHoldTimer 
+    ) { 
+ 
+        clearTimeout( 
+            happyHeartHoldTimer 
+        ); 
+ 
+        happyHeartHoldTimer = 
+            null; 
+    } 
+
+    if ( 
+        happyHeartShakeTimer 
+    ) { 
+ 
+        clearInterval( 
+            happyHeartShakeTimer 
+        ); 
+ 
+        happyHeartShakeTimer = 
+            null; 
+    } 
+
+    happyHeartShakeStartTime = 
+        null; 
+
+    happyHeart.classList.remove( 
+        "holding" 
+    ); 
+
+    happyHeart.style.removeProperty( 
+        "--shake-distance" 
+    ); 
+ 
+    happyHeart.style.removeProperty( 
+        "--shake-distance-small" 
+    ); 
+ 
+    happyHeart.style.removeProperty( 
+        "--shake-angle" 
+    ); 
+ 
+    happyHeart.style.removeProperty( 
+        "--shake-scale" 
+    ); 
+
+    try { 
+ 
+        if ( 
+            happyHeart.hasPointerCapture( 
+                event.pointerId 
+            ) 
+        ) { 
+ 
+            happyHeart.releasePointerCapture( 
+                event.pointerId 
+            ); 
+ 
+        } 
+ 
+    } catch (error) {} 
+} 
+
+happyHeart.addEventListener( 
+    "pointerup", 
+    cancelHappyHeartHold 
+); 
+
+happyHeart.addEventListener( 
+    "pointercancel", 
+    cancelHappyHeartHold 
+); 
+
 function startLove() { 
  
     if (raining) { 
@@ -2668,8 +3981,7 @@ function startLove() {
  
     raining = 
         true; 
- 
- 
+
     if (noMoveTimer) { 
  
         clearInterval( 
@@ -2679,8 +3991,7 @@ function startLove() {
         noMoveTimer = 
             null; 
     } 
- 
- 
+
     if (yesGrowTimer) { 
  
         clearInterval( 
@@ -2691,49 +4002,40 @@ function startLove() {
             null; 
     } 
 
-
-    loveMusic.currentTime = 0;
-
-    loveMusic.play().catch(
-        function() {}
-    );
+    loveMusic.currentTime = 0; 
  
- 
+    loveMusic.play().catch( 
+        function() {} 
+    ); 
+
     background.style.display = 
         "block"; 
- 
- 
+
     question.innerHTML = 
         'Yeheyyy! ' + 
         '<img class="emoji" src="heart.png">' + 
         '<img class="emoji" src="kissing_heart.png">'; 
- 
- 
+
     question.style.display = 
         "block"; 
- 
- 
+
     question.style.transform = 
         "translate(0px, 0px)"; 
- 
- 
+
     yes.style.display = 
         "none"; 
- 
+
     no.style.display = 
         "none"; 
  
     sad.style.display = 
         "none"; 
- 
- 
+
     heartbreakContainer.innerHTML = 
         ""; 
- 
- 
+
     hearts = []; 
- 
- 
+
     for ( 
         let i = 0; 
         i < 70; 
@@ -2767,8 +4069,7 @@ function startLove() {
                 ( 
                     Math.random() - 
                     0.5 
-                ) * 
-                0.04, 
+                ) * 0.04, 
  
             vx: 0, 
             vy: 0, 
@@ -2777,46 +4078,41 @@ function startLove() {
  
         }); 
     } 
+
+    happyEndingMessage.style.display = 
+        "none"; 
+ 
+    showHappyHeart(); 
 } 
- 
- 
-/* ========================= 
-   SECOND SCENE 
-========================= */ 
- 
+
 function startSecondScene() { 
  
     secondSceneActive = 
         true; 
- 
- 
+
     firstScene.style.display = 
         "none"; 
- 
- 
+
     background.style.display = 
         "none"; 
- 
- 
+
     canvas.style.display = 
         "none"; 
 
+    happyEndingMessage.style.display = 
+        "none"; 
+ 
+    resetHappyHeart(); 
 
-    happyEndingMessage.style.display =
-        "none";
- 
- 
     secondScene.style.display = 
         "block"; 
- 
- 
+
     secondQuestionX = 0; 
     secondQuestionY = 0; 
  
     secondSadX = 0; 
     secondSadY = 0; 
- 
- 
+
     secondYes1.style.left = 
         "30%"; 
  
@@ -2828,33 +4124,24 @@ function startSecondScene() {
  
     secondYes2.style.top = 
         "76%"; 
- 
- 
+
     secondYes1.style.transform = 
         "translate(-50%, -50%)"; 
  
     secondYes2.style.transform = 
         "translate(-50%, -50%)"; 
- 
- 
+
     secondQuestion.style.transform = 
         "translate(-50%, -50%)"; 
- 
- 
+
     secondSad.style.transform = 
         "translate(-50%, -50%)"; 
- 
- 
+
     startSecondSadChanges(); 
  
     startSecondRain(); 
 } 
- 
- 
-/* ========================= 
-   SECOND RECT HELPERS 
-========================= */ 
- 
+
 function getSecondButtonRect( 
     button 
 ) { 
@@ -2879,8 +4166,7 @@ function getSecondButtonRect(
  
     }; 
 } 
- 
- 
+
 function getSecondQuestionRect() { 
  
     let rect = 
@@ -2904,8 +4190,7 @@ function getSecondQuestionRect() {
  
     }; 
 } 
- 
- 
+
 function getSecondSadRect() { 
  
     let rect = 
@@ -2929,8 +4214,7 @@ function getSecondSadRect() {
  
     }; 
 } 
- 
- 
+
 function rectsTouch( 
     a, 
     b, 
@@ -2957,12 +4241,7 @@ function rectsTouch(
  
     ); 
 } 
- 
- 
-/* ========================= 
-   SECOND QUESTION PUSH 
-========================= */ 
- 
+
 function pushSecondQuestionFromButton( 
     button 
 ) { 
@@ -2974,8 +4253,7 @@ function pushSecondQuestionFromButton(
  
     let questionRect = 
         getSecondQuestionRect(); 
- 
- 
+
     if ( 
         !rectsTouch( 
             buttonRect, 
@@ -2989,8 +4267,7 @@ function pushSecondQuestionFromButton(
  
         secondQuestionY *= 
             0.96; 
- 
- 
+
         if ( 
             Math.abs( 
                 secondQuestionX 
@@ -3000,8 +4277,7 @@ function pushSecondQuestionFromButton(
             secondQuestionX = 
                 0; 
         } 
- 
- 
+
         if ( 
             Math.abs( 
                 secondQuestionY 
@@ -3011,8 +4287,7 @@ function pushSecondQuestionFromButton(
             secondQuestionY = 
                 0; 
         } 
- 
- 
+
         secondQuestion.style.transform = 
             "translate(calc(-50% + " + 
             secondQuestionX + 
@@ -3022,8 +4297,7 @@ function pushSecondQuestionFromButton(
  
         return; 
     } 
- 
- 
+
     let dx = 
         questionRect.centerX - 
         buttonRect.centerX; 
@@ -3031,15 +4305,13 @@ function pushSecondQuestionFromButton(
     let dy = 
         questionRect.centerY - 
         buttonRect.centerY; 
- 
- 
+
     let distance = 
         Math.sqrt( 
             dx * dx + 
             dy * dy 
         ); 
- 
- 
+
     if ( 
         distance < 1 
     ) { 
@@ -3049,15 +4321,13 @@ function pushSecondQuestionFromButton(
  
         distance = 1; 
     } 
- 
- 
+
     let dirX = 
         dx / distance; 
  
     let dirY = 
         dy / distance; 
- 
- 
+
     let overlapX = 
         Math.min( 
             buttonRect.right - 
@@ -3066,8 +4336,7 @@ function pushSecondQuestionFromButton(
             questionRect.right - 
                 buttonRect.left 
         ); 
- 
- 
+
     let overlapY = 
         Math.min( 
             buttonRect.bottom - 
@@ -3076,8 +4345,7 @@ function pushSecondQuestionFromButton(
             questionRect.bottom - 
                 buttonRect.top 
         ); 
- 
- 
+
     if ( 
         overlapX < 
         overlapY 
@@ -3099,8 +4367,7 @@ function pushSecondQuestionFromButton(
                 5 
             ); 
     } 
- 
- 
+
     secondQuestionX = 
         Math.max( 
             -window.innerWidth * 0.4, 
@@ -3109,8 +4376,7 @@ function pushSecondQuestionFromButton(
                 secondQuestionX 
             ) 
         ); 
- 
- 
+
     secondQuestionY = 
         Math.max( 
             -window.innerHeight * 0.35, 
@@ -3119,8 +4385,7 @@ function pushSecondQuestionFromButton(
                 secondQuestionY 
             ) 
         ); 
- 
- 
+
     secondQuestion.style.transform = 
         "translate(calc(-50% + " + 
         secondQuestionX + 
@@ -3128,12 +4393,7 @@ function pushSecondQuestionFromButton(
         secondQuestionY + 
         "px))"; 
 } 
- 
- 
-/* ========================= 
-   SECOND SAD PUSH 
-========================= */ 
- 
+
 function pushSecondSadFromButton( 
     button 
 ) { 
@@ -3145,8 +4405,7 @@ function pushSecondSadFromButton(
  
     let sadRect = 
         getSecondSadRect(); 
- 
- 
+
     if ( 
         !rectsTouch( 
             buttonRect, 
@@ -3156,8 +4415,7 @@ function pushSecondSadFromButton(
     ) { 
         return; 
     } 
- 
- 
+
     let dx = 
         sadRect.centerX - 
         buttonRect.centerX; 
@@ -3165,15 +4423,13 @@ function pushSecondSadFromButton(
     let dy = 
         sadRect.centerY - 
         buttonRect.centerY; 
- 
- 
+
     let distance = 
         Math.sqrt( 
             dx * dx + 
             dy * dy 
         ); 
- 
- 
+
     if ( 
         distance < 1 
     ) { 
@@ -3183,22 +4439,19 @@ function pushSecondSadFromButton(
  
         distance = 1; 
     } 
- 
- 
+
     let dirX = 
         dx / distance; 
  
     let dirY = 
         dy / distance; 
- 
- 
+
     secondSadX += 
         dirX * 5; 
  
     secondSadY += 
         dirY * 5; 
- 
- 
+
     secondSadX = 
         Math.max( 
             -window.innerWidth * 0.42, 
@@ -3207,8 +4460,7 @@ function pushSecondSadFromButton(
                 secondSadX 
             ) 
         ); 
- 
- 
+
     secondSadY = 
         Math.max( 
             -window.innerHeight * 0.42, 
@@ -3217,8 +4469,7 @@ function pushSecondSadFromButton(
                 secondSadY 
             ) 
         ); 
- 
- 
+
     secondSad.style.transform = 
         "translate(calc(-50% + " + 
         secondSadX + 
@@ -3226,12 +4477,7 @@ function pushSecondSadFromButton(
         secondSadY + 
         "px))"; 
 } 
- 
- 
-/* ========================= 
-   SECOND BUTTON SEPARATION 
-========================= */ 
- 
+
 function separateSecondButtons() { 
  
     let a = 
@@ -3243,8 +4489,7 @@ function separateSecondButtons() {
         getSecondButtonRect( 
             secondYes2 
         ); 
- 
- 
+
     if ( 
         !rectsTouch( 
             a, 
@@ -3254,8 +4499,7 @@ function separateSecondButtons() {
     ) { 
         return; 
     } 
- 
- 
+
     let dx = 
         a.centerX - 
         b.centerX; 
@@ -3263,15 +4507,13 @@ function separateSecondButtons() {
     let dy = 
         a.centerY - 
         b.centerY; 
- 
- 
+
     let distance = 
         Math.sqrt( 
             dx * dx + 
             dy * dy 
         ); 
- 
- 
+
     if ( 
         distance < 1 
     ) { 
@@ -3281,18 +4523,15 @@ function separateSecondButtons() {
  
         distance = 1; 
     } 
- 
- 
+
     let dirX = 
         dx / distance; 
  
     let dirY = 
         dy / distance; 
- 
- 
+
     let move = 3.5; 
- 
- 
+
     let left = 
         parseFloat( 
             secondYes1.style.left 
@@ -3302,8 +4541,7 @@ function separateSecondButtons() {
         parseFloat( 
             secondYes1.style.top 
         ); 
- 
- 
+
     let left2 = 
         parseFloat( 
             secondYes2.style.left 
@@ -3313,8 +4551,7 @@ function separateSecondButtons() {
         parseFloat( 
             secondYes2.style.top 
         ); 
- 
- 
+
     left += 
         ( 
             dirX * move 
@@ -3328,8 +4565,7 @@ function separateSecondButtons() {
         ) / 
         window.innerHeight * 
         100; 
- 
- 
+
     left2 -= 
         ( 
             dirX * move 
@@ -3343,8 +4579,7 @@ function separateSecondButtons() {
         ) / 
         window.innerHeight * 
         100; 
- 
- 
+
     secondYes1.style.left = 
         Math.max( 
             5, 
@@ -3353,8 +4588,7 @@ function separateSecondButtons() {
                 left 
             ) 
         ) + "%"; 
- 
- 
+
     secondYes1.style.top = 
         Math.max( 
             5, 
@@ -3363,8 +4597,7 @@ function separateSecondButtons() {
                 top 
             ) 
         ) + "%"; 
- 
- 
+
     secondYes2.style.left = 
         Math.max( 
             5, 
@@ -3373,8 +4606,7 @@ function separateSecondButtons() {
                 left2 
             ) 
         ) + "%"; 
- 
- 
+
     secondYes2.style.top = 
         Math.max( 
             5, 
@@ -3384,13 +4616,7 @@ function separateSecondButtons() {
             ) 
         ) + "%"; 
 } 
- 
- 
-/* ========================= 
-   SECOND SCENE LOOP 
-   NO BUTTON GROWTH 
-========================= */ 
- 
+
 function secondSceneLoop() { 
  
     if ( 
@@ -3420,15 +4646,9 @@ function secondSceneLoop() {
         secondSceneLoop 
     ); 
 } 
- 
- 
+
 secondSceneLoop(); 
- 
- 
-/* ========================= 
-   SECOND YES BUTTONS 
-========================= */ 
- 
+
 secondYes1.addEventListener( 
     "pointerdown", 
     function(event) { 
@@ -3439,8 +4659,7 @@ secondYes1.addEventListener(
  
     } 
 ); 
- 
- 
+
 secondYes2.addEventListener( 
     "pointerdown", 
     function(event) { 
@@ -3451,12 +4670,7 @@ secondYes2.addEventListener(
  
     } 
 ); 
- 
- 
-/* ========================= 
-   SECOND LOVE 
-========================= */ 
- 
+
 function startLoveFromSecond() { 
  
     if (raining) { 
@@ -3468,8 +4682,7 @@ function startLoveFromSecond() {
  
     secondSceneActive = 
         false; 
- 
- 
+
     if ( 
         secondSadTimer 
     ) { 
@@ -3481,47 +4694,37 @@ function startLoveFromSecond() {
         secondSadTimer = 
             null; 
     } 
- 
- 
+
     stopSecondRain(); 
- 
- 
+
     secondScene.style.display = 
         "none"; 
- 
- 
+
     background.style.display = 
         "block"; 
- 
- 
+
     canvas.style.display = 
         "block"; 
 
-
-    loveMusic.currentTime = 0;
-
-    loveMusic.play().catch(
-        function() {}
-    );
+    loveMusic.currentTime = 0; 
  
- 
+    loveMusic.play().catch( 
+        function() {} 
+    ); 
+
     question.innerHTML = 
         'Yeheyyy! ' + 
         '<img class="emoji" src="heart.png">' + 
         '<img class="emoji" src="kissing_heart.png">'; 
- 
- 
+
     question.style.display = 
         "block"; 
- 
- 
+
     question.style.transform = 
         "translate(0px, 0px)"; 
- 
- 
+
     hearts = []; 
- 
- 
+
     for ( 
         let i = 0; 
         i < 70; 
@@ -3555,8 +4758,7 @@ function startLoveFromSecond() {
                 ( 
                     Math.random() - 
                     0.5 
-                ) * 
-                0.04, 
+                ) * 0.04, 
  
             vx: 0, 
             vy: 0, 
@@ -3564,23 +4766,14 @@ function startLoveFromSecond() {
             dragging: false 
  
         }); 
-    }
+    } 
 
-
-    /* 
-       Show the separate happy-ending
-       message because firstScene is
-       still hidden after the second scene.
-    */
-    happyEndingMessage.style.display =
-        "block";
+    happyEndingMessage.style.display = 
+        "none"; 
+ 
+    showHappyHeart(); 
 } 
- 
- 
-/* ========================= 
-   FALLING HEARTS 
-========================= */ 
- 
+
 function drawHeart( 
     x, 
     y, 
@@ -3589,28 +4782,23 @@ function drawHeart(
 ) { 
  
     ctx.save(); 
- 
- 
+
     ctx.translate( 
         x, 
         y 
     ); 
- 
- 
+
     ctx.rotate( 
         rotation 
     ); 
- 
- 
+
     ctx.beginPath(); 
- 
- 
+
     ctx.moveTo( 
         0, 
         size * 0.45 
     ); 
- 
- 
+
     ctx.bezierCurveTo( 
         -size * 0.9, 
         -size * 0.15, 
@@ -3619,8 +4807,7 @@ function drawHeart(
         0, 
         -size * 0.35 
     ); 
- 
- 
+
     ctx.bezierCurveTo( 
         size * 0.6, 
         -size * 0.9, 
@@ -3629,19 +4816,15 @@ function drawHeart(
         0, 
         size * 0.45 
     ); 
- 
- 
+
     ctx.fillStyle = 
         "red"; 
- 
- 
+
     ctx.fill(); 
- 
- 
+
     ctx.restore(); 
 } 
- 
- 
+
 function getPointerPosition( 
     event 
 ) { 
@@ -3661,12 +4844,7 @@ function getPointerPosition(
  
     }; 
 } 
- 
- 
-/* ========================= 
-   DRAG HEARTS 
-========================= */ 
- 
+
 canvas.addEventListener( 
     "pointerdown", 
     function(event) { 
@@ -3674,14 +4852,12 @@ canvas.addEventListener(
         if (!raining) { 
             return; 
         } 
- 
- 
+
         let pointer = 
             getPointerPosition( 
                 event 
             ); 
- 
- 
+
         for ( 
             let i = 
                 hearts.length - 1; 
@@ -3691,8 +4867,7 @@ canvas.addEventListener(
  
             let heart = 
                 hearts[i]; 
- 
- 
+
             let dx = 
                 pointer.x - 
                 heart.x; 
@@ -3700,15 +4875,13 @@ canvas.addEventListener(
             let dy = 
                 pointer.y - 
                 heart.y; 
- 
- 
+
             let distance = 
                 Math.sqrt( 
                     dx * dx + 
                     dy * dy 
                 ); 
- 
- 
+
             if ( 
                 distance < 
                 heart.size * 1.8 
@@ -3717,7 +4890,6 @@ canvas.addEventListener(
                 draggedHeart = 
                     heart; 
  
- 
                 dragOffsetX = 
                     pointer.x - 
                     heart.x; 
@@ -3725,35 +4897,29 @@ canvas.addEventListener(
                 dragOffsetY = 
                     pointer.y - 
                     heart.y; 
- 
- 
+
                 lastPointerX = 
                     pointer.x; 
  
                 lastPointerY = 
                     pointer.y; 
- 
- 
+
                 swipeX = 0; 
                 swipeY = 0; 
- 
- 
+
                 heart.dragging = 
                     true; 
- 
- 
+
                 canvas.setPointerCapture( 
                     event.pointerId 
                 ); 
- 
- 
+
                 break; 
             } 
         } 
     } 
 ); 
- 
- 
+
 canvas.addEventListener( 
     "pointermove", 
     function(event) { 
@@ -3761,14 +4927,12 @@ canvas.addEventListener(
         if (!draggedHeart) { 
             return; 
         } 
- 
- 
+
         let pointer = 
             getPointerPosition( 
                 event 
             ); 
- 
- 
+
         swipeX = 
             pointer.x - 
             lastPointerX; 
@@ -3776,8 +4940,7 @@ canvas.addEventListener(
         swipeY = 
             pointer.y - 
             lastPointerY; 
- 
- 
+
         draggedHeart.x = 
             pointer.x - 
             dragOffsetX; 
@@ -3785,20 +4948,17 @@ canvas.addEventListener(
         draggedHeart.y = 
             pointer.y - 
             dragOffsetY; 
- 
- 
+
         lastPointerX = 
             pointer.x; 
  
         lastPointerY = 
             pointer.y; 
- 
- 
+
         repelNearbyHearts(); 
     } 
 ); 
- 
- 
+
 function repelNearbyHearts() { 
  
     for ( 
@@ -3811,8 +4971,7 @@ function repelNearbyHearts() {
         ) { 
             continue; 
         } 
- 
- 
+
         let dx = 
             heart.x - 
             draggedHeart.x; 
@@ -3821,20 +4980,17 @@ function repelNearbyHearts() {
             heart.y - 
             draggedHeart.y; 
  
- 
         let distance = 
             Math.sqrt( 
                 dx * dx + 
                 dy * dy 
             ); 
- 
- 
+
         let touchingDistance = 
             heart.size + 
             draggedHeart.size + 
             35; 
- 
- 
+
         if ( 
             distance < 
             touchingDistance 
@@ -3845,8 +5001,7 @@ function repelNearbyHearts() {
             ) { 
                 distance = 1; 
             } 
- 
- 
+
             let dirX = 
                 dx / 
                 distance; 
@@ -3854,20 +5009,17 @@ function repelNearbyHearts() {
             let dirY = 
                 dy / 
                 distance; 
- 
- 
+
             let overlap = 
                 touchingDistance - 
                 distance; 
- 
- 
+
             let force = 
                 Math.min( 
                     overlap * 0.8, 
                     25 
                 ); 
- 
- 
+
             heart.x += 
                 dirX * 
                 force; 
@@ -3875,8 +5027,7 @@ function repelNearbyHearts() {
             heart.y += 
                 dirY * 
                 force; 
- 
- 
+
             heart.vx += 
                 dirX * 
                 force * 
@@ -3886,8 +5037,7 @@ function repelNearbyHearts() {
                 dirY * 
                 force * 
                 0.9; 
- 
- 
+
             heart.vx += 
                 swipeX * 
                 2.5; 
@@ -3898,8 +5048,7 @@ function repelNearbyHearts() {
         } 
     } 
 } 
- 
- 
+
 canvas.addEventListener( 
     "pointerup", 
     function(event) { 
@@ -3918,8 +5067,7 @@ canvas.addEventListener(
             draggedHeart = 
                 null; 
         } 
- 
- 
+
         if ( 
             canvas.hasPointerCapture( 
                 event.pointerId 
@@ -3932,8 +5080,7 @@ canvas.addEventListener(
         } 
     } 
 ); 
- 
- 
+
 canvas.addEventListener( 
     "pointercancel", 
     function(event) { 
@@ -3946,8 +5093,7 @@ canvas.addEventListener(
             draggedHeart = 
                 null; 
         } 
- 
- 
+
         if ( 
             canvas.hasPointerCapture( 
                 event.pointerId 
@@ -3960,12 +5106,7 @@ canvas.addEventListener(
         } 
     } 
 ); 
- 
- 
-/* ========================= 
-   ANIMATION 
-========================= */ 
- 
+
 function animate() { 
  
     ctx.clearRect( 
@@ -3974,8 +5115,7 @@ function animate() {
         canvas.width, 
         canvas.height 
     ); 
- 
- 
+
     if (raining) { 
  
         for ( 
@@ -4004,16 +5144,14 @@ function animate() {
                 heart.rotation += 
                     heart.rotationSpeed; 
             } 
- 
- 
+
             drawHeart( 
                 heart.x, 
                 heart.y, 
                 heart.size, 
                 heart.rotation 
             ); 
- 
- 
+
             if ( 
                 heart.y > 
                 canvas.height + 50 
@@ -4028,8 +5166,7 @@ function animate() {
                 heart.vx = 0; 
                 heart.vy = 0; 
             } 
- 
- 
+
             if ( 
                 heart.x < -50 
             ) { 
@@ -4037,8 +5174,7 @@ function animate() {
                 heart.x = 
                     canvas.width + 50; 
             } 
- 
- 
+
             if ( 
                 heart.x > 
                 canvas.width + 50 
@@ -4048,31 +5184,24 @@ function animate() {
             } 
         } 
     } 
- 
- 
+
     requestAnimationFrame( 
         animate 
     ); 
 } 
- 
- 
+
 animate(); 
- 
- 
-/* ========================= 
-   RESIZE 
-========================= */ 
- 
+
 window.addEventListener( 
     "resize", 
     function() { 
  
         resizeCanvas(); 
- 
- 
+
         if ( 
             noRunning && 
-            !secondSceneActive 
+            !secondSceneActive && 
+            !finalLoveSceneShown 
         ) { 
  
             pushQuestion(); 
@@ -4081,8 +5210,7 @@ window.addEventListener(
  
             pushAllHeartbreaks(); 
         } 
- 
- 
+
         if ( 
             secondSceneActive 
         ) { 
@@ -4102,6 +5230,13 @@ window.addEventListener(
             pushSecondSadFromButton( 
                 secondYes2 
             ); 
+        } 
+ 
+        if ( 
+            finalLoveSceneShown 
+        ) { 
+ 
+            createFinalHeartRain(); 
         } 
     } 
 ); 
